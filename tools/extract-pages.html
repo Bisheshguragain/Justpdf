@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Extract PDF Pages Online Free - PDF Page Extractor | JustPdf</title>
+  <meta name="title" content="Extract PDF Pages Online Free - PDF Page Extractor | JustPdf">
+  <meta name="description" content="Extract specific pages from PDF files online for free. Select and save individual PDF pages. Fast, secure, easy to use. No registration required.">
+  <meta name="keywords" content="extract pdf pages, pdf page extractor, extract pdf, save pdf pages, pdf page selector">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/extract-pages.html">
+  <meta property="og:title" content="Extract PDF Pages Online Free - PDF Page Extractor | JustPdf">
+  <meta property="og:description" content="Extract specific pages from PDF files online for free. Select and save individual PDF pages. Fast, secure, easy to use. No registration required.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/extract-pages.html">
+  <meta property="twitter:title" content="Extract PDF Pages Online Free - PDF Page Extractor | JustPdf">
+  <meta property="twitter:description" content="Extract specific pages from PDF files online for free. Select and save individual PDF pages. Fast, secure, easy to use. No registration required.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/extract-pages.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this tool free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! This PDF tool is completely free with no watermarks, no file limits, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all processing happens in your browser using client-side JavaScript. Your files never leave your device, ensuring complete privacy and security."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install any software?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No installation required! This is a web-based tool that works directly in your browser on any device."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Extract PDF Pages</h1>
+    <p class="text-gray-600 text-center mb-8">Select and extract specific pages from your PDF file</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">�</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file</strong> or drag it here</p>
+        <input type="file" id="fileInput" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <!-- File Info Section -->
+    <div id="file-info" class="hidden mt-8 bg-white p-6 rounded-lg shadow">
+      <h3 class="font-bold text-lg mb-2">📄 File loaded</h3>
+      <p id="fileName" class="text-gray-700"></p>
+      <p id="pageCount" class="text-gray-600 text-sm"></p>
+    </div>
+
+    <!-- Extraction Options -->
+    <div id="extraction-options" class="hidden mt-8">
+      <h2 class="text-2xl font-bold mb-4">Select Extraction Method</h2>
+      <div class="bg-white p-6 rounded-lg shadow">
+        
+        <!-- Radio Options -->
+        <div class="space-y-3 mb-6">
+          <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-400 transition">
+            <input type="radio" name="extractMethod" value="specific" checked class="mt-1 mr-3">
+            <div>
+              <div class="font-semibold text-gray-800">Extract specific pages</div>
+              <div class="text-sm text-gray-600">Enter page numbers or ranges (e.g., 1,3,5-7)</div>
+            </div>
+          </label>
+
+          <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-400 transition">
+            <input type="radio" name="extractMethod" value="range" class="mt-1 mr-3">
+            <div>
+              <div class="font-semibold text-gray-800">Extract page range</div>
+              <div class="text-sm text-gray-600">Extract pages from start to end</div>
+            </div>
+          </label>
+
+          <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-400 transition">
+            <input type="radio" name="extractMethod" value="odd" class="mt-1 mr-3">
+            <div>
+              <div class="font-semibold text-gray-800">Extract odd pages</div>
+              <div class="text-sm text-gray-600">Extract pages 1, 3, 5, 7, etc.</div>
+            </div>
+          </label>
+
+          <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-400 transition">
+            <input type="radio" name="extractMethod" value="even" class="mt-1 mr-3">
+            <div>
+              <div class="font-semibold text-gray-800">Extract even pages</div>
+              <div class="text-sm text-gray-600">Extract pages 2, 4, 6, 8, etc.</div>
+            </div>
+          </label>
+        </div>
+
+        <!-- Input Fields -->
+        <div id="specificInput" class="mb-4">
+          <label class="block font-semibold mb-2">Page numbers or ranges:</label>
+          <input type="text" id="pageNumbers" placeholder="e.g., 1,3,5-7,10" class="w-full p-3 border rounded-lg">
+          <p class="text-sm text-gray-500 mt-1">Separate with commas, use dash for ranges</p>
+        </div>
+
+        <div id="rangeInput" class="mb-4 grid grid-cols-2 gap-4" style="display: none;">
+          <div>
+            <label class="block font-semibold mb-2">Start page:</label>
+            <input type="number" id="startPage" min="1" value="1" class="w-full p-3 border rounded-lg">
+          </div>
+          <div>
+            <label class="block font-semibold mb-2">End page:</label>
+            <input type="number" id="endPage" min="1" value="1" class="w-full p-3 border rounded-lg">
+          </div>
+        </div>
+
+        <button id="extractBtn" class="w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+          Extract Pages
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Extracting pages...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Pages Extracted!</h3>
+        <p id="result-message" class="text-gray-600 mb-6"></p>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download Extracted PDF
+        </a>
+        <br>
+        <button id="extract-another" class="text-green-700 hover:underline">Extract from another PDF</button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+  <script>
+    (function() {
+      const { PDFDocument } = PDFLib;
+
+      let pdfFile = null;
+      let pdfBytes = null;
+      let totalPages = 0;
+      let extractedPdfBytes = null;
+
+      const uploadBox = document.getElementById('upload-box');
+      const fileInput = document.getElementById('fileInput');
+      const uploadSection = document.getElementById('upload-section');
+      const fileInfo = document.getElementById('file-info');
+      const fileName = document.getElementById('fileName');
+      const pageCount = document.getElementById('pageCount');
+      const extractionOptions = document.getElementById('extraction-options');
+      const extractBtn = document.getElementById('extractBtn');
+      const progressSection = document.getElementById('progress-section');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const downloadSection = document.getElementById('download-section');
+      const resultMessage = document.getElementById('result-message');
+      const downloadLink = document.getElementById('download-link');
+      const extractAnother = document.getElementById('extract-another');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+
+      const radioInputs = document.querySelectorAll('input[name="extractMethod"]');
+      const specificInput = document.getElementById('specificInput');
+      const rangeInput = document.getElementById('rangeInput');
+      const pageNumbers = document.getElementById('pageNumbers');
+      const startPage = document.getElementById('startPage');
+      const endPage = document.getElementById('endPage');
+
+      // Upload box click
+      uploadBox.addEventListener('click', () => fileInput.click());
+
+      // File input change
+      fileInput.addEventListener('change', handleFileSelect);
+
+      // Drag and drop
+      uploadBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('dragleave', () => {
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          fileInput.files = files;
+          handleFileSelect();
+        }
+      });
+
+      // Radio option change
+      radioInputs.forEach(radio => {
+        radio.addEventListener('change', () => {
+          if (radio.value === 'specific') {
+            specificInput.classList.remove('hidden');
+            rangeInput.classList.add('hidden');
+          } else if (radio.value === 'range') {
+            specificInput.classList.add('hidden');
+            rangeInput.classList.remove('hidden');
+          } else {
+            specificInput.classList.add('hidden');
+            rangeInput.classList.add('hidden');
+          }
+        });
+      });
+
+      // Handle file selection
+      async function handleFileSelect() {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        if (file.type !== 'application/pdf') {
+          showError('Please select a valid PDF file.');
+          return;
+        }
+
+        pdfFile = file;
+        hideError();
+
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          pdfBytes = new Uint8Array(arrayBuffer);
+          
+          const pdfDoc = await PDFDocument.load(pdfBytes);
+          totalPages = pdfDoc.getPageCount();
+
+          fileName.textContent = file.name;
+          pageCount.textContent = `Total pages: ${totalPages}`;
+          fileInfo.classList.remove('hidden');
+          extractionOptions.classList.remove('hidden');
+
+          // Update page range inputs
+          endPage.value = totalPages;
+          endPage.max = totalPages;
+          startPage.max = totalPages;
+
+        } catch (error) {
+          showError('Error loading PDF: ' + error.message);
+        }
+      }
+
+      // Extract button click
+      extractBtn.addEventListener('click', extractPages);
+
+      async function extractPages() {
+        if (!pdfBytes) {
+          showError('Please select a PDF file first.');
+          return;
+        }
+
+        hideError();
+        
+        const method = document.querySelector('input[name="extractMethod"]:checked').value;
+        let pagesToExtract = [];
+
+        try {
+          switch (method) {
+            case 'specific':
+              pagesToExtract = parsePageNumbers(pageNumbers.value, totalPages);
+              break;
+            case 'range':
+              const start = parseInt(startPage.value);
+              const end = parseInt(endPage.value);
+              if (start < 1 || end > totalPages || start > end) {
+                throw new Error('Invalid page range');
+              }
+              for (let i = start; i <= end; i++) {
+                pagesToExtract.push(i);
+              }
+              break;
+            case 'odd':
+              for (let i = 1; i <= totalPages; i += 2) {
+                pagesToExtract.push(i);
+              }
+              break;
+            case 'even':
+              for (let i = 2; i <= totalPages; i += 2) {
+                pagesToExtract.push(i);
+              }
+              break;
+          }
+
+          if (pagesToExtract.length === 0) {
+            throw new Error('No pages to extract');
+          }
+
+          // Sort and remove duplicates
+          pagesToExtract = [...new Set(pagesToExtract)].sort((a, b) => a - b);
+
+          progressSection.classList.remove('hidden');
+          updateProgress(10);
+
+          // Load the source PDF
+          const sourcePdf = await PDFDocument.load(pdfBytes);
+          updateProgress(30);
+
+          // Create a new PDF
+          const newPdf = await PDFDocument.create();
+          updateProgress(40);
+
+          // Copy pages
+          const totalToCopy = pagesToExtract.length;
+          for (let i = 0; i < totalToCopy; i++) {
+            const pageIndex = pagesToExtract[i] - 1;
+            const [copiedPage] = await newPdf.copyPages(sourcePdf, [pageIndex]);
+            newPdf.addPage(copiedPage);
+            
+            const progress = 40 + ((i + 1) / totalToCopy) * 50;
+            updateProgress(progress);
+          }
+
+          updateProgress(95);
+
+          // Save the new PDF
+          extractedPdfBytes = await newPdf.save();
+          updateProgress(100);
+
+          setTimeout(() => {
+            progressSection.classList.add('hidden');
+            showResult(pagesToExtract);
+          }, 500);
+
+        } catch (error) {
+          progressSection.classList.add('hidden');
+          showError('Error extracting pages: ' + error.message);
+        }
+      }
+
+      function parsePageNumbers(input, maxPages) {
+        const pages = [];
+        const parts = input.split(',').map(p => p.trim());
+
+        for (const part of parts) {
+          if (part.includes('-')) {
+            const [start, end] = part.split('-').map(n => parseInt(n.trim()));
+            if (isNaN(start) || isNaN(end) || start < 1 || end > maxPages || start > end) {
+              throw new Error(`Invalid page range: ${part}`);
+            }
+            for (let i = start; i <= end; i++) {
+              pages.push(i);
+            }
+          } else {
+            const pageNum = parseInt(part);
+            if (isNaN(pageNum) || pageNum < 1 || pageNum > maxPages) {
+              throw new Error(`Invalid page number: ${part}`);
+            }
+            pages.push(pageNum);
+          }
+        }
+
+        return pages;
+      }
+
+      function updateProgress(percent) {
+        progressBar.style.width = percent + '%';
+        progressText.textContent = Math.round(percent) + '% complete';
+      }
+
+      function showResult(pages) {
+        resultMessage.textContent = `Successfully extracted ${pages.length} page(s): ${pages.join(', ')}`;
+        downloadSection.classList.remove('hidden');
+        
+        // Setup download
+        const blob = new Blob([extractedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        downloadLink.href = url;
+        downloadLink.download = pdfFile.name.replace('.pdf', '_extracted.pdf');
+      }
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.remove('hidden');
+        setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+      }
+
+      function hideError() {
+        errorMessage.classList.add('hidden');
+      }
+
+      // Extract another button
+      extractAnother.addEventListener('click', () => location.reload());
+    })();
+  </script>
+
+  <!-- SEO Content Sections -->
+  <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+    <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Extract Pages from PDF Online Free</h2>
+    <p class="text-gray-700 mb-6">Extracting specific pages from PDF documents is essential for creating custom documents, sharing relevant sections, or organizing files efficiently. JustPdf's free online PDF page extractor allows you to select and save individual pages or page ranges from any PDF file. Whether you need to extract a single page, multiple non-consecutive pages, or specific ranges, our tool provides a fast, secure, and completely free solution that works directly in your browser.</p>
+    
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Extract Pages from PDF?</h3>
+    <p class="text-gray-700 mb-4">There are many scenarios where extracting PDF pages is useful:</p>
+    <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+      <li><strong>Create custom documents:</strong> Extract relevant pages to create focused PDFs for specific purposes</li>
+      <li><strong>Share specific sections:</strong> Send only the pages others need instead of the entire document</li>
+      <li><strong>Reduce file size:</strong> Extract essential pages to create smaller, more manageable files</li>
+      <li><strong>Organize research:</strong> Extract chapters or sections from textbooks and reference materials</li>
+      <li><strong>Create presentations:</strong> Pull specific pages to build custom slide decks or handouts</li>
+      <li><strong>Extract forms:</strong> Save individual forms from multi-form PDF documents</li>
+      <li><strong>Archive specific content:</strong> Keep only important pages from large documents</li>
+    </ul>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Extract PDF Pages in 3 Simple Steps</h3>
+    <div class="space-y-4 mb-6">
+      <div class="flex items-start">
+        <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 font-bold">1</span>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-1">Upload Your PDF</h4>
+          <p class="text-gray-700">Click the upload area or drag and drop your PDF file. Your file stays in your browser – it never gets uploaded to a server.</p>
+        </div>
+      </div>
+      <div class="flex items-start">
+        <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 font-bold">2</span>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-1">Choose Extraction Method</h4>
+          <p class="text-gray-700">Select your preferred method: specific pages (1,3,5-7), page range (1-10), odd pages, or even pages. Enter the page numbers or select your options.</p>
+        </div>
+      </div>
+      <div class="flex items-start">
+        <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 font-bold">3</span>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-1">Download Extracted Pages</h4>
+          <p class="text-gray-700">Click "Extract Pages" and wait a few seconds. Download your new PDF containing only the selected pages.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+    <div class="grid md:grid-cols-2 gap-4 mb-6">
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-700 mb-2">⚡ Multiple Extraction Methods</h4>
+        <p class="text-sm text-gray-700">Extract specific pages, ranges, odd/even pages, or any combination you need.</p>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+        <p class="text-sm text-gray-700">All processing happens in your browser. Your PDF never leaves your device - complete privacy guaranteed.</p>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+        <p class="text-sm text-gray-700">No subscriptions, no trials, no hidden costs. Extract unlimited pages from PDFs completely free.</p>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-700 mb-2">📐 Quality Preserved</h4>
+        <p class="text-sm text-gray-700">Maintains original formatting, fonts, images, and all content from extracted pages.</p>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-700 mb-2">📱 Works Everywhere</h4>
+        <p class="text-sm text-gray-700">Extract on desktop, tablet, or smartphone. No software installation required.</p>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-700 mb-2">✅ No Watermarks</h4>
+        <p class="text-sm text-gray-700">Your extracted PDFs have no watermarks or branding. Professional, clean results every time.</p>
+      </div>
+    </div>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Extraction Methods Explained</h3>
+    
+    <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📄 Extract Specific Pages</h4>
+    <p class="text-gray-700 mb-4">Enter page numbers separated by commas, or use ranges with dashes. Examples:</p>
+    <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+      <li><code class="bg-gray-100 px-2 py-1 rounded">1,3,5</code> - Extracts pages 1, 3, and 5</li>
+      <li><code class="bg-gray-100 px-2 py-1 rounded">1-5</code> - Extracts pages 1 through 5</li>
+      <li><code class="bg-gray-100 px-2 py-1 rounded">1,3-5,8,10-12</code> - Extracts pages 1, 3-5, 8, and 10-12</li>
+    </ul>
+
+    <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📊 Extract Page Range</h4>
+    <p class="text-gray-700 mb-4">Simply specify start and end page numbers to extract a continuous range. Perfect for extracting chapters or sections from larger documents.</p>
+
+    <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔢 Extract Odd or Even Pages</h4>
+    <p class="text-gray-700 mb-4">Useful for duplex-scanned documents. Extract all odd pages (1, 3, 5...) or all even pages (2, 4, 6...) with one click.</p>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+    
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">How do I extract pages from a PDF?</h4>
+      <p class="text-gray-700">Upload your PDF, choose an extraction method (specific pages, range, odd, or even), enter the page numbers, and click Extract Pages. Download your new PDF containing only the selected pages.</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">Can I extract multiple non-consecutive pages?</h4>
+      <p class="text-gray-700">Yes! Use the "specific pages" option and enter page numbers separated by commas (e.g., 1,5,7,10,15). You can also combine individual pages with ranges (e.g., 1,3-5,8,10-12).</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">Is it free to extract PDF pages?</h4>
+      <p class="text-gray-700">Yes! JustPdf's PDF page extractor is completely free with no watermarks and no registration required. Extract as many pages from as many PDFs as you need, absolutely free.</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">Is my PDF secure when extracting pages?</h4>
+      <p class="text-gray-700">Absolutely! All PDF processing happens entirely in your browser using JavaScript. Your file never gets uploaded to our servers or any third-party service. Once you close your browser, all data is gone.</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">Will extracting pages affect PDF quality?</h4>
+      <p class="text-gray-700">No, extracting pages does not affect quality. All text, images, formatting, fonts, hyperlinks, and other elements are preserved exactly as they appear in the original PDF.</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">Can I extract the same pages multiple times?</h4>
+      <p class="text-gray-700">Yes! If you enter the same page number multiple times (e.g., 1,1,1), the system will automatically remove duplicates and extract each page only once.</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">What's the page limit for extraction?</h4>
+      <p class="text-gray-700">There's no limit on how many pages you can extract. You can extract from a single page up to all pages from your PDF, depending on your needs.</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-4">
+      <h4 class="font-semibold text-gray-800 mb-2">Do I need to install any software?</h4>
+      <p class="text-gray-700">No software installation required! This is a web-based tool that works directly in your browser. Just visit our website, upload your PDF, and start extracting pages immediately.</p>
+    </div>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+    <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+      <li><strong>Academic research:</strong> Extract specific chapters or sections from textbooks and papers</li>
+      <li><strong>Business reports:</strong> Share only relevant sections of reports with stakeholders</li>
+      <li><strong>Legal documents:</strong> Extract specific clauses or exhibits from contracts</li>
+      <li><strong>Presentations:</strong> Create custom slide decks from larger PDF presentations</li>
+      <li><strong>Forms processing:</strong> Extract individual forms from multi-form PDF documents</li>
+      <li><strong>Scanned documents:</strong> Separate odd and even pages from duplex scans</li>
+      <li><strong>Archiving:</strong> Keep only important pages from large reference documents</li>
+      <li><strong>Publishing:</strong> Extract sample chapters for previews or marketing</li>
+    </ul>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Best Results</h3>
+    <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+      <li>Double-check page numbers before extracting to ensure you select the correct pages</li>
+      <li>Use page ranges (1-10) for consecutive pages instead of listing each page individually</li>
+      <li>Keep the original PDF until you verify the extracted pages are correct</li>
+      <li>For duplex scans, use odd/even extraction to separate front and back pages</li>
+      <li>Combine multiple extraction methods by using commas and ranges together</li>
+      <li>Use a modern browser (Chrome, Firefox, Edge, or Safari) for best performance</li>
+      <li>For very large PDFs, consider extracting in smaller batches</li>
+      <li>Remember that PDF page numbers start at 1, not 0</li>
+    </ul>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf PDF Page Extractor?</h3>
+    <p class="text-gray-700 mb-4">Unlike desktop software like Adobe Acrobat that requires expensive subscriptions ($15-30/month), or online services that upload your files to remote servers, JustPdf offers the perfect balance of convenience, security, and affordability. Our browser-based page extractor uses modern web technologies to extract pages from PDFs instantly without any uploads. You get professional results with perfect quality preservation – all completely free. Whether you're extracting a single page or creating a custom document from multiple sections, our PDF page extractor delivers fast, reliable, and private document processing every time.</p>
+  </article>
+
+  <!-- Related Tools -->
+  <div class="mt-12 bg-white rounded-lg p-8 shadow-sm">
+    <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <a href="/tools/split-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+        <div class="text-3xl mb-2">✂️</div>
+        <div class="font-semibold text-gray-800">Split PDF</div>
+      </a>
+      <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+        <div class="text-3xl mb-2">🔗</div>
+        <div class="font-semibold text-gray-800">Merge PDF</div>
+      </a>
+      <a href="/tools/delete-pages.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+        <div class="text-3xl mb-2">🗑️</div>
+        <div class="font-semibold text-gray-800">Delete Pages</div>
+      </a>
+      <a href="/tools/rotate-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+        <div class="text-3xl mb-2">🔄</div>
+        <div class="font-semibold text-gray-800">Rotate PDF</div>
+      </a>
+      <a href="/tools/compress-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+        <div class="text-3xl mb-2">🗜️</div>
+        <div class="font-semibold text-gray-800">Compress PDF</div>
+      </a>
+      <a href="/tools/pdf-to-word.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+        <div class="text-3xl mb-2">📝</div>
+        <div class="font-semibold text-gray-800">PDF to Word</div>
+      </a>
+      <a href="/tools/pdf-editor.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+        <div class="text-3xl mb-2">✏️</div>
+        <div class="font-semibold text-gray-800">Edit PDF</div>
+      </a>
+      <a href="/" class="block p-6 bg-green-600 rounded-lg hover:shadow-lg transition text-center">
+        <div class="font-semibold text-white">All Tools →</div>
+      </a>
+    </div>
+  </div>
+
+  </main>
+
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

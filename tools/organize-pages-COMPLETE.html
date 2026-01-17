@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organize PDF Pages Online Free - Reorder & Rearrange PDF Pages | JustPdf</title>
+  <meta name="description" content="Organize and reorder PDF pages online for free. Drag & drop to rearrange, rotate, delete, and sort PDF pages easily. Fast, secure, no registration required.">
+  <meta property="og:title" content="Organize PDF Pages Online Free - Reorder & Rearrange Pages">
+  <meta property="og:description" content="Rearrange PDF pages in any order. Drag & drop interface, rotate pages, delete unwanted pages. 100% free, browser-based, no installation.">
+  <meta property="og:url" content="https://justpdf.net/tools/organize-pages/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://justpdf.net/tools/organize-pages/">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I reorder pages in a PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF, then drag and drop page thumbnails to rearrange them in any order. Click 'Save Organized PDF' when done to download your reorganized document."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I rotate and delete pages while organizing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Use the rotate buttons to rotate individual pages 90 degrees left or right. Click the delete button to remove unwanted pages. At least one page must remain in the PDF."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the PDF page organizer free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's page organizer is completely free with unlimited pages, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my PDF secure when organizing pages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All processing happens client-side in your browser. Your PDF never leaves your device, ensuring complete privacy and security."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <style>
+    .page-item {
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: move;
+      cursor: grab;
+    }
+    .page-item:active {
+      cursor: grabbing;
+    }
+    .page-item.dragging {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+    .page-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .page-thumbnail canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      transition: transform 0.2s;
+    }
+    .action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #e5e7eb;
+      color: #374151;
+    }
+    .action-btn:hover {
+      background: #d1d5db;
+      transform: scale(1.1);
+    }
+    .action-btn.delete-btn {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+    .action-btn.delete-btn:hover {
+      background: #fecaca;
+    }
+    .upload-area {
+      transition: all 0.3s;
+    }
+    .upload-area.dragover {
+      border-color: #22c55e;
+      background-color: #f0fdf4;
+    }
+    .progress-bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <a href="../index.html" class="inline-flex items-center text-green-600 hover:text-green-700 font-semibold mb-4 transition">
+        ← Back to Home
+      </a>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🔄 Organize PDF Pages</h1>
+      <p class="text-xl text-gray-600">Drag & drop to reorder, rotate, or delete pages from your PDF</p>
+    </div>
+
+    <!-- Upload Area -->
+    <div id="uploadArea" class="bg-white rounded-lg shadow-lg border-2 border-dashed border-gray-300 p-12 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition upload-area">
+      <div class="text-6xl mb-4">📁</div>
+      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Click to upload or drag and drop</h2>
+      <p class="text-gray-600 mb-4">PDF files only</p>
+      <input type="file" id="fileInput" accept=".pdf" class="hidden">
+      <button id="selectBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+        Select PDF
+      </button>
+    </div>
+
+    <!-- File Info -->
+    <div id="fileInfo" class="hidden mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <h3 class="font-semibold text-blue-900 mb-2">📄 File loaded:</h3>
+      <p id="fileName" class="text-blue-800"></p>
+      <p id="pageCount" class="text-blue-700 text-sm"></p>
+    </div>
+
+    <!-- Instructions -->
+    <div id="instruction" class="hidden mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+      <strong class="text-green-900">💡 Instructions:</strong>
+      <ul class="mt-2 text-green-800 space-y-1">
+        <li>• <strong>Drag and drop</strong> page thumbnails to reorder them</li>
+        <li>• Click <strong>rotate buttons</strong> to rotate individual pages</li>
+        <li>• Click <strong>delete button</strong> to remove pages</li>
+        <li>• Click <strong>"Save Organized PDF"</strong> when done</li>
+      </ul>
+    </div>
+
+    <!-- Controls -->
+    <div id="controls" class="hidden mt-6 flex flex-wrap gap-4 justify-center">
+      <button id="saveBtn" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition font-semibold shadow-lg">
+        Save Organized PDF
+      </button>
+      <button id="resetBtn" class="bg-gray-600 text-white px-8 py-3 rounded-lg hover:bg-gray-700 transition font-semibold shadow-lg">
+        Reset Changes
+      </button>
+    </div>
+
+    <!-- Error Display -->
+    <div id="errorDiv" class="hidden mt-6 bg-red-50 border border-red-300 rounded-lg p-4 text-red-800"></div>
+
+    <!-- Progress Container -->
+    <div id="progressContainer" class="hidden mt-6 bg-white rounded-lg shadow-lg p-6">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Processing PDF...</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%;">0%</div>
+      </div>
+    </div>
+
+    <!-- Pages Container -->
+    <div id="pagesContainer" class="hidden mt-8">
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Pages (drag to reorder):</h3>
+      <div id="pagesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"></div>
+    </div>
+
+    <!-- Result Display -->
+    <div id="result" class="hidden mt-8 bg-green-50 border border-green-300 rounded-lg p-6">
+      <h3 class="text-2xl font-bold text-green-900 mb-2">✅ PDF organized successfully!</h3>
+      <p id="resultMessage" class="text-green-800 mb-4"></p>
+      <div class="flex flex-wrap gap-4">
+        <button id="downloadBtn" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition font-semibold shadow-lg">
+          Download Organized PDF
+        </button>
+        <button id="newFileBtn" class="bg-gray-600 text-white px-8 py-3 rounded-lg hover:bg-gray-700 transition font-semibold shadow-lg">
+          Organize Another File
+        </button>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="my-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content will be added in next part -->
+  </main>
+</body>
+</html>

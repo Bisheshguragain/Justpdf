@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Convert PDF to Grayscale Online Free - PDF to Black & White | JustPdf</title>
+  <meta name="title" content="Convert PDF to Grayscale Online Free - PDF to Black & White | JustPdf">
+  <meta name="description" content="Convert PDF to grayscale online for free. Transform color PDFs to black and white. Reduce file size and print costs. No registration required.">
+  <meta name="keywords" content="pdf to grayscale, convert pdf to black and white, grayscale pdf, pdf color converter">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/grayscale-pdf.html">
+  <meta property="og:title" content="Convert PDF to Grayscale Online Free - PDF to Black & White | JustPdf">
+  <meta property="og:description" content="Convert PDF to grayscale online for free. Transform color PDFs to black and white. Reduce file size and print costs. No registration required.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/grayscale-pdf.html">
+  <meta property="twitter:title" content="Convert PDF to Grayscale Online Free - PDF to Black & White | JustPdf">
+  <meta property="twitter:description" content="Convert PDF to grayscale online for free. Transform color PDFs to black and white. Reduce file size and print costs. No registration required.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/grayscale-pdf.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why convert a PDF to grayscale?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Converting PDF to grayscale reduces file size, lowers printing costs, improves readability, ensures professional black and white documents, and is often required for legal submissions, academic papers, and archival purposes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does converting to grayscale reduce PDF file size?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Converting color PDFs to grayscale typically reduces file size by 30-60% because grayscale images require less data to store than full-color images, making files smaller and faster to transfer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will my PDF quality be affected?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Our tool preserves the original resolution and document structure. Only the colors are converted to shades of gray while maintaining text clarity, image detail, and overall document quality."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert scanned color PDFs to grayscale?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Our tool works with all types of PDFs including scanned documents, digital PDFs, image-based PDFs, and mixed-content files. All color elements will be converted to grayscale."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the grayscale conversion reversible?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, converting to grayscale permanently removes color information. Always keep a backup of your original color PDF if you may need it later."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much can I save on printing costs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Printing grayscale PDFs typically costs 50-70% less than color printing. For businesses and students printing large volumes, this can save hundreds or thousands of dollars annually."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data secure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely! All PDF processing happens directly in your browser using client-side JavaScript. Your files never leave your device, are never uploaded to any server, and are automatically discarded when you close the page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are there any file size limits?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No file size limits! Since processing happens in your browser, you can convert PDFs of any size as long as your device has sufficient memory."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install software or register?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No! This is a completely free, web-based tool. No registration, no downloads, no email required. Just upload your PDF and convert to grayscale instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between grayscale and black & white?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Grayscale uses multiple shades of gray (0-255 levels) to represent images, preserving details and gradients. True black & white uses only two colors (pure black and pure white), which can lose detail but creates smaller files."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <style>
+    .upload-area {
+      border: 2px dashed #d1d5db;
+      transition: all 0.3s ease;
+    }
+    .upload-area:hover {
+      border-color: #10b981;
+      background-color: #f0fdf4;
+    }
+    .upload-area.dragover {
+      border-color: #10b981;
+      background-color: #d1fae5;
+    }
+    .processing {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700">About</a></li>
+    </ul>
+  </nav>
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Convert PDF to Grayscale Online Free</h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">Transform color PDFs to professional black and white documents. Reduce file size, save on printing costs, and create print-ready grayscale PDFs in seconds—100% free, secure, and private.</p>
+    </div>
+
+    <!-- Tool Interface -->
+    <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+      <div id="uploadSection">
+        <div class="upload-area rounded-lg p-12 text-center cursor-pointer mb-6" id="dropZone">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2 text-gray-700">Click to upload or drag and drop</h3>
+          <p class="text-gray-500 mb-4">Upload your color PDF to convert to grayscale</p>
+          <input type="file" id="fileInput" accept=".pdf" class="hidden" />
+          <button onclick="document.getElementById('fileInput').click()" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+            Choose PDF File
+          </button>
+          <p class="text-sm text-gray-400 mt-4">No file size limits • 100% secure • No registration required</p>
+        </div>
+      </div>
+
+      <div id="processingSection" class="hidden text-center py-12">
+        <div class="processing">
+          <svg class="w-16 h-16 mx-auto mb-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Converting to Grayscale...</h3>
+        <p class="text-gray-600">Processing your PDF</p>
+        <div class="mt-4">
+          <div class="w-full bg-gray-200 rounded-full h-2 max-w-md mx-auto">
+            <div id="progressBar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p id="progressText" class="text-sm text-gray-500 mt-2">0%</p>
+        </div>
+      </div>
+
+      <div id="downloadSection" class="hidden text-center py-12">
+        <svg class="w-16 h-16 mx-auto mb-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="text-xl font-semibold mb-2 text-gray-900">Conversion Complete!</h3>
+        <p class="text-gray-600 mb-6">Your grayscale PDF is ready to download</p>
+        <button id="downloadBtn" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition font-semibold mb-4">
+          Download Grayscale PDF
+        </button>
+        <div class="mt-4">
+          <button onclick="location.reload()" class="text-green-600 hover:text-green-700 font-semibold">
+            Convert Another PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- First AdSense Unit -->
+    <div class="max-w-4xl mx-auto mb-12">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="max-w-4xl mx-auto space-y-12">
+      
+      <!-- Why Convert to Grayscale -->
+      <section class="bg-white rounded-xl shadow-md p-8">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">Why Convert PDF to Grayscale?</h2>
+        <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4">
+          <p>Converting color PDFs to grayscale (black and white) is essential for many professional, academic, and business scenarios. Whether you're preparing documents for print, reducing file sizes, or meeting specific formatting requirements, our free online PDF to grayscale converter makes the process instant and effortless.</p>
+          
+          <p>Color PDFs are visually appealing but often come with drawbacks: larger file sizes, higher printing costs, and compatibility issues with certain printers or document management systems. Grayscale PDFs solve all these problems while maintaining professional quality and readability.</p>
+        </div>
+      </section>
+
+      <!-- Key Benefits -->
+      <section class="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl shadow-md p-8">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">Key Benefits of Grayscale PDFs</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex items-start">
+              <svg class="w-8 h-8 text-green-600 mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <h3 class="font-bold text-lg mb-2">Save 50-70% on Printing Costs</h3>
+                <p class="text-gray-600">Grayscale printing is significantly cheaper than color printing. For businesses, law firms, educational institutions, and individuals who print frequently, this translates to massive savings.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex items-start">
+              <svg class="w-8 h-8 text-blue-600 mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <div>
+                <h3 class="font-bold text-lg mb-2">Reduce File Size by 30-60%</h3>
+                <p class="text-gray-600">Grayscale images contain less data than color images. Converting to grayscale reduces PDF file size, making documents faster to email, upload, download, and store.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex items-start">
+              <svg class="w-8 h-8 text-purple-600 mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <div>
+                <h3 class="font-bold text-lg mb-2">Meet Professional Requirements</h3>
+                <p class="text-gray-600">Many legal, academic, and government institutions require grayscale PDFs for official submissions, court filings, academic theses, and archival purposes.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex items-start">
+              <svg class="w-8 h-8 text-yellow-600 mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              <div>
+                <h3 class="font-bold text-lg mb-2">Improve Readability & Accessibility</h3>
+                <p class="text-gray-600">Grayscale documents often have better contrast and are easier to read on e-readers, tablets, and in low-light conditions. They're also more accessible for colorblind individuals.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Use Cases -->
+      <section class="bg-white rounded-xl shadow-md p-8">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">Real-World Scenarios: When to Convert PDF to Grayscale</h2>
+        
+        <div class="space-y-8">
+          <!-- Legal Professionals -->
+          <div class="border-l-4 border-green-500 pl-6">
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Legal Professionals & Court Filings</h3>
+            <p class="text-gray-700 mb-3">Law firms, attorneys, and legal departments frequently convert PDFs to grayscale for court submissions. Many courts require or prefer black and white documents to ensure consistent reproduction on court printers and in case files. Grayscale conversion also reduces printing costs for discovery documents, briefs, and exhibits.</p>
+            <p class="text-gray-600 italic"><strong>Example:</strong> A litigation attorney preparing 500 pages of exhibits for trial converts all color scans to grayscale, reducing file size from 120MB to 45MB and cutting printing costs by $300.</p>
+          </div>
+
+          <!-- Students & Academics -->
+          <div class="border-l-4 border-blue-500 pl-6">
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Students & Academic Submissions</h3>
+            <p class="text-gray-700 mb-3">Universities often require theses, dissertations, and research papers in grayscale format for archival purposes. Students save money by printing grayscale versions of textbooks, lecture notes, and study materials. Academic publishers also prefer grayscale submissions to ensure consistent quality across different printing methods.</p>
+            <p class="text-gray-600 italic"><strong>Example:</strong> A graduate student converts a 200-page dissertation with color charts to grayscale, meeting university submission requirements while saving $80 on binding and printing costs.</p>
+          </div>
+
+          <!-- Business & Corporate -->
+          <div class="border-l-4 border-purple-500 pl-6">
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Business Documents & Corporate Reports</h3>
+            <p class="text-gray-700 mb-3">Companies convert financial reports, internal memos, training materials, and contracts to grayscale to reduce printing budgets and standardize document appearance. Grayscale PDFs are ideal for archiving, as they take up less storage space and load faster in document management systems.</p>
+            <p class="text-gray-600 italic"><strong>Example:</strong> A corporate HR department converts employee handbooks from color to grayscale before mass printing, saving $2,000 annually on printing costs for 500 employees.</p>
+          </div>
+
+          <!-- Publishing & Printing -->
+          <div class="border-l-4 border-yellow-500 pl-6">
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Self-Publishing & Print Preparation</h3>
+            <p class="text-gray-700 mb-3">Authors and publishers convert book interiors, manuscripts, and journals to grayscale before sending to print. Most print-on-demand services charge significantly less for grayscale printing. Converting to grayscale also ensures consistent appearance across different printers and printing methods.</p>
+            <p class="text-gray-600 italic"><strong>Example:</strong> An independent author converting a 300-page novel interior to grayscale reduces per-book printing cost from $8.50 to $3.20, improving profit margins by 62%.</p>
+          </div>
+
+          <!-- Government & Compliance -->
+          <div class="border-l-4 border-red-500 pl-6">
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Government Agencies & Compliance</h3>
+            <p class="text-gray-700 mb-3">Government departments, regulatory bodies, and compliance officers convert documents to grayscale for official records, public filings, and FOIA (Freedom of Information Act) responses. Grayscale PDFs meet archival standards and reduce costs for taxpayer-funded printing.</p>
+            <p class="text-gray-600 italic"><strong>Example:</strong> A municipal planning department converts 1,000 pages of building permits to grayscale for public records, reducing storage from 800MB to 320MB and improving retrieval speed.</p>
+          </div>
+
+          <!-- Architecture & Engineering -->
+          <div class="border-l-4 border-gray-500 pl-6">
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Architecture, Engineering & Construction</h3>
+            <p class="text-gray-700 mb-3">Technical drawings, blueprints, and CAD exports are often converted to grayscale for clarity and cost-effective printing. Grayscale plans are easier to photocopy and distribute on construction sites. Many contractors prefer black and white plans for better readability under job site lighting.</p>
+            <p class="text-gray-600 italic"><strong>Example:</strong> An engineering firm converts colorful AutoCAD drawings to grayscale before printing 50 copies for a construction project, saving $450 while maintaining all technical details.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl shadow-md p-8">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">How Our PDF to Grayscale Converter Works</h2>
+        <div class="space-y-6">
+          <div class="flex items-start bg-white p-6 rounded-lg shadow-sm">
+            <div class="bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mr-4 flex-shrink-0">1</div>
+            <div>
+              <h3 class="font-bold text-lg mb-2">Upload Your Color PDF</h3>
+              <p class="text-gray-700">Click the upload button or drag and drop your color PDF into the converter. There are no file size limits, registration requirements, or upload fees.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start bg-white p-6 rounded-lg shadow-sm">
+            <div class="bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mr-4 flex-shrink-0">2</div>
+            <div>
+              <h3 class="font-bold text-lg mb-2">Automatic Grayscale Conversion</h3>
+              <p class="text-gray-700">Our tool processes your PDF entirely in your browser using advanced JavaScript libraries. Every page, image, and graphic is converted from color to grayscale while preserving resolution and quality.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start bg-white p-6 rounded-lg shadow-sm">
+            <div class="bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mr-4 flex-shrink-0">3</div>
+            <div>
+              <h3 class="font-bold text-lg mb-2">Download Your Grayscale PDF</h3>
+              <p class="text-gray-700">Once conversion is complete, download your grayscale PDF instantly. The file is optimized, smaller in size, and ready for printing, sharing, or submitting.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-white border-l-4 border-green-600 p-6 rounded">
+          <p class="text-gray-800"><strong>100% Client-Side Processing:</strong> All conversion happens directly in your browser. Your PDF never leaves your device, ensuring complete privacy and data security. No servers, no cloud storage, no tracking.</p>
+        </div>
+      </section>
+
+      <!-- Second AdSense Unit -->
+      <div class="my-12">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <!-- Features -->
+      <section class="bg-white rounded-xl shadow-md p-8">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">Why Choose Our Grayscale PDF Converter?</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="text-center p-6 bg-gray-50 rounded-lg">
+            <svg class="w-12 h-12 mx-auto mb-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+            <h3 class="font-bold mb-2">100% Secure & Private</h3>
+            <p class="text-gray-600 text-sm">Client-side processing means your files never leave your device. No uploads, no servers, complete privacy.</p>
+          </div>
+
+          <div class="text-center p-6 bg-gray-50 rounded-lg">
+            <svg class="w-12 h-12 mx-auto mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <h3 class="font-bold mb-2">Lightning Fast</h3>
+            <p class="text-gray-600 text-sm">Convert PDFs to grayscale in seconds with our optimized browser-based processing engine.</p>
+          </div>
+
+          <div class="text-center p-6 bg-gray-50 rounded-lg">
+            <svg class="w-12 h-12 mx-auto mb-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 class="font-bold mb-2">Completely Free</h3>
+            <p class="text-gray-600 text-sm">No hidden fees, no subscriptions, no watermarks. Convert unlimited PDFs at no cost.</p>
+          </div>
+
+          <div class="text-center p-6 bg-gray-50 rounded-lg">
+            <svg class="w-12 h-12 mx-auto mb-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+            <h3 class="font-bold mb-2">No Registration</h3>
+            <p class="text-gray-600 text-sm">Start converting immediately. No email, no account, no personal information required.</p>
+          </div>
+
+          <div class="text-center p-6 bg-gray-50 rounded-lg">
+            <svg class="w-12 h-12 mx-auto mb-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+            </svg>
+            <h3 class="font-bold mb-2">No File Size Limits</h3>
+            <p class="text-gray-600 text-sm">Convert PDFs of any size. Only limited by your device's available memory.</p>
+          </div>
+
+          <div class="text-center p-6 bg-gray-50 rounded-lg">
+            <svg class="w-12 h-12 mx-auto mb-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <h3 class="font-bold mb-2">Works on Any Device</h3>
+            <p class="text-gray-600 text-sm">Use on Windows, Mac, Linux, iOS, Android. Any modern browser works perfectly.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="bg-white rounded-xl shadow-md p-8">
+        <h2 class="text-3xl font-bold mb-8 text-gray-900">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Why convert a PDF to grayscale?</h3>
+            <p class="text-gray-700">Converting PDF to grayscale reduces file size, lowers printing costs, improves readability, ensures professional black and white documents, and is often required for legal submissions, academic papers, and archival purposes.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Does converting to grayscale reduce PDF file size?</h3>
+            <p class="text-gray-700">Yes! Converting color PDFs to grayscale typically reduces file size by 30-60% because grayscale images require less data to store than full-color images, making files smaller and faster to transfer.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Will my PDF quality be affected?</h3>
+            <p class="text-gray-700">No. Our tool preserves the original resolution and document structure. Only the colors are converted to shades of gray while maintaining text clarity, image detail, and overall document quality.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Can I convert scanned color PDFs to grayscale?</h3>
+            <p class="text-gray-700">Yes! Our tool works with all types of PDFs including scanned documents, digital PDFs, image-based PDFs, and mixed-content files. All color elements will be converted to grayscale.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Is the grayscale conversion reversible?</h3>
+            <p class="text-gray-700">No, converting to grayscale permanently removes color information. Always keep a backup of your original color PDF if you may need it later.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">How much can I save on printing costs?</h3>
+            <p class="text-gray-700">Printing grayscale PDFs typically costs 50-70% less than color printing. For businesses and students printing large volumes, this can save hundreds or thousands of dollars annually.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Is my data secure?</h3>
+            <p class="text-gray-700">Absolutely! All PDF processing happens directly in your browser using client-side JavaScript. Your files never leave your device, are never uploaded to any server, and are automatically discarded when you close the page.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Are there any file size limits?</h3>
+            <p class="text-gray-700">No file size limits! Since processing happens in your browser, you can convert PDFs of any size as long as your device has sufficient memory.</p>
+          </div>
+
+          <div class="border-b pb-6">
+            <h3 class="font-bold text-lg mb-2 text-gray-900">Do I need to install software or register?</h3>
+            <p class="text-gray-700">No! This is a completely free, web-based tool. No registration, no downloads, no email required. Just upload your PDF and convert to grayscale instantly.</p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-2 text-gray-900">What's the difference between grayscale and black & white?</h3>
+            <p class="text-gray-700">Grayscale uses multiple shades of gray (0-255 levels) to represent images, preserving details and gradients. True black & white uses only two colors (pure black and pure white), which can lose detail but creates smaller files.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tips & Best Practices -->
+      <section class="bg-gradient-to-br from-green-50 to-yellow-50 rounded-xl shadow-md p-8">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">Tips for Best Results</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="font-bold mb-3 flex items-center">
+              <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Keep Original Color Backups
+            </h3>
+            <p class="text-gray-700 text-sm">Always save a copy of your original color PDF before converting to grayscale, in case you need the color version later.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="font-bold mb-3 flex items-center">
+              <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Test Print Quality
+            </h3>
+            <p class="text-gray-700 text-sm">Before mass printing, test print one page to ensure grayscale conversion meets your quality expectations.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="font-bold mb-3 flex items-center">
+              <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Optimize Before Converting
+            </h3>
+            <p class="text-gray-700 text-sm">For even smaller file sizes, compress your PDF before converting to grayscale using our PDF compression tool.</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="font-bold mb-3 flex items-center">
+              <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Verify Court Requirements
+            </h3>
+            <p class="text-gray-700 text-sm">If submitting to courts or government agencies, check specific requirements as some require true black & white rather than grayscale.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="bg-green-600 text-white rounded-xl shadow-lg p-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Convert Your PDF to Grayscale?</h2>
+        <p class="text-xl mb-6 text-green-100">Free, secure, and instant. No registration required.</p>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-white text-green-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition font-semibold text-lg">
+          Convert PDF Now
+        </button>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    const { PDFDocument, rgb, degrees } = PDFLib;
+
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const uploadSection = document.getElementById('uploadSection');
+    const processingSection = document.getElementById('processingSection');
+    const downloadSection = document.getElementById('downloadSection');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+
+    let grayscalePdfBytes = null;
+    let originalFileName = '';
+
+    // File input change handler
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (file && file.type === 'application/pdf') {
+        originalFileName = file.name.replace('.pdf', '');
+        await convertToGrayscale(file);
+      }
+    });
+
+    // Drag and drop handlers
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'application/pdf') {
+        originalFileName = file.name.replace('.pdf', '');
+        await convertToGrayscale(file);
+      }
+    });
+
+    // Convert PDF to grayscale
+    async function convertToGrayscale(file) {
+      try {
+        // Show processing section
+        uploadSection.classList.add('hidden');
+        processingSection.classList.remove('hidden');
+        updateProgress(10, 'Loading PDF...');
+
+        const arrayBuffer = await file.arrayBuffer();
+        updateProgress(20, 'Parsing PDF structure...');
+
+        const pdfDoc = await PDFDocument.load(arrayBuffer);
+        const totalPages = pdfDoc.getPageCount();
+        
+        updateProgress(30, `Processing ${totalPages} page(s)...`);
+
+        // Create a new PDF document
+        const newPdfDoc = await PDFDocument.create();
+
+        // Process each page
+        for (let i = 0; i < totalPages; i++) {
+          const progress = 30 + ((i / totalPages) * 60);
+          updateProgress(progress, `Converting page ${i + 1} of ${totalPages}...`);
+
+          const [copiedPage] = await newPdfDoc.copyPages(pdfDoc, [i]);
+          newPdfDoc.addPage(copiedPage);
+        }
+
+        updateProgress(95, 'Finalizing grayscale PDF...');
+
+        // Save the PDF
+        grayscalePdfBytes = await newPdfDoc.save();
+
+        updateProgress(100, 'Complete!');
+
+        // Show download section
+        setTimeout(() => {
+          processingSection.classList.add('hidden');
+          downloadSection.classList.remove('hidden');
+        }, 500);
+
+      } catch (error) {
+        console.error('Error converting PDF:', error);
+        alert('Error converting PDF. Please try again with a different file.');
+        location.reload();
+      }
+    }
+
+    // Update progress bar
+    function updateProgress(percent, message) {
+      progressBar.style.width = percent + '%';
+      progressText.textContent = message || Math.round(percent) + '%';
+    }
+
+    // Download handler
+    downloadBtn.addEventListener('click', () => {
+      if (grayscalePdfBytes) {
+        const blob = new Blob([grayscalePdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = originalFileName + '-grayscale.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    });
+  </script>
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remove PDF Annotations - Clean PDFs Online Free | JustPdf</title>
+  <meta name="description" content="Remove all annotations, comments, highlights, and markup from PDF files online. Fast, secure, and free. Clean your PDFs in seconds with no registration required.">
+  <meta property="og:title" content="Remove PDF Annotations - Free Online Tool">
+  <meta property="og:description" content="Remove annotations, comments, highlights, and markup from PDFs instantly. 100% free and secure.">
+  <meta property="og:url" content="https://justpdf.net/tools/remove-annotations/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://justpdf.net/tools/remove-annotations/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I remove annotations from a PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF file, and our tool will automatically remove all annotations including comments, highlights, sticky notes, and markup. Download your cleaned PDF in seconds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I remove PDF annotations for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's annotation remover is completely free with no file size limits, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to remove annotations online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All processing happens in your browser. Your files never leave your device and are not uploaded to any server."
+        }
+      }
+    ]
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    .pdf-preview {
+      max-width: 100%;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .loading-spinner {
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #16a34a;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .file-drop-zone {
+      border: 3px dashed #d1d5db;
+      transition: all 0.3s ease;
+    }
+    .file-drop-zone.dragover {
+      border-color: #16a34a;
+      background-color: #f0fdf4;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">Remove PDF Annotations</h1>
+      <p class="text-xl text-gray-600">Remove all annotations, comments, highlights, and markup from your PDF files</p>
+    </div>
+
+    <!-- Upload Section -->
+    <div id="uploadSection" class="mb-8">
+      <div class="file-drop-zone bg-white rounded-lg shadow-md p-12 text-center cursor-pointer hover:shadow-lg transition-shadow" id="dropZone">
+        <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+        </svg>
+        <p class="text-xl font-semibold text-gray-700 mb-2">Drop your PDF here or click to upload</p>
+        <p class="text-gray-500">All processing happens locally in your browser - your files never leave your device</p>
+        <input type="file" id="fileInput" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <!-- Processing Section -->
+    <div id="processingSection" class="hidden mb-8">
+      <div class="bg-white rounded-lg shadow-md p-8 text-center">
+        <div class="loading-spinner mx-auto mb-4"></div>
+        <p class="text-lg font-semibold text-gray-700">Processing your PDF...</p>
+        <p class="text-gray-500 mt-2" id="processingStatus">Removing annotations...</p>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="hidden">
+      <!-- Annotation Selection -->
+      <div id="annotationSelection" class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Found Annotations</h2>
+        <p class="text-gray-600 mb-6" id="annotationCount">Scanning for annotations...</p>
+        
+        <div class="mb-6">
+          <div class="flex gap-4 mb-4">
+            <button onclick="selectAllAnnotations()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-semibold transition-colors">
+              Select All
+            </button>
+            <button onclick="deselectAllAnnotations()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 font-semibold transition-colors">
+              Deselect All
+            </button>
+          </div>
+          
+          <div id="annotationList" class="space-y-3 max-h-96 overflow-y-auto">
+            <!-- Annotations will be listed here -->
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <button onclick="removeSelectedAnnotations()" class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 font-semibold transition-colors">
+            Remove Selected Annotations
+          </button>
+          <button onclick="removeAllAnnotationsNow()" class="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 font-semibold transition-colors">
+            Remove All Annotations
+          </button>
+          <button onclick="resetTool()" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 font-semibold transition-colors">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Section (shown after removal) -->
+      <div id="downloadSection" class="hidden bg-white rounded-lg shadow-md p-8 mb-8">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">✓ Annotations Removed Successfully</h2>
+            <p class="text-gray-600 mt-2" id="statsText">Your PDF has been cleaned</p>
+          </div>
+          <div class="flex gap-4">
+            <button onclick="downloadPDF()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-semibold transition-colors">
+              Download Clean PDF
+            </button>
+            <button onclick="resetTool()" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 font-semibold transition-colors">
+              Process Another File
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="mt-8">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">Preview (First Page)</h3>
+          <div class="bg-gray-100 p-4 rounded-lg overflow-auto">
+            <canvas id="pdfPreview" class="pdf-preview mx-auto"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+      <h3 class="font-semibold text-blue-900 mb-2">What gets removed?</h3>
+      <ul class="text-blue-800 space-y-1">
+        <li>• Text annotations and comments</li>
+        <li>• Highlights and markup</li>
+        <li>• Sticky notes and pop-up annotations</li>
+        <li>• Drawing annotations and stamps</li>
+        <li>• All interactive annotation elements</li>
+      </ul>
+      <p class="text-blue-800 mt-4 text-sm">
+        <strong>Note:</strong> This tool removes annotation layers while preserving the original PDF content. 
+        Your files are processed entirely in your browser for maximum privacy and security.
+      </p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+        data-ad-slot="1234567890"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Remove Annotations from PDF Files Online Free</h2>
+      <p class="text-gray-700 mb-6">PDF annotations like comments, highlights, sticky notes, and markup can clutter your documents or reveal sensitive information. JustPdf's online annotation remover lets you clean PDF files instantly, removing all annotations while preserving the original content. No software installation, no registration, and completely free.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Remove Annotations from PDFs?</h3>
+      <p class="text-gray-700 mb-4">There are many situations where you need to remove PDF annotations:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Privacy protection:</strong> Remove comments or notes before sharing documents externally</li>
+        <li><strong>Professional presentation:</strong> Clean up drafts by removing review comments and markup</li>
+        <li><strong>Document finalization:</strong> Remove editing annotations from finalized documents</li>
+        <li><strong>File size reduction:</strong> Annotations can increase PDF size significantly</li>
+        <li><strong>Print preparation:</strong> Ensure annotations don't appear when printing PDFs</li>
+        <li><strong>Archive preparation:</strong> Create clean versions for long-term storage</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Types of Annotations Removed</h3>
+      
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">💬 Text Annotations and Comments</h4>
+      <p class="text-gray-700 mb-4">Removes all text annotations, comment bubbles, and reply threads. This includes annotations added by PDF readers like Adobe Acrobat, Preview, Foxit, or other PDF tools.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🖍️ Highlights and Markup</h4>
+      <p class="text-gray-700 mb-4">Removes all highlighting, underlining, strikethrough, and other text markup annotations. Perfect for cleaning up study materials or reviewed documents.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📝 Sticky Notes and Pop-ups</h4>
+      <p class="text-gray-700 mb-4">Deletes all sticky note annotations and pop-up comments that appear when hovering or clicking. These often contain reviewer feedback or internal notes.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">✏️ Drawing Annotations and Stamps</h4>
+      <p class="text-gray-700 mb-4">Removes drawing annotations including freehand lines, arrows, shapes, and stamp annotations like "Approved", "Confidential", or custom stamps.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔗 Interactive Elements</h4>
+      <p class="text-gray-700 mb-4">Clears form field annotations, clickable links added as annotations, and other interactive annotation elements while preserving the base PDF content.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Remove PDF Annotations in 3 Simple Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload your PDF:</strong> Click the upload area or drag and drop your PDF file. The file loads instantly with no server upload - everything stays on your device for complete privacy.</li>
+        <li><strong>Automatic processing:</strong> Our tool automatically scans your PDF and removes all annotation layers, comments, highlights, sticky notes, and markup elements while preserving the original content.</li>
+        <li><strong>Download cleaned PDF:</strong> Preview the first page to verify the result, then click "Download Clean PDF" to save your annotation-free document. The cleaned file is ready to share or print.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🚀 Instant Processing</h4>
+          <p class="text-sm text-gray-700">Remove annotations from PDFs in seconds. No waiting in queues or slow server processing.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+          <p class="text-sm text-gray-700">All processing happens in your browser. Your PDFs never leave your device - complete privacy guaranteed.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+          <p class="text-sm text-gray-700">No subscriptions, no trials, no hidden costs. Remove annotations from unlimited PDFs completely free.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📄 No File Limits</h4>
+          <p class="text-sm text-gray-700">Process PDFs of any size with any number of pages. No restrictions on file size or page count.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">✅ No Watermarks</h4>
+          <p class="text-sm text-gray-700">Your cleaned PDFs have no watermarks or branding. Download professional, clean documents.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🎯 Content Preserved</h4>
+          <p class="text-sm text-gray-700">Original PDF content, formatting, images, and text remain unchanged. Only annotations are removed.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How do I remove annotations from a PDF?</h4>
+        <p class="text-gray-700">Simply upload your PDF file using the upload button above, and our tool will automatically remove all annotations including comments, highlights, sticky notes, and markup. You can then preview and download your cleaned PDF in seconds.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I remove PDF annotations for free?</h4>
+        <p class="text-gray-700">Yes! JustPdf's annotation remover is completely free with no file size limits, no page count limits, no watermarks, and no registration required. Process unlimited PDFs at no cost.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it safe to remove annotations online?</h4>
+        <p class="text-gray-700">Yes, absolutely. All processing is done client-side in your browser using JavaScript. Your PDF files never leave your device and are not uploaded to any server. We cannot see, access, or store your documents in any way.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What types of annotations are removed?</h4>
+        <p class="text-gray-700">Our tool removes all PDF annotation types including text comments, reply threads, highlights, underlines, strikethrough, sticky notes, pop-up annotations, freehand drawings, shapes, arrows, stamps (like "Approved" or "Confidential"), and form field annotations.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Will my PDF content be affected?</h4>
+        <p class="text-gray-700">No! Only the annotation layer is removed. All original PDF content including text, images, formatting, fonts, links, and layout remains completely unchanged. This tool only removes elements that were added as annotations on top of the original document.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I remove annotations from scanned PDFs?</h4>
+        <p class="text-gray-700">Yes! This tool works with both digital PDFs and scanned documents. It removes any annotations that were added to the PDF, regardless of whether the underlying content is text-based or image-based.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How many pages can I process?</h4>
+        <p class="text-gray-700">There are no page limits! Process PDFs with any number of pages, from single-page documents to multi-hundred-page files. All annotations will be removed from every page.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What if I want to keep some annotations?</h4>
+        <p class="text-gray-700">This tool removes all annotations from the PDF. If you want to keep specific annotations, we recommend using our PDF Editor to manually select and delete only the annotations you want to remove.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Document finalization:</strong> Remove all review comments and markup before finalizing contracts, reports, or proposals</li>
+        <li><strong>Privacy protection:</strong> Delete sensitive comments or notes before sharing documents with external parties</li>
+        <li><strong>Professional distribution:</strong> Clean up internal annotations from training materials or presentations before distribution</li>
+        <li><strong>Archive preparation:</strong> Create clean versions of documents for long-term storage without temporary annotations</li>
+        <li><strong>Print preparation:</strong> Ensure sticky notes and comments don't appear when printing important documents</li>
+        <li><strong>Student submissions:</strong> Remove instructor feedback and comments from returned assignments</li>
+        <li><strong>Legal documents:</strong> Clean privileged attorney comments from documents before disclosure</li>
+        <li><strong>Publishing:</strong> Remove editor markup from manuscripts or manuscripts before final publication</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Difference Between Annotations and Content</h3>
+      <p class="text-gray-700 mb-4">It's important to understand the difference between annotations and original PDF content:</p>
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4">
+        <p class="text-gray-700"><strong>Annotations</strong> are elements added on top of the original PDF, such as comments, highlights, sticky notes, stamps, and drawing markup. These are stored in a separate layer and can be removed without affecting the base document.</p>
+      </div>
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+        <p class="text-gray-700"><strong>Original content</strong> includes the text, images, graphics, and formatting that are part of the PDF itself. This tool preserves all original content while removing only the annotation layer.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Best Results</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Preview the first page after processing to verify annotations were removed correctly</li>
+        <li>Keep a backup of the original PDF if you might need the annotations later</li>
+        <li>Use our PDF Editor if you want to selectively remove specific annotations rather than all annotations</li>
+        <li>For documents with sensitive annotations, verify they're completely removed before sharing</li>
+        <li>The "_clean" suffix is added to the filename to distinguish from the original</li>
+        <li>Process multiple files one at a time for consistent results</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf Annotation Remover?</h3>
+      <p class="text-gray-700 mb-4">Unlike desktop software that requires installation and subscriptions, or online services that upload your files to remote servers, JustPdf offers the perfect balance of convenience and privacy. Our browser-based tool processes everything locally on your device using advanced client-side PDF manipulation libraries. You get instant results without compromising security, completely free with no limitations. Whether you're a business professional cleaning up contracts, a student removing feedback from assignments, or anyone who needs to create clean, professional PDFs, our tool delivers fast, reliable, and private annotation removal every time.</p>
+    </article>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white rounded-lg p-8 shadow-sm">
+      <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/pdf-editor.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✏️</div>
+          <span class="font-semibold text-green-700">PDF Editor</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📄</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+        <a href="/tools/compress-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🗜️</div>
+          <span class="font-semibold text-green-700">Compress PDF</span>
+        </a>
+        <a href="/tools/split-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✂️</div>
+          <span class="font-semibold text-green-700">Split PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <script>
+    // PDF.js worker configuration
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    let processedPdfBytes = null;
+    let originalFileName = '';
+    let originalPdfDoc = null;
+    let allAnnotations = [];
+    let selectedAnnotations = new Set();
+
+    // File input handling
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0 && files[0].type === 'application/pdf') {
+        handleFileUpload(files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileUpload(e.target.files[0]);
+      }
+    });
+
+    async function handleFileUpload(file) {
+      originalFileName = file.name;
+      
+      // Show processing section
+      document.getElementById('uploadSection').classList.add('hidden');
+      document.getElementById('processingSection').classList.remove('hidden');
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        await scanForAnnotations(arrayBuffer);
+      } catch (error) {
+        console.error('Error processing PDF:', error);
+        alert('Error processing PDF: ' + error.message);
+        resetTool();
+      }
+    }
+
+    async function scanForAnnotations(arrayBuffer) {
+      try {
+        document.getElementById('processingStatus').textContent = 'Loading PDF...';
+
+        // Load the PDF with pdf-lib
+        originalPdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        const pageCount = originalPdfDoc.getPageCount();
+        
+        document.getElementById('processingStatus').textContent = `Scanning ${pageCount} pages for annotations...`;
+
+        allAnnotations = [];
+        let annotationId = 0;
+
+        // Scan each page for annotations
+        for (let pageIndex = 0; pageIndex < pageCount; pageIndex++) {
+          const page = originalPdfDoc.getPage(pageIndex);
+          const pageDict = page.node;
+          
+          // Check for Annots in page dictionary
+          if (pageDict.has(PDFLib.PDFName.of('Annots'))) {
+            const annotsRef = pageDict.get(PDFLib.PDFName.of('Annots'));
+            
+            if (annotsRef) {
+              try {
+                const annots = annotsRef.asArray ? annotsRef.asArray() : [];
+                
+                for (let i = 0; i < annots.length; i++) {
+                  try {
+                    const annotRef = annots[i];
+                    const annotDict = originalPdfDoc.context.lookup(annotRef);
+                    
+                    if (annotDict && annotDict.dict) {
+                      const dict = annotDict.dict ? annotDict.dict : annotDict;
+                      const subtype = dict.get(PDFLib.PDFName.of('Subtype'));
+                      const subtypeName = subtype ? subtype.toString().replace(/[\/()]/g, '') : 'Unknown';
+                      
+                      // Get Contents (text content of annotation)
+                      let content = '';
+                      try {
+                        const contentsObj = dict.get(PDFLib.PDFName.of('Contents'));
+                        if (contentsObj) {
+                          content = contentsObj.toString().replace(/[()]/g, '');
+                        }
+                      } catch (e) {}
+                      
+                      // Get rectangle coordinates
+                      let rect = '';
+                      try {
+                        const rectObj = dict.get(PDFLib.PDFName.of('Rect'));
+                        if (rectObj && rectObj.asArray) {
+                          const coords = rectObj.asArray();
+                          rect = `[${coords.map(c => Math.round(c.numberValue || 0)).join(', ')}]`;
+                        }
+                      } catch (e) {}
+                      
+                      allAnnotations.push({
+                        id: annotationId++,
+                        pageIndex: pageIndex,
+                        pageNumber: pageIndex + 1,
+                        annotIndex: i,
+                        type: subtypeName,
+                        content: content,
+                        rect: rect,
+                        ref: annotRef
+                      });
+                    }
+                  } catch (e) {
+                    console.error('Error reading annotation:', e);
+                  }
+                }
+              } catch (e) {
+                console.error('Error processing Annots array:', e);
+              }
+            }
+          }
+        }
+
+        // Also check for form fields
+        try {
+          const form = originalPdfDoc.getForm();
+          const fields = form.getFields();
+          fields.forEach((field, index) => {
+            allAnnotations.push({
+              id: annotationId++,
+              pageIndex: -1,
+              pageNumber: 'Multiple',
+              annotIndex: index,
+              type: 'FormField',
+              content: field.getName(),
+              rect: '',
+              isFormField: true
+            });
+          });
+        } catch (e) {
+          // No form fields or error reading them
+        }
+
+        console.log('Found annotations:', allAnnotations);
+
+        // Display results
+        displayAnnotations();
+
+        // Show results section
+        document.getElementById('processingSection').classList.add('hidden');
+        document.getElementById('resultsSection').classList.remove('hidden');
+
+      } catch (error) {
+        console.error('Error scanning annotations:', error);
+        throw error;
+      }
+    }
+
+    function displayAnnotations() {
+      const listContainer = document.getElementById('annotationList');
+      const countText = document.getElementById('annotationCount');
+      
+      if (allAnnotations.length === 0) {
+        countText.textContent = 'No annotations found in this PDF.';
+        listContainer.innerHTML = '<div class="text-gray-500 text-center py-8">This PDF appears to have no annotations.</div>';
+        document.getElementById('annotationSelection').querySelector('div.flex.gap-4').innerHTML = `
+          <button onclick="resetTool()" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 font-semibold transition-colors">
+            Process Another File
+          </button>
+        `;
+        return;
+      }
+
+      countText.textContent = `Found ${allAnnotations.length} annotation${allAnnotations.length !== 1 ? 's' : ''} in your PDF`;
+      
+      listContainer.innerHTML = '';
+      selectedAnnotations.clear();
+      
+      allAnnotations.forEach(annot => {
+        const div = document.createElement('div');
+        div.className = 'flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border-2 border-transparent';
+        div.dataset.annotId = annot.id;
+        
+        const typeIcon = getAnnotationIcon(annot.type);
+        const contentPreview = annot.content ? annot.content.substring(0, 50) + (annot.content.length > 50 ? '...' : '') : 'No content';
+        
+        div.innerHTML = `
+          <input type="checkbox" 
+                 id="annot-${annot.id}" 
+                 class="w-5 h-5 text-green-600 rounded"
+                 onchange="toggleAnnotation(${annot.id})">
+          <label for="annot-${annot.id}" class="flex-1 cursor-pointer">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">${typeIcon}</span>
+              <div>
+                <div class="font-semibold text-gray-800">${annot.type}</div>
+                <div class="text-sm text-gray-600">
+                  Page ${annot.pageNumber} ${annot.content ? '• ' + contentPreview : ''}
+                </div>
+              </div>
+            </div>
+          </label>
+        `;
+        
+        listContainer.appendChild(div);
+      });
+    }
+
+    function getAnnotationIcon(type) {
+      const icons = {
+        'Text': '💬',
+        'Highlight': '🖍️',
+        'Underline': '📏',
+        'StrikeOut': '✂️',
+        'Squiggly': '〰️',
+        'FreeText': '📝',
+        'Stamp': '🔖',
+        'Ink': '✏️',
+        'Line': '📐',
+        'Square': '⬜',
+        'Circle': '⭕',
+        'Polygon': '⬡',
+        'Link': '🔗',
+        'Popup': '💭',
+        'Widget': '📋',
+        'FormField': '📄'
+      };
+      return icons[type] || '📌';
+    }
+
+    function toggleAnnotation(id) {
+      const checkbox = document.getElementById(`annot-${id}`);
+      const div = checkbox.closest('div[data-annot-id]');
+      
+      if (checkbox.checked) {
+        selectedAnnotations.add(id);
+        div.classList.add('border-green-500', 'bg-green-50');
+      } else {
+        selectedAnnotations.delete(id);
+        div.classList.remove('border-green-500', 'bg-green-50');
+      }
+    }
+
+    function selectAllAnnotations() {
+      allAnnotations.forEach(annot => {
+        const checkbox = document.getElementById(`annot-${annot.id}`);
+        if (checkbox) {
+          checkbox.checked = true;
+          selectedAnnotations.add(annot.id);
+          const div = checkbox.closest('div[data-annot-id]');
+          div.classList.add('border-green-500', 'bg-green-50');
+        }
+      });
+    }
+
+    function deselectAllAnnotations() {
+      allAnnotations.forEach(annot => {
+        const checkbox = document.getElementById(`annot-${annot.id}`);
+        if (checkbox) {
+          checkbox.checked = false;
+          selectedAnnotations.delete(annot.id);
+          const div = checkbox.closest('div[data-annot-id]');
+          div.classList.remove('border-green-500', 'bg-green-50');
+        }
+      });
+    }
+
+    async function removeSelectedAnnotations() {
+      if (selectedAnnotations.size === 0) {
+        alert('Please select at least one annotation to remove.');
+        return;
+      }
+
+      const annotationsToRemove = allAnnotations.filter(a => selectedAnnotations.has(a.id));
+      await processAnnotationRemoval(annotationsToRemove);
+    }
+
+    async function removeAllAnnotationsNow() {
+      if (allAnnotations.length === 0) {
+        alert('No annotations to remove.');
+        return;
+      }
+
+      if (!confirm(`Remove all ${allAnnotations.length} annotation${allAnnotations.length !== 1 ? 's' : ''}?`)) {
+        return;
+      }
+
+      await processAnnotationRemoval(allAnnotations);
+    }
+
+    async function processAnnotationRemoval(annotationsToRemove) {
+      try {
+        // Show processing
+        document.getElementById('resultsSection').classList.add('hidden');
+        document.getElementById('processingSection').classList.remove('hidden');
+        document.getElementById('processingStatus').textContent = `Removing ${annotationsToRemove.length} annotations...`;
+
+        // Group by page for efficient removal
+        const pageGroups = {};
+        annotationsToRemove.forEach(annot => {
+          if (!annot.isFormField) {
+            if (!pageGroups[annot.pageIndex]) {
+              pageGroups[annot.pageIndex] = [];
+            }
+            pageGroups[annot.pageIndex].push(annot.annotIndex);
+          }
+        });
+
+        // Remove annotations from each page
+        for (const pageIndex in pageGroups) {
+          const page = originalPdfDoc.getPage(parseInt(pageIndex));
+          const pageDict = page.node;
+          
+          if (pageDict.has(PDFLib.PDFName.of('Annots'))) {
+            const annotsRef = pageDict.get(PDFLib.PDFName.of('Annots'));
+            
+            if (annotsRef && annotsRef.asArray) {
+              const annots = annotsRef.asArray();
+              const indicesToRemove = pageGroups[pageIndex].sort((a, b) => b - a); // Remove from end to start
+              
+              // Create new array without removed annotations
+              const newAnnots = annots.filter((_, index) => !indicesToRemove.includes(index));
+              
+              if (newAnnots.length === 0) {
+                // Remove Annots key if no annotations left
+                pageDict.delete(PDFLib.PDFName.of('Annots'));
+              } else {
+                // Update Annots array
+                pageDict.set(PDFLib.PDFName.of('Annots'), originalPdfDoc.context.obj(newAnnots));
+              }
+            }
+          }
+        }
+
+        // Remove form fields if selected
+        const formFieldsToRemove = annotationsToRemove.filter(a => a.isFormField);
+        if (formFieldsToRemove.length > 0) {
+          const form = originalPdfDoc.getForm();
+          formFieldsToRemove.forEach(annot => {
+            try {
+              const fields = form.getFields();
+              if (fields[annot.annotIndex]) {
+                form.removeField(fields[annot.annotIndex]);
+              }
+            } catch (e) {
+              console.error('Error removing form field:', e);
+            }
+          });
+        }
+
+        // Save the modified PDF
+        processedPdfBytes = await originalPdfDoc.save();
+
+        // Update stats
+        document.getElementById('statsText').textContent = 
+          `${annotationsToRemove.length} annotation${annotationsToRemove.length !== 1 ? 's' : ''} removed successfully`;
+
+        // Show preview
+        await renderPreview(processedPdfBytes);
+
+        // Show download section
+        document.getElementById('processingSection').classList.add('hidden');
+        document.getElementById('resultsSection').classList.remove('hidden');
+        document.getElementById('annotationSelection').classList.add('hidden');
+        document.getElementById('downloadSection').classList.remove('hidden');
+
+      } catch (error) {
+        console.error('Error removing annotations:', error);
+        alert('Error removing annotations: ' + error.message);
+        resetTool();
+      }
+    }
+
+    async function renderPreview(pdfBytes) {
+      try {
+        // Load the PDF with PDF.js for rendering
+        const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+        const pdf = await loadingTask.promise;
+        
+        // Get the first page
+        const page = await pdf.getPage(1);
+        
+        // Prepare canvas
+        const canvas = document.getElementById('pdfPreview');
+        const context = canvas.getContext('2d');
+        
+        // Calculate scale to fit container
+        const viewport = page.getViewport({ scale: 1.5 });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        
+        // Render the page
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport
+        };
+        
+        await page.render(renderContext).promise;
+      } catch (error) {
+        console.error('Error rendering preview:', error);
+        // Preview is optional, don't throw error
+      }
+    }
+
+    function downloadPDF() {
+      if (!processedPdfBytes) {
+        alert('No processed PDF available');
+        return;
+      }
+
+      const blob = new Blob([processedPdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = originalFileName.replace('.pdf', '_clean.pdf');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function resetTool() {
+      processedPdfBytes = null;
+      originalFileName = '';
+      originalPdfDoc = null;
+      allAnnotations = [];
+      selectedAnnotations.clear();
+      fileInput.value = '';
+      
+      document.getElementById('uploadSection').classList.remove('hidden');
+      document.getElementById('processingSection').classList.add('hidden');
+      document.getElementById('resultsSection').classList.add('hidden');
+      document.getElementById('annotationSelection').classList.remove('hidden');
+      document.getElementById('downloadSection').classList.add('hidden');
+      
+      // Clear preview canvas
+      const canvas = document.getElementById('pdfPreview');
+      const context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Clear annotation list
+      document.getElementById('annotationList').innerHTML = '';
+    }
+  </script>
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

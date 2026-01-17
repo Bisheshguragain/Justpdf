@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Form Creator - Create Fillable PDF Forms Online Free | JustPdf</title>
+  <meta name="description" content="Create fillable PDF forms online for free. Add text fields, checkboxes, dropdowns, signatures, and more. Professional PDF form builder with no registration required.">
+  <meta property="og:title" content="PDF Form Creator - Create Fillable Forms Online Free">
+  <meta property="og:description" content="Build professional fillable PDF forms with drag-and-drop interface. Add text fields, checkboxes, signatures, and more. 100% free, no registration.">
+  <meta property="og:url" content="https://justpdf.net/tools/form-creator/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://justpdf.net/tools/form-creator/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I create a fillable PDF form?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF document, drag and drop form fields (text boxes, checkboxes, dropdowns, etc.) onto the page, customize field properties, and download your fillable PDF form."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of form fields can I add?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can add text fields, checkboxes, radio buttons, dropdown lists, date fields, and signature fields to create fully interactive PDF forms."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the PDF form creator free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's form creator is completely free with unlimited form fields, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can others fill out the form after I create it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! The created PDF will have embedded form fields that anyone can fill out using any PDF reader like Adobe Acrobat, Preview, or web browsers."
+        }
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <style>
+    .field-toolbox-item {
+      cursor: grab;
+      transition: all 0.2s;
+    }
+    .field-toolbox-item:active {
+      cursor: grabbing;
+    }
+    .field-toolbox-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .form-field {
+      position: absolute;
+      border: 2px dashed #3b82f6;
+      cursor: move;
+      background: rgba(59, 130, 246, 0.1);
+      user-select: none;
+    }
+    .form-field.selected {
+      border: 2px solid #22c55e;
+      background: rgba(34, 197, 94, 0.15);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+    .form-field:hover {
+      border-color: #22c55e;
+    }
+    .field-type-signature {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.08);
+    }
+    .field-type-signature.selected {
+      border-color: #dc2626;
+      background: rgba(239, 68, 68, 0.12);
+    }
+    .field-type-signature .field-label {
+      color: #991b1b;
+      font-weight: 600;
+    }
+    .field-type-date {
+      border-color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.08);
+    }
+    .field-type-date.selected {
+      border-color: #7c3aed;
+      background: rgba(139, 92, 246, 0.12);
+    }
+    .field-type-date .field-label {
+      color: #5b21b6;
+      font-weight: 600;
+    }
+    .field-type-checkbox,
+    .field-type-radio {
+      border-color: #10b981;
+    }
+    .field-type-dropdown {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .resize-handle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #3b82f6;
+      border: 2px solid white;
+      border-radius: 50%;
+      z-index: 10;
+    }
+    .resize-handle.nw { top: -5px; left: -5px; cursor: nwse-resize; }
+    .resize-handle.ne { top: -5px; right: -5px; cursor: nesw-resize; }
+    .resize-handle.sw { bottom: -5px; left: -5px; cursor: nesw-resize; }
+    .resize-handle.se { bottom: -5px; right: -5px; cursor: nwse-resize; }
+    .pdf-canvas-container {
+      position: relative;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    #pdfCanvas {
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    .field-label {
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      font-size: 12px;
+      color: #6b7280;
+      pointer-events: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: calc(100% - 16px);
+    }
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: 
+        linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      display: none;
+    }
+    .grid-overlay.active {
+      display: block;
+    }
+    .delete-field-btn {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 24px;
+      height: 24px;
+      background: #ef4444;
+      color: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      z-index: 11;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .form-field.selected .delete-field-btn {
+      display: flex;
+    }
+    .properties-panel {
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="flex items-center">
+      <span class="font-bold text-2xl text-green-700">JustPdf</span>
+    </a>
+    <ul class="flex space-x-6 text-gray-700 text-base">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">PDF Form Creator</h1>
+    <p class="text-gray-600 text-center mb-8">Create fillable PDF forms with drag-and-drop form fields</p>
+
+    <!-- Upload Area -->
+    <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center mb-6 bg-white hover:border-green-500 transition cursor-pointer">
+      <div class="text-6xl mb-4">📋</div>
+      <h2 class="text-xl font-semibold text-gray-700 mb-2">Upload PDF Template</h2>
+      <p class="text-gray-500 mb-4">Drag and drop a PDF here or click to browse</p>
+      <input type="file" id="fileInput" accept=".pdf" class="hidden">
+      <button id="selectBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+        Select PDF
+      </button>
+    </div>
+
+    <!-- Form Builder Interface -->
+    <div id="builderInterface" class="hidden">
+      <!-- Top Toolbar -->
+      <div class="bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between flex-wrap gap-4">
+        <div class="flex items-center gap-4">
+          <button id="prevPage" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition disabled:opacity-50" disabled>
+            ← Previous
+          </button>
+          <span id="pageInfo" class="text-gray-700 font-semibold">Page 1 of 1</span>
+          <button id="nextPage" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition disabled:opacity-50" disabled>
+            Next →
+          </button>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="showGrid" class="w-4 h-4">
+            <span class="text-sm text-gray-700">Show Grid</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="snapToGrid" class="w-4 h-4" checked>
+            <span class="text-sm text-gray-700">Snap to Grid</span>
+          </label>
+          <button id="clearAll" class="px-4 py-2 bg-red-100 text-red-700 rounded hover:bg-red-200 transition">
+            Clear All Fields
+          </button>
+          <button id="downloadForm" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
+            Download Form
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Workspace -->
+      <div class="flex gap-4">
+        <!-- Field Toolbox (Left Sidebar) -->
+        <div class="w-64 bg-white rounded-lg shadow-lg p-4">
+          <h3 class="font-bold text-gray-800 mb-4 text-lg">Form Fields</h3>
+          <p class="text-sm text-gray-600 mb-4">Drag fields onto the PDF</p>
+          
+          <div class="space-y-3">
+            <div class="field-toolbox-item bg-blue-50 border-2 border-blue-200 rounded-lg p-3 flex items-center gap-3" data-field-type="text">
+              <div class="text-2xl">📝</div>
+              <div>
+                <div class="font-semibold text-gray-800 text-sm">Text Field</div>
+                <div class="text-xs text-gray-600">Single-line input</div>
+              </div>
+            </div>
+
+            <div class="field-toolbox-item bg-green-50 border-2 border-green-200 rounded-lg p-3 flex items-center gap-3" data-field-type="checkbox">
+              <div class="text-2xl">☑️</div>
+              <div>
+                <div class="font-semibold text-gray-800 text-sm">Checkbox</div>
+                <div class="text-xs text-gray-600">Yes/No selection</div>
+              </div>
+            </div>
+
+            <div class="field-toolbox-item bg-purple-50 border-2 border-purple-200 rounded-lg p-3 flex items-center gap-3" data-field-type="radio">
+              <div class="text-2xl">🔘</div>
+              <div>
+                <div class="font-semibold text-gray-800 text-sm">Radio Button</div>
+                <div class="text-xs text-gray-600">Multiple choice</div>
+              </div>
+            </div>
+
+            <div class="field-toolbox-item bg-yellow-50 border-2 border-yellow-200 rounded-lg p-3 flex items-center gap-3" data-field-type="dropdown">
+              <div class="text-2xl">📋</div>
+              <div>
+                <div class="font-semibold text-gray-800 text-sm">Dropdown</div>
+                <div class="text-xs text-gray-600">Select list</div>
+              </div>
+            </div>
+
+            <div class="field-toolbox-item bg-red-50 border-2 border-red-200 rounded-lg p-3 flex items-center gap-3" data-field-type="signature">
+              <div class="text-2xl">✍️</div>
+              <div>
+                <div class="font-semibold text-gray-800 text-sm">Signature</div>
+                <div class="text-xs text-gray-600">Digital signature</div>
+              </div>
+            </div>
+
+            <div class="field-toolbox-item bg-indigo-50 border-2 border-indigo-200 rounded-lg p-3 flex items-center gap-3" data-field-type="date">
+              <div class="text-2xl">📅</div>
+              <div>
+                <div class="font-semibold text-gray-800 text-sm">Date Field</div>
+                <div class="text-xs text-gray-600">Date picker</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t">
+            <div class="text-sm text-gray-600 mb-2">
+              <strong>Fields on page:</strong> <span id="fieldCount">0</span>
+            </div>
+            <div class="text-sm text-gray-600">
+              <strong>Total fields:</strong> <span id="totalFieldCount">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PDF Canvas (Center) -->
+        <div class="flex-1 bg-gray-100 rounded-lg p-6 overflow-auto" style="max-height: calc(100vh - 250px);">
+          <div id="canvasWrapper" class="flex justify-center">
+            <div class="pdf-canvas-container">
+              <div id="gridOverlay" class="grid-overlay"></div>
+              <canvas id="pdfCanvas"></canvas>
+              <div id="fieldsLayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Properties Panel (Right Sidebar) -->
+        <div class="w-80 bg-white rounded-lg shadow-lg p-4 properties-panel">
+          <h3 class="font-bold text-gray-800 mb-4 text-lg">Field Properties</h3>
+          
+          <div id="noFieldSelected" class="text-center text-gray-500 py-8">
+            <div class="text-4xl mb-2">👆</div>
+            <p>Select a field to edit its properties</p>
+          </div>
+
+          <div id="fieldProperties" class="hidden space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Field Type</label>
+              <input type="text" id="propFieldType" readonly class="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded text-gray-600">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Field Name</label>
+              <input type="text" id="propFieldName" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Enter field name">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Label/Placeholder</label>
+              <input type="text" id="propLabel" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Enter label">
+            </div>
+
+            <div>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="propRequired" class="w-4 h-4">
+                <span class="text-sm font-semibold text-gray-700">Required Field</span>
+              </label>
+            </div>
+
+            <div id="textFieldProps" class="hidden">
+              <div class="mb-3">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Font Size</label>
+                <select id="propFontSize" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500">
+                  <option value="10">10pt</option>
+                  <option value="12" selected>12pt</option>
+                  <option value="14">14pt</option>
+                  <option value="16">16pt</option>
+                  <option value="18">18pt</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Alignment</label>
+                <select id="propAlignment" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500">
+                  <option value="left">Left</option>
+                  <option value="center">Center</option>
+                  <option value="right">Right</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="dropdownProps" class="hidden">
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Options (one per line)</label>
+              <textarea id="propOptions" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Option 1&#10;Option 2&#10;Option 3"></textarea>
+            </div>
+
+            <div id="radioProps" class="hidden">
+              <div class="mb-3">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Radio Group Name</label>
+                <input type="text" id="propGroupName" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="e.g., gender">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Value</label>
+                <input type="text" id="propValue" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="e.g., male">
+              </div>
+            </div>
+
+            <div class="pt-4 border-t">
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Position & Size</label>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <label class="text-gray-600">X:</label>
+                  <input type="number" id="propX" class="w-full px-2 py-1 border border-gray-300 rounded" readonly>
+                </div>
+                <div>
+                  <label class="text-gray-600">Y:</label>
+                  <input type="number" id="propY" class="w-full px-2 py-1 border border-gray-300 rounded" readonly>
+                </div>
+                <div>
+                  <label class="text-gray-600">Width:</label>
+                  <input type="number" id="propWidth" class="w-full px-2 py-1 border border-gray-300 rounded" readonly>
+                </div>
+                <div>
+                  <label class="text-gray-600">Height:</label>
+                  <input type="number" id="propHeight" class="w-full px-2 py-1 border border-gray-300 rounded" readonly>
+                </div>
+              </div>
+            </div>
+
+            <button id="deleteField" class="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition font-semibold">
+              Delete Field
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-8 max-w-sm mx-4">
+        <div class="flex items-center gap-4">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800">Processing...</h3>
+            <p class="text-gray-600 text-sm">Creating your fillable form</p>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-4 text-center">Note: Form fields are being created client-side. For full AcroForm support, we recommend using the form after download.</p>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 1 (After Upload Area) -->
+    <div class="my-8 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Create Fillable PDF Forms Online Free - Professional Form Builder</h2>
+      <p class="text-gray-700 mb-6">Transform any PDF into an interactive fillable form with JustPdf's powerful Form Creator. Add text fields, checkboxes, radio buttons, dropdowns, signature fields, and date pickers with an intuitive drag-and-drop interface. Perfect for creating job applications, registration forms, surveys, contracts, legal documents, and questionnaires. No Adobe Acrobat required - create professional PDF forms entirely in your browser.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Create Fillable PDF Forms?</h3>
+      <p class="text-gray-700 mb-4">Fillable PDF forms offer significant advantages over static PDFs:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Better User Experience:</strong> Recipients can fill forms directly on their computer or mobile device without printing</li>
+        <li><strong>Data Collection:</strong> Structured form fields make it easy to collect and process information accurately</li>
+        <li><strong>Professional Appearance:</strong> Interactive forms look modern and demonstrate attention to detail</li>
+        <li><strong>Reduced Errors:</strong> Validation and required fields ensure complete and accurate submissions</li>
+        <li><strong>Time Savings:</strong> Recipients spend less time filling forms, increasing completion rates</li>
+        <li><strong>Accessibility:</strong> Digital forms can be read by screen readers and assistive technologies</li>
+        <li><strong>Version Control:</strong> Easy to update and redistribute updated forms without reprinting</li>
+        <li><strong>Cost Effective:</strong> Eliminate printing, scanning, and mailing costs</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Create a Fillable PDF Form in 4 Easy Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload Your PDF Template:</strong> Click "Select PDF" or drag and drop your document. This can be a blank template or an existing form you want to make fillable.</li>
+        <li><strong>Add Form Fields:</strong> Drag field types from the left sidebar onto your PDF. Choose from text fields, checkboxes, radio buttons, dropdowns, signature fields, and date pickers. Place them exactly where you need them.</li>
+        <li><strong>Customize Field Properties:</strong> Select any field to edit its name, label, font size, alignment, and whether it's required. For dropdowns, add custom options. For radio buttons, group them together.</li>
+        <li><strong>Download Your Form:</strong> Click "Download Form" to get your fillable PDF with embedded form fields. Recipients can fill it using any PDF reader (Adobe Acrobat, Preview, Chrome, etc.).</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Available Form Field Types</h3>
+      <div class="bg-gray-50 rounded-lg p-6 mb-6">
+        <ul class="grid md:grid-cols-2 gap-4 text-gray-700">
+          <li><strong>📝 Text Fields:</strong> Single-line input for names, addresses, email, phone numbers, etc.</li>
+          <li><strong>☑️ Checkboxes:</strong> Multiple-choice selections, agreements, preferences (can select multiple)</li>
+          <li><strong>🔘 Radio Buttons:</strong> Single-choice options where only one can be selected per group</li>
+          <li><strong>📋 Dropdown Lists:</strong> Space-saving menus with multiple selectable options</li>
+          <li><strong>✍️ Signature Fields:</strong> Dedicated areas for digital signatures with visual indicators</li>
+          <li><strong>📅 Date Fields:</strong> Formatted date inputs for consistent date collection</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Professional Form Design Tips</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Logical Layout:</strong> Organize fields in a natural top-to-bottom, left-to-right flow that matches how people read</li>
+        <li><strong>Clear Labels:</strong> Use descriptive field names that clearly indicate what information is needed</li>
+        <li><strong>Consistent Sizing:</strong> Keep similar field types the same size for a professional, organized appearance</li>
+        <li><strong>Grid Alignment:</strong> Use the "Snap to Grid" feature to align fields perfectly for a polished look</li>
+        <li><strong>Required Fields:</strong> Mark essential fields as required to ensure complete submissions</li>
+        <li><strong>Field Grouping:</strong> Group related information together (e.g., all address fields in one section)</li>
+        <li><strong>Adequate Spacing:</strong> Leave enough room between fields for easy navigation and touch input on mobile devices</li>
+        <li><strong>Test Before Distribution:</strong> Download and test your form to ensure all fields work correctly</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases for Fillable PDF Forms</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6 text-gray-700">
+        <div>
+          <h4 class="font-semibold mb-2">Business & HR:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Job applications and onboarding forms</li>
+            <li>Employee information sheets</li>
+            <li>Time-off request forms</li>
+            <li>Performance review templates</li>
+            <li>Invoice and purchase order forms</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Legal & Government:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Legal contracts and agreements</li>
+            <li>Court filing documents</li>
+            <li>Affidavits and declarations</li>
+            <li>Power of attorney forms</li>
+            <li>Government applications</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Education:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Student registration forms</li>
+            <li>Permission slips and field trip forms</li>
+            <li>Scholarship applications</li>
+            <li>Course evaluation surveys</li>
+            <li>Transcript request forms</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Healthcare & Medical:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Patient intake forms</li>
+            <li>Medical history questionnaires</li>
+            <li>Insurance claim forms</li>
+            <li>HIPAA consent forms</li>
+            <li>Prescription request forms</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">JustPdf Form Creator vs. Adobe Acrobat</h3>
+      <div class="overflow-x-auto mb-6">
+        <table class="min-w-full bg-white border">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-4 py-2 border text-left">Feature</th>
+              <th class="px-4 py-2 border text-center">JustPdf Form Creator</th>
+              <th class="px-4 py-2 border text-center">Adobe Acrobat Pro</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr>
+              <td class="px-4 py-2 border">Price</td>
+              <td class="px-4 py-2 border text-center text-green-600 font-semibold">Free</td>
+              <td class="px-4 py-2 border text-center">$19.99/month</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">Browser-Based</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+              <td class="px-4 py-2 border text-center">❌ No (desktop app)</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Installation Required</td>
+              <td class="px-4 py-2 border text-center">❌ No</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">Drag & Drop Interface</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">All Field Types</td>
+              <td class="px-4 py-2 border text-center">✅ 6 types</td>
+              <td class="px-4 py-2 border text-center">✅ 8 types</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">Privacy (Client-side)</td>
+              <td class="px-4 py-2 border text-center">✅ 100%</td>
+              <td class="px-4 py-2 border text-center">⚠️ Depends on settings</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Learning Curve</td>
+              <td class="px-4 py-2 border text-center">Easy</td>
+              <td class="px-4 py-2 border text-center">Moderate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Security & Privacy</h3>
+      <p class="text-gray-700 mb-4">Your document security is our top priority:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>100% Client-Side Processing:</strong> All form creation happens in your browser. Your PDF never leaves your device.</li>
+        <li><strong>No Server Upload:</strong> We don't upload, store, or have any access to your documents.</li>
+        <li><strong>No Data Collection:</strong> We don't collect personal information or track your documents.</li>
+        <li><strong>Instant Delete:</strong> Files are automatically cleared from browser memory after download.</li>
+        <li><strong>HTTPS Secure:</strong> All connections use encryption for maximum security.</li>
+        <li><strong>No Account Required:</strong> Use the tool anonymously without registration or login.</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Technical Specifications</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Supported Input:</strong> PDF files of any size (recommended under 50MB for best performance)</li>
+        <li><strong>Output Format:</strong> PDF with embedded AcroForm fields (compatible with all PDF readers)</li>
+        <li><strong>Field Standards:</strong> Uses PDF AcroForm specification for maximum compatibility</li>
+        <li><strong>Browser Support:</strong> Works on Chrome, Firefox, Safari, Edge, and other modern browsers</li>
+        <li><strong>Mobile Compatible:</strong> Create forms on tablets and smartphones (desktop recommended for precision)</li>
+        <li><strong>Multi-Page Support:</strong> Add fields to any page in multi-page documents</li>
+        <li><strong>No File Limit:</strong> Create unlimited forms with unlimited fields</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can recipients fill the form without special software?</h4>
+          <p class="text-gray-700">Yes! Forms created with JustPdf are standard PDF AcroForms that work in any PDF reader including Adobe Acrobat Reader (free), Apple Preview, Chrome browser, Firefox, and mobile PDF apps. No special software needed.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Do I need to upload my PDF to your server?</h4>
+          <p class="text-gray-700">No. All processing happens client-side in your browser using JavaScript and PDF libraries. Your PDF never leaves your device, ensuring complete privacy and security.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I edit or modify the form after creating it?</h4>
+          <p class="text-gray-700">Currently, you would need to recreate the form to make changes. We recommend testing your form thoroughly before final distribution. Save your field layout by taking screenshots or notes for easy recreation if needed.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">What's the difference between text fields and signature fields?</h4>
+          <p class="text-gray-700">Text fields are for typing text information (names, addresses, etc.). Signature fields are specially marked areas designed for digital signatures with visual indicators. Both are technically text input fields, but signature fields have distinct appearance and purpose.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I make fields required?</h4>
+          <p class="text-gray-700">Yes! Select any field and check the "Required Field" option in the properties panel. Required fields must be filled before the form can be submitted (in compatible PDF readers).</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">How do radio button groups work?</h4>
+          <p class="text-gray-700">Radio buttons with the same "Group Name" are linked together - only one can be selected at a time. Give each button in the group the same group name but different values (e.g., group: "gender", values: "male", "female", "other").</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Is there a limit to how many fields I can add?</h4>
+          <p class="text-gray-700">No limit! Add as many fields as you need. However, for very large forms (100+ fields), consider splitting into multiple pages or documents for better user experience.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I use this for legal or official documents?</h4>
+          <p class="text-gray-700">Yes. The forms created are standard PDF forms that meet most legal and official requirements. However, for documents requiring digital signatures with legal validity, you may need specialized e-signature services that provide audit trails and identity verification.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Related Tools Section -->
+    <section class="mt-16 bg-gray-50 rounded-lg p-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">Related PDF Tools</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/fill-sign-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">✍️</div>
+          <div class="font-semibold text-gray-700">Fill & Sign PDF</div>
+        </a>
+        <a href="/tools/pdf-editor.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">✏️</div>
+          <div class="font-semibold text-gray-700">Edit PDF</div>
+        </a>
+        <a href="/tools/merge-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">📄</div>
+          <div class="font-semibold text-gray-700">Merge PDF</div>
+        </a>
+        <a href="/tools/protect-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">🔐</div>
+          <div class="font-semibold text-gray-700">Protect PDF</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script>
+    // Configure PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    // State Management
+    const state = {
+      pdfDoc: null,
+      pdfBytes: null,
+      currentPage: 1,
+      totalPages: 0,
+      fields: [], // Array of field objects
+      selectedField: null,
+      canvasScale: 1.0, // Using 1:1 scale for accurate display and easier coordinate mapping
+      isDragging: false,
+      isResizing: false,
+      dragStart: { x: 0, y: 0 },
+      resizeHandle: null,
+      gridSize: 20
+    };
+
+    // DOM Elements
+    const elements = {
+      uploadArea: document.getElementById('uploadArea'),
+      fileInput: document.getElementById('fileInput'),
+      selectBtn: document.getElementById('selectBtn'),
+      builderInterface: document.getElementById('builderInterface'),
+      canvas: document.getElementById('pdfCanvas'),
+      ctx: document.getElementById('pdfCanvas').getContext('2d'),
+      fieldsLayer: document.getElementById('fieldsLayer'),
+      gridOverlay: document.getElementById('gridOverlay'),
+      prevPage: document.getElementById('prevPage'),
+      nextPage: document.getElementById('nextPage'),
+      pageInfo: document.getElementById('pageInfo'),
+      showGrid: document.getElementById('showGrid'),
+      snapToGrid: document.getElementById('snapToGrid'),
+      clearAll: document.getElementById('clearAll'),
+      downloadForm: document.getElementById('downloadForm'),
+      fieldCount: document.getElementById('fieldCount'),
+      totalFieldCount: document.getElementById('totalFieldCount'),
+      loadingOverlay: document.getElementById('loadingOverlay'),
+      // Properties panel
+      noFieldSelected: document.getElementById('noFieldSelected'),
+      fieldProperties: document.getElementById('fieldProperties'),
+      propFieldType: document.getElementById('propFieldType'),
+      propFieldName: document.getElementById('propFieldName'),
+      propLabel: document.getElementById('propLabel'),
+      propRequired: document.getElementById('propRequired'),
+      propFontSize: document.getElementById('propFontSize'),
+      propAlignment: document.getElementById('propAlignment'),
+      propOptions: document.getElementById('propOptions'),
+      propGroupName: document.getElementById('propGroupName'),
+      propValue: document.getElementById('propValue'),
+      propX: document.getElementById('propX'),
+      propY: document.getElementById('propY'),
+      propWidth: document.getElementById('propWidth'),
+      propHeight: document.getElementById('propHeight'),
+      deleteField: document.getElementById('deleteField'),
+      textFieldProps: document.getElementById('textFieldProps'),
+      dropdownProps: document.getElementById('dropdownProps'),
+      radioProps: document.getElementById('radioProps')
+    };
+
+    // Utility Functions
+    function snapToGrid(value) {
+      if (!elements.snapToGrid.checked) return value;
+      return Math.round(value / state.gridSize) * state.gridSize;
+    }
+
+    function generateFieldId() {
+      return 'field_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    function getCanvasCoordinates(event) {
+      const rect = elements.canvas.getBoundingClientRect();
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
+    }
+
+    // Prevent canvas from being draggable as an image
+    elements.canvas.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+      return false;
+    });
+
+    // File Upload Handlers
+    elements.selectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      elements.fileInput.click();
+    });
+
+    elements.uploadArea.addEventListener('click', () => elements.fileInput.click());
+
+    elements.uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      elements.uploadArea.classList.add('border-green-500', 'bg-green-50');
+    });
+
+    elements.uploadArea.addEventListener('dragleave', () => {
+      elements.uploadArea.classList.remove('border-green-500', 'bg-green-50');
+    });
+
+    elements.uploadArea.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      elements.uploadArea.classList.remove('border-green-500', 'bg-green-50');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'application/pdf') {
+        await loadPDF(file);
+      }
+    });
+
+    elements.fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (file) await loadPDF(file);
+    });
+
+    // Load PDF
+    async function loadPDF(file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        state.pdfBytes = new Uint8Array(arrayBuffer).slice();
+        
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        state.pdfDoc = await loadingTask.promise;
+        state.totalPages = state.pdfDoc.numPages;
+        
+        elements.uploadArea.classList.add('hidden');
+        elements.builderInterface.classList.remove('hidden');
+        
+        await renderPage(1);
+      } catch (error) {
+        console.error('Error loading PDF:', error);
+        alert('Failed to load PDF. Please try again.');
+      }
+    }
+
+    // Render PDF Page
+    async function renderPage(pageNum) {
+      const page = await state.pdfDoc.getPage(pageNum);
+      
+      // Get viewport at scale 1.0 for proper display and coordinate mapping
+      // Using 1:1 scale ensures the entire page is visible and coordinates map directly to PDF
+      // Standard sizes at 72 DPI: Letter=612x792px, A4=595x842px
+      const viewport = page.getViewport({ scale: 1.0 });
+      
+      // Set canvas size to match viewport (1:1 scale for easier coordinate mapping)
+      elements.canvas.width = viewport.width;
+      elements.canvas.height = viewport.height;
+      elements.canvas.style.width = viewport.width + 'px';
+      elements.canvas.style.height = viewport.height + 'px';
+      
+      // Match fields layer to canvas size
+      elements.fieldsLayer.style.width = viewport.width + 'px';
+      elements.fieldsLayer.style.height = viewport.height + 'px';
+      
+      // Render PDF
+      await page.render({
+        canvasContext: elements.ctx,
+        viewport: viewport
+      }).promise;
+      
+      state.currentPage = pageNum;
+      updatePageInfo();
+      renderFields();
+    }
+
+    // Update Page Info
+    function updatePageInfo() {
+      elements.pageInfo.textContent = `Page ${state.currentPage} of ${state.totalPages}`;
+      elements.prevPage.disabled = state.currentPage === 1;
+      elements.nextPage.disabled = state.currentPage === state.totalPages;
+    }
+
+    // Page Navigation
+    elements.prevPage.addEventListener('click', () => {
+      if (state.currentPage > 1) renderPage(state.currentPage - 1);
+    });
+
+    elements.nextPage.addEventListener('click', () => {
+      if (state.currentPage < state.totalPages) renderPage(state.currentPage + 1);
+    });
+
+    // Grid Controls
+    elements.showGrid.addEventListener('change', () => {
+      elements.gridOverlay.classList.toggle('active', elements.showGrid.checked);
+    });
+
+    // Drag and Drop Field Creation
+    document.querySelectorAll('.field-toolbox-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const fieldType = item.dataset.fieldType;
+        createField(fieldType, { x: 100, y: 100 });
+      });
+    });
+
+    // Create Field
+    function createField(type, position) {
+      const field = {
+        id: generateFieldId(),
+        type: type,
+        page: state.currentPage,
+        x: snapToGrid(position.x),
+        y: snapToGrid(position.y),
+        width: type === 'checkbox' || type === 'radio' ? 20 : (type === 'signature' ? 200 : 150),
+        height: type === 'checkbox' || type === 'radio' ? 20 : (type === 'signature' ? 60 : 30),
+        name: `${type}_${state.fields.length + 1}`,
+        label: `${type.charAt(0).toUpperCase() + type.slice(1)} Field`,
+        required: false,
+        properties: getDefaultProperties(type)
+      };
+      
+      state.fields.push(field);
+      renderFields();
+      updateFieldCounts();
+      selectField(field);
+    }
+
+    // Get Default Properties
+    function getDefaultProperties(type) {
+      const defaults = {
+        text: { fontSize: 12, alignment: 'left' },
+        checkbox: {},
+        radio: { groupName: 'radio_group', value: 'option1' },
+        dropdown: { options: ['Option 1', 'Option 2', 'Option 3'] },
+        signature: {},
+        date: {}
+      };
+      return defaults[type] || {};
+    }
+
+    // Render Fields
+    function renderFields() {
+      elements.fieldsLayer.innerHTML = '';
+      
+      state.fields.filter(f => f.page === state.currentPage).forEach(field => {
+        const fieldEl = document.createElement('div');
+        fieldEl.className = `form-field field-type-${field.type}`;
+        fieldEl.dataset.fieldId = field.id;
+        fieldEl.style.left = field.x + 'px';
+        fieldEl.style.top = field.y + 'px';
+        fieldEl.style.width = field.width + 'px';
+        fieldEl.style.height = field.height + 'px';
+        fieldEl.style.pointerEvents = 'auto';
+        
+        if (state.selectedField && state.selectedField.id === field.id) {
+          fieldEl.classList.add('selected');
+          
+          // Add resize handles
+          ['nw', 'ne', 'sw', 'se'].forEach(pos => {
+            const handle = document.createElement('div');
+            handle.className = `resize-handle ${pos}`;
+            handle.dataset.handle = pos;
+            fieldEl.appendChild(handle);
+          });
+          
+          // Add delete button
+          const deleteBtn = document.createElement('div');
+          deleteBtn.className = 'delete-field-btn';
+          deleteBtn.innerHTML = '×';
+          deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteSelectedField();
+          });
+          fieldEl.appendChild(deleteBtn);
+        }
+        
+        // Add label or field-specific content
+        const label = document.createElement('div');
+        label.className = 'field-label';
+        label.style.pointerEvents = 'none';
+        
+        // Customize appearance based on field type
+        if (field.type === 'signature') {
+          label.innerHTML = '✍️ ' + (field.label || 'Signature');
+          label.style.fontStyle = 'italic';
+        } else if (field.type === 'date') {
+          label.innerHTML = '📅 ' + (field.label || 'Date');
+        } else if (field.type === 'checkbox') {
+          label.innerHTML = '☐ ' + (field.label || 'Checkbox');
+        } else if (field.type === 'radio') {
+          label.innerHTML = '○ ' + (field.label || 'Radio');
+        } else if (field.type === 'dropdown') {
+          label.innerHTML = '▼ ' + (field.label || 'Select');
+        } else {
+          label.textContent = field.label || field.name;
+        }
+        
+        fieldEl.appendChild(label);
+        
+        // Click handler
+        fieldEl.addEventListener('mousedown', (e) => handleFieldMouseDown(e, field));
+        
+        // Prevent default drag behavior on the field element
+        fieldEl.addEventListener('dragstart', (e) => {
+          e.preventDefault();
+          return false;
+        });
+        
+        elements.fieldsLayer.appendChild(fieldEl);
+      });
+      
+      updateFieldCounts();
+    }
+
+    // Handle Field Mouse Down
+    function handleFieldMouseDown(e, field) {
+      e.preventDefault(); // Prevent default drag behavior
+      e.stopPropagation();
+      
+      if (e.target.classList.contains('resize-handle')) {
+        state.isResizing = true;
+        state.resizeHandle = e.target.dataset.handle;
+        state.dragStart = getCanvasCoordinates(e);
+        selectField(field);
+        return;
+      }
+      
+      // Calculate offset within the field for proper dragging
+      const coords = getCanvasCoordinates(e);
+      state.isDragging = true;
+      state.dragStart = {
+        x: coords.x - field.x,
+        y: coords.y - field.y
+      };
+      selectField(field);
+    }
+
+    // Mouse Move Handler
+    document.addEventListener('mousemove', (e) => {
+      if (!state.selectedField) return;
+      
+      if (state.isDragging) {
+        const coords = getCanvasCoordinates(e);
+        
+        // Calculate new position based on mouse position and initial offset
+        let newX = coords.x - state.dragStart.x;
+        let newY = coords.y - state.dragStart.y;
+        
+        // Constrain to canvas boundaries
+        newX = Math.max(0, Math.min(elements.canvas.width - state.selectedField.width, newX));
+        newY = Math.max(0, Math.min(elements.canvas.height - state.selectedField.height, newY));
+        
+        // Apply snap to grid if enabled
+        state.selectedField.x = snapToGrid(newX);
+        state.selectedField.y = snapToGrid(newY);
+        
+        renderFields();
+        updatePropertiesPanel();
+      } else if (state.isResizing) {
+        const coords = getCanvasCoordinates(e);
+        const deltaX = coords.x - state.dragStart.x;
+        const deltaY = coords.y - state.dragStart.y;
+        
+        const minSize = 20;
+        
+        if (state.resizeHandle === 'se') {
+          state.selectedField.width = Math.max(minSize, state.selectedField.width + deltaX);
+          state.selectedField.height = Math.max(minSize, state.selectedField.height + deltaY);
+        } else if (state.resizeHandle === 'sw') {
+          const newWidth = Math.max(minSize, state.selectedField.width - deltaX);
+          state.selectedField.x += state.selectedField.width - newWidth;
+          state.selectedField.width = newWidth;
+          state.selectedField.height = Math.max(minSize, state.selectedField.height + deltaY);
+        } else if (state.resizeHandle === 'ne') {
+          state.selectedField.width = Math.max(minSize, state.selectedField.width + deltaX);
+          const newHeight = Math.max(minSize, state.selectedField.height - deltaY);
+          state.selectedField.y += state.selectedField.height - newHeight;
+          state.selectedField.height = newHeight;
+        } else if (state.resizeHandle === 'nw') {
+          const newWidth = Math.max(minSize, state.selectedField.width - deltaX);
+          state.selectedField.x += state.selectedField.width - newWidth;
+          state.selectedField.width = newWidth;
+          const newHeight = Math.max(minSize, state.selectedField.height - deltaY);
+          state.selectedField.y += state.selectedField.height - newHeight;
+          state.selectedField.height = newHeight;
+        }
+        
+        state.dragStart = coords;
+        renderFields();
+        updatePropertiesPanel();
+      }
+    });
+
+    // Mouse Up Handler
+    document.addEventListener('mouseup', () => {
+      state.isDragging = false;
+      state.isResizing = false;
+    });
+
+    // Select Field
+    function selectField(field) {
+      state.selectedField = field;
+      renderFields();
+      showPropertiesPanel();
+    }
+
+    // Show Properties Panel
+    function showPropertiesPanel() {
+      elements.noFieldSelected.classList.add('hidden');
+      elements.fieldProperties.classList.remove('hidden');
+      updatePropertiesPanel();
+    }
+
+    // Update Properties Panel
+    function updatePropertiesPanel() {
+      if (!state.selectedField) return;
+      
+      const field = state.selectedField;
+      
+      elements.propFieldType.value = field.type.charAt(0).toUpperCase() + field.type.slice(1);
+      elements.propFieldName.value = field.name;
+      elements.propLabel.value = field.label;
+      elements.propRequired.checked = field.required;
+      elements.propX.value = Math.round(field.x);
+      elements.propY.value = Math.round(field.y);
+      elements.propWidth.value = Math.round(field.width);
+      elements.propHeight.value = Math.round(field.height);
+      
+      // Hide all type-specific panels
+      elements.textFieldProps.classList.add('hidden');
+      elements.dropdownProps.classList.add('hidden');
+      elements.radioProps.classList.add('hidden');
+      
+      // Show type-specific panels
+      if (field.type === 'text') {
+        elements.textFieldProps.classList.remove('hidden');
+        elements.propFontSize.value = field.properties.fontSize;
+        elements.propAlignment.value = field.properties.alignment;
+      } else if (field.type === 'dropdown') {
+        elements.dropdownProps.classList.remove('hidden');
+        elements.propOptions.value = field.properties.options.join('\n');
+      } else if (field.type === 'radio') {
+        elements.radioProps.classList.remove('hidden');
+        elements.propGroupName.value = field.properties.groupName;
+        elements.propValue.value = field.properties.value;
+      }
+    }
+
+    // Properties Panel Event Listeners
+    elements.propFieldName.addEventListener('input', (e) => {
+      if (state.selectedField) {
+        state.selectedField.name = e.target.value;
+        renderFields();
+      }
+    });
+
+    elements.propLabel.addEventListener('input', (e) => {
+      if (state.selectedField) {
+        state.selectedField.label = e.target.value;
+        renderFields();
+      }
+    });
+
+    elements.propRequired.addEventListener('change', (e) => {
+      if (state.selectedField) {
+        state.selectedField.required = e.target.checked;
+      }
+    });
+
+    elements.propFontSize.addEventListener('change', (e) => {
+      if (state.selectedField && state.selectedField.type === 'text') {
+        state.selectedField.properties.fontSize = parseInt(e.target.value);
+      }
+    });
+
+    elements.propAlignment.addEventListener('change', (e) => {
+      if (state.selectedField && state.selectedField.type === 'text') {
+        state.selectedField.properties.alignment = e.target.value;
+      }
+    });
+
+    elements.propOptions.addEventListener('input', (e) => {
+      if (state.selectedField && state.selectedField.type === 'dropdown') {
+        state.selectedField.properties.options = e.target.value.split('\n').filter(opt => opt.trim());
+      }
+    });
+
+    elements.propGroupName.addEventListener('input', (e) => {
+      if (state.selectedField && state.selectedField.type === 'radio') {
+        state.selectedField.properties.groupName = e.target.value;
+      }
+    });
+
+    elements.propValue.addEventListener('input', (e) => {
+      if (state.selectedField && state.selectedField.type === 'radio') {
+        state.selectedField.properties.value = e.target.value;
+      }
+    });
+
+    // Delete Field
+    elements.deleteField.addEventListener('click', deleteSelectedField);
+
+    function deleteSelectedField() {
+      if (state.selectedField) {
+        state.fields = state.fields.filter(f => f.id !== state.selectedField.id);
+        state.selectedField = null;
+        elements.fieldProperties.classList.add('hidden');
+        elements.noFieldSelected.classList.remove('hidden');
+        renderFields();
+      }
+    }
+
+    // Clear All Fields
+    elements.clearAll.addEventListener('click', () => {
+      if (confirm('Delete all form fields? This cannot be undone.')) {
+        state.fields = [];
+        state.selectedField = null;
+        elements.fieldProperties.classList.add('hidden');
+        elements.noFieldSelected.classList.remove('hidden');
+        renderFields();
+      }
+    });
+
+    // Update Field Counts
+    function updateFieldCounts() {
+      const pageFields = state.fields.filter(f => f.page === state.currentPage).length;
+      elements.fieldCount.textContent = pageFields;
+      elements.totalFieldCount.textContent = state.fields.length;
+    }
+
+    // Download Form
+    elements.downloadForm.addEventListener('click', async () => {
+      if (state.fields.length === 0) {
+        alert('Please add some form fields before downloading.');
+        return;
+      }
+      
+      elements.loadingOverlay.classList.remove('hidden');
+      
+      try {
+        const pdfDoc = await PDFLib.PDFDocument.load(state.pdfBytes);
+        const form = pdfDoc.getForm();
+        const pages = pdfDoc.getPages();
+        
+        for (const field of state.fields) {
+          const page = pages[field.page - 1];
+          const { height: pageHeight } = page.getSize();
+          
+          // Convert canvas coordinates to PDF coordinates
+          // Canvas and PDF now use 1:1 scale, just flip Y axis
+          const pdfX = field.x;
+          const pdfY = pageHeight - field.y - field.height;
+          const pdfWidth = field.width;
+          const pdfHeight = field.height;
+          
+          try {
+            if (field.type === 'text') {
+              const textField = form.createTextField(field.name);
+              textField.addToPage(page, {
+                x: pdfX,
+                y: pdfY,
+                width: pdfWidth,
+                height: pdfHeight
+              });
+              if (field.required) textField.enableRequired();
+              if (field.label) textField.setText('');
+            } else if (field.type === 'checkbox') {
+              const checkbox = form.createCheckBox(field.name);
+              checkbox.addToPage(page, {
+                x: pdfX,
+                y: pdfY,
+                width: pdfWidth,
+                height: pdfHeight
+              });
+              if (field.required) checkbox.enableRequired();
+            } else if (field.type === 'radio') {
+              const radioGroup = form.getRadioGroup(field.properties.groupName) || form.createRadioGroup(field.properties.groupName);
+              radioGroup.addOptionToPage(field.properties.value, page, {
+                x: pdfX,
+                y: pdfY,
+                width: pdfWidth,
+                height: pdfHeight
+              });
+            } else if (field.type === 'dropdown') {
+              const dropdown = form.createDropdown(field.name);
+              dropdown.addOptions(field.properties.options);
+              dropdown.addToPage(page, {
+                x: pdfX,
+                y: pdfY,
+                width: pdfWidth,
+                height: pdfHeight
+              });
+              if (field.required) dropdown.enableRequired();
+            } else if (field.type === 'signature' || field.type === 'date') {
+              // For signature and date, create a text field
+              const textField = form.createTextField(field.name);
+              textField.addToPage(page, {
+                x: pdfX,
+                y: pdfY,
+                width: pdfWidth,
+                height: pdfHeight
+              });
+              if (field.required) textField.enableRequired();
+            }
+          } catch (err) {
+            console.error(`Error creating field ${field.name}:`, err);
+          }
+        }
+        
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'fillable-form.pdf';
+        a.click();
+        
+        setTimeout(() => URL.revokeObjectURL(url), 100);
+        
+      } catch (error) {
+        console.error('Error creating form:', error);
+        alert('Failed to create form. Error: ' + error.message);
+      } finally {
+        elements.loadingOverlay.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

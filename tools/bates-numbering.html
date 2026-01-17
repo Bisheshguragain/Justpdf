@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Bates Numbering PDF Online Free - Legal Document Stamping | JustPdf</title>
+  <meta name="title" content="Bates Numbering PDF Online Free - Legal Document Stamping | JustPdf">
+  <meta name="description" content="Add Bates numbering to PDF files online for free. Professional legal document stamping for attorneys, law firms, and legal discovery. Secure, customizable, no registration required.">
+  <meta name="keywords" content="bates numbering, bates stamping, legal pdf numbering, pdf bates numbers, document numbering, legal discovery, bates stamp pdf, litigation support">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/bates-numbering.html">
+  <meta property="og:title" content="Bates Numbering PDF Online Free - Legal Document Stamping | JustPdf">
+  <meta property="og:description" content="Add Bates numbering to PDF files online for free. Professional legal document stamping for attorneys and law firms. Secure, customizable, no registration.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/bates-numbering.html">
+  <meta property="twitter:title" content="Bates Numbering PDF Online Free - Legal Document Stamping | JustPdf">
+  <meta property="twitter:description" content="Add Bates numbering to PDF files online for free. Professional legal document stamping for attorneys and law firms.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/bates-numbering.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Bates numbering?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bates numbering (also called Bates stamping) is a legal indexing method that assigns unique sequential identifiers to pages in legal documents. It's essential for organizing, tracking, and referencing documents in litigation, discovery, and legal proceedings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this Bates numbering tool free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Bates numbering tool is completely free with no limitations. Add Bates numbers to unlimited PDFs without watermarks, subscriptions, or registration."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to use for confidential legal documents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all processing happens entirely in your browser using client-side JavaScript. Your sensitive legal documents never leave your device, ensuring complete confidentiality and attorney-client privilege."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I customize the Bates number format?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can customize the prefix (e.g., ACME-001), starting number, number of digits, position on the page, font size, and color to match your firm's requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where should Bates numbers be placed on documents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Common placements include bottom right corner (most popular), bottom center, top right corner, or top center. Choose based on document type and jurisdictional requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I Bates number multiple PDF files at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can upload multiple PDF files and apply continuous Bates numbering across all documents, maintaining sequential numbering throughout your document set."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700">About</a></li>
+    </ul>
+  </nav>
+  
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Bates Numbering</h1>
+    <p class="text-gray-600 text-center mb-8">Add professional Bates numbers to legal documents and PDFs</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">📋</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file(s)</strong> or drag them here</p>
+        <p class="text-sm text-gray-500 mb-4">Add Bates numbers to single or multiple PDFs</p>
+        <input type="file" id="file-input" accept=".pdf" multiple class="hidden">
+      </div>
+      <div id="file-list" class="mt-4 space-y-2 hidden"></div>
+    </div>
+
+    <!-- Settings Section -->
+    <div id="settings-section" class="hidden mt-8">
+      <h2 class="text-2xl font-bold mb-4">Bates Numbering Settings</h2>
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Prefix -->
+          <div>
+            <label class="block font-semibold mb-2">Prefix (Optional):</label>
+            <input type="text" id="prefix" class="w-full p-3 border rounded-lg" placeholder="e.g., CASE-2024-" maxlength="20">
+            <p class="text-sm text-gray-500 mt-1">Example: ABC-001, CASE-2024-0001</p>
+          </div>
+
+          <!-- Starting Number -->
+          <div>
+            <label class="block font-semibold mb-2">Starting Number:</label>
+            <input type="number" id="start-number" class="w-full p-3 border rounded-lg" value="1" min="1">
+          </div>
+
+          <!-- Number of Digits -->
+          <div>
+            <label class="block font-semibold mb-2">Number of Digits:</label>
+            <select id="num-digits" class="w-full p-3 border rounded-lg">
+              <option value="3">3 digits (001)</option>
+              <option value="4">4 digits (0001)</option>
+              <option value="5" selected>5 digits (00001)</option>
+              <option value="6">6 digits (000001)</option>
+              <option value="7">7 digits (0000001)</option>
+            </select>
+          </div>
+
+          <!-- Position -->
+          <div>
+            <label class="block font-semibold mb-2">Position:</label>
+            <select id="position" class="w-full p-3 border rounded-lg">
+              <option value="bottom-right" selected>Bottom Right</option>
+              <option value="bottom-center">Bottom Center</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="top-right">Top Right</option>
+              <option value="top-center">Top Center</option>
+              <option value="top-left">Top Left</option>
+            </select>
+          </div>
+
+          <!-- Font Size -->
+          <div>
+            <label class="block font-semibold mb-2">Font Size:</label>
+            <select id="font-size" class="w-full p-3 border rounded-lg">
+              <option value="8">8pt (Small)</option>
+              <option value="10" selected>10pt (Standard)</option>
+              <option value="12">12pt (Medium)</option>
+              <option value="14">14pt (Large)</option>
+            </select>
+          </div>
+
+          <!-- Color -->
+          <div>
+            <label class="block font-semibold mb-2">Color:</label>
+            <select id="color" class="w-full p-3 border rounded-lg">
+              <option value="black" selected>Black</option>
+              <option value="blue">Blue</option>
+              <option value="red">Red</option>
+              <option value="gray">Gray</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-sm text-gray-700"><strong>Preview:</strong> <span id="preview-text" class="font-mono">PREFIX-00001</span></p>
+        </div>
+
+        <button id="apply-bates-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mt-6">
+          Apply Bates Numbering
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Applying Bates numbers...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Bates Numbering Complete!</h3>
+        <div id="download-links" class="space-y-3 mb-6"></div>
+        <button id="number-another" class="text-green-700 hover:underline">Number another PDF</button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Ad Unit 1 -->
+    <div class="my-8 text-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <article class="mt-16 prose prose-lg max-w-none">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Complete Guide to Bates Numbering for Legal Documents</h2>
+      <p class="text-gray-700 mb-4">
+        Bates numbering, also known as Bates stamping or Bates labeling, is an essential indexing method used extensively in the legal profession to uniquely identify and organize pages in legal documents, discovery materials, and evidence. Originally named after Edwin G. Bates who patented an early numbering machine, this system assigns sequential identifiers to each page, creating an indisputable reference system crucial for litigation, depositions, and legal proceedings. JustPdf's free online Bates numbering tool brings professional legal document stamping capabilities directly to your browser, ensuring complete confidentiality while maintaining the highest standards expected in legal practice.
+      </p>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">What is Bates Numbering and Why is it Critical for Legal Work?</h3>
+      <p class="text-gray-700 mb-4">
+        Bates numbering serves as a fundamental organizational and reference tool in legal proceedings. Each page receives a unique identifier (e.g., ABC-001, CASE-2024-00001), enabling attorneys, paralegals, and legal professionals to quickly reference specific pages during depositions, court proceedings, and document review. This standardized numbering system:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Ensures Document Integrity:</strong> Sequential numbering makes it immediately apparent if pages are missing, duplicated, or out of order</li>
+        <li><strong>Facilitates Precise Citation:</strong> Attorneys can reference exact pages during testimony, hearings, and written submissions</li>
+        <li><strong>Maintains Chain of Custody:</strong> Numbered documents create an auditable trail essential for evidence admissibility</li>
+        <li><strong>Streamlines Discovery:</strong> Large document productions become manageable and searchable with systematic numbering</li>
+        <li><strong>Prevents Disputes:</strong> Unique identifiers eliminate confusion about which version of a document is being referenced</li>
+        <li><strong>Supports Electronic Discovery (e-Discovery):</strong> Bates numbers integrate with litigation support software and document management systems</li>
+        <li><strong>Meets Court Requirements:</strong> Many jurisdictions require or strongly recommend Bates numbering for submitted exhibits</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Step-by-Step Guide: How to Add Bates Numbers to PDFs</h3>
+      <ol class="list-decimal list-inside space-y-3 text-gray-700 mb-6">
+        <li><strong>Upload Your PDF Documents:</strong> Click the upload area or drag and drop single or multiple PDF files. You can number individual files or apply continuous numbering across multiple documents (common in discovery productions).</li>
+        <li><strong>Configure Prefix (Optional but Recommended):</strong> Add a case-specific prefix to make your Bates numbers more meaningful. Examples:
+          <ul class="list-disc list-inside ml-6 mt-2">
+            <li><strong>PLAINTIFF-</strong> for documents produced by the plaintiff</li>
+            <li><strong>DEF-</strong> for defense documents</li>
+            <li><strong>EXH-A-</strong> for exhibit A documents</li>
+            <li><strong>CASE-2024-001-</strong> for case number reference</li>
+            <li><strong>ACME-CORP-</strong> for party identification</li>
+          </ul>
+        </li>
+        <li><strong>Set Starting Number:</strong> Choose where numbering begins (typically 001 or 0001). For multi-document productions, continue from where previous numbering ended.</li>
+        <li><strong>Select Number of Digits:</strong> Standard practice uses 4-6 digits (0001-000001) to accommodate large document sets without format changes. More digits prevent renumbering when productions grow.</li>
+        <li><strong>Choose Position:</strong> Select where Bates numbers appear on each page. Industry standards favor:
+          <ul class="list-disc list-inside ml-6 mt-2">
+            <li><strong>Bottom Right:</strong> Most common, doesn't obscure text</li>
+            <li><strong>Bottom Center:</strong> Highly visible, centered placement</li>
+            <li><strong>Top Right:</strong> Alternative for bottom-heavy documents</li>
+          </ul>
+        </li>
+        <li><strong>Configure Font and Color:</strong> Select size (typically 10pt) and color (black is standard, blue for distinction). Ensure readability without document obscuration.</li>
+        <li><strong>Preview Your Format:</strong> Review the preview to confirm your Bates number format before applying.</li>
+        <li><strong>Apply Bates Numbering:</strong> Click "Apply Bates Numbering" and wait for processing (entirely in your browser for confidentiality).</li>
+        <li><strong>Download Numbered PDFs:</strong> Download individual files or all at once with sequential numbering applied.</li>
+      </ol>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Bates Numbering Best Practices for Legal Professionals</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <ul class="space-y-3 text-gray-700">
+          <li><strong>✓ Establish Firm-Wide Standards:</strong> Maintain consistent numbering conventions across all matters for professionalism</li>
+          <li><strong>✓ Use Meaningful Prefixes:</strong> Include case identifiers, party names, or document categories for clarity</li>
+          <li><strong>✓ Document Your Numbering System:</strong> Keep detailed logs of number ranges assigned to different document batches</li>
+          <li><strong>✓ Never Reuse Numbers:</strong> Each Bates number should be unique within a case, even if documents are replaced</li>
+          <li><strong>✓ Number Before Production:</strong> Apply Bates numbers before producing documents to opposing counsel or submitting to court</li>
+          <li><strong>✓ Preserve Originals:</strong> Always keep unnumbered originals and create numbered copies</li>
+          <li><strong>✓ Check for Completeness:</strong> Verify sequential numbering without gaps before finalizing productions</li>
+          <li><strong>✓ Consider Confidentiality Stamps:</strong> Combine with confidentiality designations when appropriate</li>
+          <li><strong>✓ Coordinate Multi-Party Numbering:</strong> In multi-party cases, establish coordinated numbering systems early</li>
+          <li><strong>✓ Test Small Batches First:</strong> For large productions, test formatting on a few pages before numbering thousands</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Understanding Bates Number Format Components</h3>
+      <p class="text-gray-700 mb-4">
+        A well-designed Bates number contains several components that work together to create a meaningful, scalable identification system:
+      </p>
+      <div class="space-y-4 mb-6">
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Prefix (Optional but Recommended)</h4>
+          <p class="text-gray-700">The prefix identifies the source, party, or category. Examples: "PLAINTIFF-", "EX-A-", "SMITH-CORP-". Prefixes should be concise (under 20 characters) and use hyphens or underscores for readability. They help distinguish document sets and prevent confusion in multi-party litigation.</p>
+        </div>
+        <div class="border-l-4 border-blue-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Sequential Number (Required)</h4>
+          <p class="text-gray-700">The core identifier that increments for each page. Standard formats use 3-7 digits with leading zeros (001, 0001, 00001). More digits accommodate larger productions. For example, 4 digits support up to 10,000 pages, 5 digits support 100,000 pages, and 6 digits support 1,000,000 pages.</p>
+        </div>
+        <div class="border-l-4 border-purple-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Suffix (Advanced)</h4>
+          <p class="text-gray-700">Sometimes used for document versions or attachments (e.g., ABC-001-A, ABC-001-REV). While less common, suffixes can indicate privileged redactions, native file associations, or document relationships.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Common Use Cases for Bates Numbering</h3>
+      <p class="text-gray-700 mb-4">
+        Bates numbering is indispensable across various legal contexts:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Civil Litigation Discovery:</strong> Number document productions, interrogatory responses, and deposition exhibits for precise reference during proceedings</li>
+        <li><strong>Criminal Proceedings:</strong> Organize evidence, police reports, witness statements, and exhibits for prosecution and defense teams</li>
+        <li><strong>Corporate Investigations:</strong> Index internal investigation documents, compliance records, and employee communications</li>
+        <li><strong>Regulatory Submissions:</strong> Number documents submitted to regulatory agencies (SEC, FDA, EPA) for compliance and reference</li>
+        <li><strong>Mergers & Acquisitions Due Diligence:</strong> Organize and track thousands of pages of corporate documents during M&A transactions</li>
+        <li><strong>Patent Prosecution:</strong> Number prior art documents, technical specifications, and supporting materials in patent applications</li>
+        <li><strong>Employment Litigation:</strong> Organize personnel files, emails, policies, and performance reviews in discrimination or wrongful termination cases</li>
+        <li><strong>Insurance Claims:</strong> Number medical records, accident reports, and claim documentation for personal injury and insurance defense</li>
+        <li><strong>Bankruptcy Proceedings:</strong> Organize financial records, creditor claims, and asset documentation in bankruptcy cases</li>
+        <li><strong>Family Law Matters:</strong> Number financial disclosures, custody evaluations, and settlement documents in divorce and custody proceedings</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Choose JustPdf's Bates Numbering Tool?</h3>
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-green-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">🔒 Complete Confidentiality</h4>
+          <p class="text-gray-700">All processing happens entirely in your browser using client-side JavaScript. Your privileged documents never upload to servers, leave your device, or pass through third parties. This ensures attorney-client privilege, work product protection, and compliance with confidentiality obligations.</p>
+        </div>
+        <div class="bg-blue-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">💯 100% Free, No Limitations</h4>
+          <p class="text-gray-700">Unlike expensive legal software subscriptions or pay-per-page services, JustPdf offers unlimited Bates numbering completely free. No watermarks, no file limits, no page restrictions, and no registration required. Professional results without the professional price tag.</p>
+        </div>
+        <div class="bg-purple-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">⚡ Instant Processing</h4>
+          <p class="text-gray-700">Client-side processing means no waiting for uploads, server queues, or downloads. Apply Bates numbers to hundreds of pages in seconds, right from your browser. Work offline if needed—no internet required after initial page load.</p>
+        </div>
+        <div class="bg-yellow-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">🎯 Professional Customization</h4>
+          <p class="text-gray-700">Full control over prefix, starting number, digit count, position, font size, and color. Create Bates numbers that meet your firm's standards, jurisdictional requirements, and case-specific needs with precision and consistency.</p>
+        </div>
+        <div class="bg-red-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">📱 Works Everywhere</h4>
+          <p class="text-gray-700">Fully responsive design works on desktop computers, laptops, tablets, and smartphones. Number documents from the office, courthouse, home, or anywhere with a web browser. No software installation or IT approval required.</p>
+        </div>
+        <div class="bg-indigo-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">🔧 Multi-File Support</h4>
+          <p class="text-gray-700">Upload multiple PDFs and apply continuous, sequential numbering across all files. Perfect for large discovery productions where numbering must continue seamlessly from one document to the next without gaps or overlaps.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Bates Numbering Standards and Conventions</h3>
+      <p class="text-gray-700 mb-4">
+        While there's no universal legal requirement for Bates number format, industry standards and best practices have emerged:
+      </p>
+      <div class="bg-blue-50 p-6 rounded-lg mb-6">
+        <h4 class="font-bold text-gray-800 mb-3">Standard Format Examples:</h4>
+        <ul class="space-y-2 text-gray-700 font-mono text-sm">
+          <li>• <strong>SMITH-0001</strong> → Party name prefix, 4 digits</li>
+          <li>• <strong>CASE-2024-001-00001</strong> → Case number, year, batch, 5-digit number</li>
+          <li>• <strong>PLAINTIFF-PROD-001-0001</strong> → Party, production number, document, page</li>
+          <li>• <strong>ABC-CORP-000001</strong> → Company abbreviation, 6 digits for large sets</li>
+          <li>• <strong>EXH-A-001</strong> → Exhibit designation with 3 digits</li>
+          <li>• <strong>DEF-JONES-2024-0001</strong> → Defendant, surname, year, number</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Placement Guidelines: Where to Position Bates Numbers</h3>
+      <p class="text-gray-700 mb-4">
+        Strategic placement ensures visibility without obscuring document content:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Bottom Right Corner (Most Common):</strong> Standard placement in legal practice. Doesn't interfere with headers, footers, or signatures. Easily visible when documents are fanned or stacked.</li>
+        <li><strong>Bottom Center:</strong> Highly visible for copying and scanning. Good for documents with wide bottom margins. Common in court exhibits.</li>
+        <li><strong>Top Right Corner:</strong> Alternative when bottom placement conflicts with existing page numbers or footers. Visible in binders and stacks.</li>
+        <li><strong>Top Center:</strong> Used when top placement is required by local court rules or when bottom contains critical information.</li>
+        <li><strong>Avoid Left Side:</strong> Left margins often used for binding, hole-punching, or document assembly. Numbers may be obscured.</li>
+        <li><strong>Consider Margins:</strong> Ensure numbers fall within printable areas and won't be cut off during copying or printing.</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Legal Discovery and e-Discovery Integration</h3>
+      <p class="text-gray-700 mb-4">
+        Modern legal practice increasingly involves electronic discovery (e-Discovery), where Bates numbering plays a crucial role:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Native File Numbering:</strong> Bates numbers link PDF productions to original native files (Word, Excel, emails) in e-discovery databases</li>
+        <li><strong>Load File Integration:</strong> Numbered PDFs integrate with litigation support platforms like Relativity, Concordance, and Summation via load files</li>
+        <li><strong>Searchability:</strong> Bates numbers become searchable metadata, enabling quick document retrieval during review and trial</li>
+        <li><strong>Redaction Tracking:</strong> Numbered documents enable precise tracking of redacted information and privilege logs</li>
+        <li><strong>Production Logs:</strong> Bates ranges document what was produced to whom and when, critical for discovery disputes</li>
+        <li><strong>Quality Control:</strong> Sequential numbering facilitates automated QC checks for missing pages, duplicates, and production errors</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Bates Numbering for Different Document Types</h3>
+      <p class="text-gray-700 mb-4">
+        Different document types may require adjusted numbering approaches:
+      </p>
+      <div class="space-y-4 mb-6">
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Multi-Page Documents</h4>
+          <p class="text-gray-700">Each page receives a unique number. A 10-page contract might be numbered ABC-001 through ABC-010, maintaining page-level granularity for precise citation.</p>
+        </div>
+        <div class="border-l-4 border-blue-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Email Productions</h4>
+          <p class="text-gray-700">Email threads often expand across multiple pages when printed or converted to PDF. Each page of the email (including attachments) receives sequential numbering.</p>
+        </div>
+        <div class="border-l-4 border-purple-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Spreadsheets</h4>
+          <p class="text-gray-700">Large Excel files converted to PDF may span dozens of pages. Sequential numbering ensures each printed page of the spreadsheet is uniquely identified.</p>
+        </div>
+        <div class="border-l-4 border-yellow-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Attachments</h4>
+          <p class="text-gray-700">Email attachments and document appendices continue numbering seamlessly from the parent document, maintaining continuous numbering across the entire production set.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Frequently Asked Questions About Bates Numbering</h3>
+      <div class="space-y-6 mb-8">
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">What is Bates numbering?</h4>
+          <p class="text-gray-700">Bates numbering (also called Bates stamping) is a legal indexing method that assigns unique sequential identifiers to pages in legal documents. It's essential for organizing, tracking, and referencing documents in litigation, discovery, and legal proceedings. Named after Edwin G. Bates, who patented an early numbering machine, this system creates indisputable page references critical for depositions, court filings, and document review.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Is this Bates numbering tool free?</h4>
+          <p class="text-gray-700">Yes, our Bates numbering tool is completely free with no limitations. Add Bates numbers to unlimited PDFs without watermarks, subscriptions, or registration. Unlike expensive legal software that charges per page or requires monthly fees, JustPdf provides professional-grade Bates numbering at no cost.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Is it safe to use for confidential legal documents?</h4>
+          <p class="text-gray-700">Yes, this tool is specifically designed with legal confidentiality in mind. All processing happens entirely in your browser using client-side JavaScript. Your sensitive legal documents never leave your device, upload to servers, or pass through third parties. This ensures complete confidentiality, maintains attorney-client privilege, protects work product, and complies with professional responsibility rules regarding client information.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I customize the Bates number format?</h4>
+          <p class="text-gray-700">Yes, you have full control over Bates number formatting. Customize the prefix (e.g., CASE-2024-, PLAINTIFF-, ABC-CORP-), starting number, number of digits (3-7 digits with leading zeros), position on the page (6 placement options), font size (8pt-14pt), and color (black, blue, red, gray). This flexibility ensures your Bates numbers meet firm standards, jurisdictional requirements, and case-specific needs.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Where should Bates numbers be placed on documents?</h4>
+          <p class="text-gray-700">The most common placement is the bottom right corner, which is standard in legal practice and doesn't interfere with document content. Bottom center is also popular for high visibility. Top right or top center are used when bottom placement conflicts with existing page numbers or when required by local court rules. Avoid left-side placement, which may be obscured by binding or hole-punching.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I Bates number multiple PDF files at once?</h4>
+          <p class="text-gray-700">Yes, you can upload multiple PDF files and apply continuous, sequential Bates numbering across all documents. This is essential for discovery productions where numbering must continue seamlessly from one document to the next. For example, if Document 1 has 10 pages (ABC-001 through ABC-010), Document 2 will automatically start at ABC-011, maintaining uninterrupted sequence throughout your entire production set.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">How many digits should I use for Bates numbers?</h4>
+          <p class="text-gray-700">The number of digits depends on your expected document volume. Standard practice uses 4-6 digits with leading zeros. Use 4 digits (0001) for productions up to 10,000 pages, 5 digits (00001) for up to 100,000 pages, and 6 digits (000001) for larger sets. More digits prevent format changes mid-production if your document set grows larger than initially anticipated.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">What prefix should I use for Bates numbers?</h4>
+          <p class="text-gray-700">Choose prefixes that clearly identify the source, party, or document category. Common formats include party names (PLAINTIFF-, DEFENDANT-), case identifiers (CASE-2024-001-), company names (ACME-CORP-), exhibit designations (EXH-A-), or combinations thereof. Keep prefixes concise (under 20 characters), use hyphens or underscores for readability, and maintain consistency throughout a matter.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I edit Bates numbers after they're applied?</h4>
+          <p class="text-gray-700">Bates numbers, once applied, become permanent parts of the PDF. This permanence is intentional—it prevents tampering and maintains document integrity. If you need to change numbering, you must re-number the original, unnumbered documents with new settings. This is why preserving unnumbered originals and testing formatting on small batches before large productions is critical.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Do Bates numbers affect document quality?</h4>
+          <p class="text-gray-700">No, adding Bates numbers does not reduce PDF quality, resolution, or readability. The numbers are added as overlay text layers to the existing PDF without recompressing or degrading the underlying document. All original content, images, text, and formatting remain intact at their original quality levels.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I use this tool for court exhibits?</h4>
+          <p class="text-gray-700">Yes, Bates-numbered PDFs created with this tool are suitable for court exhibits, trial submissions, and legal filings. Many courts require or strongly recommend Bates numbering for exhibits to facilitate accurate record-keeping and courtroom reference. Always verify local court rules for specific formatting requirements (font size, placement, color) as requirements may vary by jurisdiction.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">How do I handle documents with existing page numbers?</h4>
+          <p class="text-gray-700">Bates numbers supplement rather than replace existing page numbers. Choose a placement that doesn't obscure the original page numbers—typically bottom right or top right corner. The Bates number provides a unique production identifier, while original page numbers remain for internal document reference. Both serve different purposes and can coexist.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">What's the difference between Bates numbering and page numbers?</h4>
+          <p class="text-gray-700">Page numbers are sequential identifiers within a single document (Page 1, 2, 3...). Bates numbers are unique identifiers across an entire document production or case, preventing confusion when multiple documents each have "Page 1." A Bates number like CASE-00547 uniquely identifies that specific page across thousands of documents, while "Page 5" could refer to Page 5 of any document.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I Bates number scanned documents?</h4>
+          <p class="text-gray-700">Yes, scanned documents saved as PDFs can be Bates numbered just like digital PDFs. The numbering overlays on the scanned image regardless of whether the underlying content is searchable text or image-based. Ensure scanned documents are clear and readable before numbering for best results.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Do I need to keep unnumbered originals?</h4>
+          <p class="text-gray-700">Yes, maintaining unnumbered originals is best practice. This allows you to re-number if needed, apply different numbering for different recipients (e.g., court vs. opposing counsel), or produce unnumbered versions if requested. Store originals separately and clearly label numbered versions to prevent confusion.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Related Legal PDF Tools</h3>
+      <div class="grid md:grid-cols-3 gap-4 mb-8">
+        <a href="protect-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🔐</div>
+          <h4 class="font-bold text-gray-800 mb-1">Protect PDF</h4>
+          <p class="text-sm text-gray-600">Add password protection to sensitive legal documents</p>
+        </a>
+        <a href="merge-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">📑</div>
+          <h4 class="font-bold text-gray-800 mb-1">Merge PDF</h4>
+          <p class="text-sm text-gray-600">Combine exhibits and documents into one file</p>
+        </a>
+        <a href="split-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">✂️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Split PDF</h4>
+          <p class="text-sm text-gray-600">Extract specific pages from large productions</p>
+        </a>
+        <a href="rotate-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🔄</div>
+          <h4 class="font-bold text-gray-800 mb-1">Rotate PDF</h4>
+          <p class="text-sm text-gray-600">Fix page orientation in scanned documents</p>
+        </a>
+        <a href="compress-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🗜️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Compress PDF</h4>
+          <p class="text-sm text-gray-600">Reduce file size for email and filing</p>
+        </a>
+        <a href="header-footer-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">📝</div>
+          <h4 class="font-bold text-gray-800 mb-1">Add Headers & Footers</h4>
+          <p class="text-sm text-gray-600">Add case information and firm branding</p>
+        </a>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Conclusion: Professional Bates Numbering Made Simple</h3>
+      <p class="text-gray-700 mb-4">
+        JustPdf's free online Bates numbering tool brings professional-grade legal document stamping capabilities to attorneys, paralegals, legal assistants, and law firms of all sizes. Whether you're managing a small case with a few hundred pages or a complex litigation involving hundreds of thousands of documents, our tool provides the precision, security, and customization required for modern legal practice. With complete browser-based processing ensuring confidentiality, unlimited free usage, and professional formatting options, you can add Bates numbers to your discovery productions, court exhibits, and legal documents with confidence—all without expensive software subscriptions or compromising client confidentiality. Start numbering your legal documents today and experience the convenience of professional Bates stamping at your fingertips.
+      </p>
+    </article>
+
+    <!-- AdSense Ad Unit 2 -->
+    <div class="mt-16 mb-8 text-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+<script>
+// Bates Numbering JavaScript
+const fileInput = document.getElementById('file-input');
+const uploadBox = document.getElementById('upload-box');
+const uploadSection = document.getElementById('upload-section');
+const settingsSection = document.getElementById('settings-section');
+const progressSection = document.getElementById('progress-section');
+const downloadSection = document.getElementById('download-section');
+const errorMessage = document.getElementById('error-message');
+const errorText = document.getElementById('error-text');
+const fileListDiv = document.getElementById('file-list');
+
+let selectedFiles = [];
+
+// Upload box click handler
+uploadBox.addEventListener('click', () => fileInput.click());
+
+// Drag and drop handlers
+uploadBox.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadBox.classList.add('bg-green-100');
+});
+
+uploadBox.addEventListener('dragleave', () => {
+  uploadBox.classList.remove('bg-green-100');
+});
+
+uploadBox.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadBox.classList.remove('bg-green-100');
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf');
+  if (files.length > 0) {
+    selectedFiles = files;
+    showFileList();
+    showSettings();
+  }
+});
+
+// File input change handler
+fileInput.addEventListener('change', (e) => {
+  selectedFiles = Array.from(e.target.files);
+  showFileList();
+  showSettings();
+});
+
+function showFileList() {
+  fileListDiv.innerHTML = '';
+  fileListDiv.classList.remove('hidden');
+  
+  selectedFiles.forEach((file, index) => {
+    const fileItem = document.createElement('div');
+    fileItem.className = 'bg-white p-3 rounded-lg flex items-center justify-between';
+    fileItem.innerHTML = `
+      <span class="text-gray-700">${index + 1}. ${file.name}</span>
+      <button onclick="removeFile(${index})" class="text-red-600 hover:text-red-800">✕</button>
+    `;
+    fileListDiv.appendChild(fileItem);
+  });
+  
+  // Make removeFile accessible globally for onclick handlers
+  window.removeFile = function(index) {
+    selectedFiles.splice(index, 1);
+    if (selectedFiles.length === 0) {
+      fileListDiv.classList.add('hidden');
+      settingsSection.classList.add('hidden');
+    } else {
+      showFileList();
+    }
+  };
+}
+
+function showSettings() {
+  settingsSection.classList.remove('hidden');
+  updatePreview();
+}
+
+// Settings change handlers
+document.getElementById('prefix').addEventListener('input', updatePreview);
+document.getElementById('start-number').addEventListener('input', updatePreview);
+document.getElementById('num-digits').addEventListener('change', updatePreview);
+
+function updatePreview() {
+  const prefix = document.getElementById('prefix').value || '';
+  const startNum = parseInt(document.getElementById('start-number').value) || 1;
+  const numDigits = parseInt(document.getElementById('num-digits').value);
+  
+  const paddedNum = String(startNum).padStart(numDigits, '0');
+  const preview = prefix + paddedNum;
+  
+  document.getElementById('preview-text').textContent = preview;
+}
+
+// Apply Bates Numbering
+document.getElementById('apply-bates-btn').addEventListener('click', async () => {
+  try {
+    errorMessage.classList.add('hidden');
+    settingsSection.classList.add('hidden');
+    uploadSection.classList.add('hidden');
+    progressSection.classList.remove('hidden');
+    
+    const prefix = document.getElementById('prefix').value || '';
+    let currentNum = parseInt(document.getElementById('start-number').value) || 1;
+    const numDigits = parseInt(document.getElementById('num-digits').value);
+    const position = document.getElementById('position').value;
+    const fontSize = parseInt(document.getElementById('font-size').value);
+    const color = document.getElementById('color').value;
+    
+    const colorMap = {
+      'black': { r: 0, g: 0, b: 0 },
+      'blue': { r: 0, g: 0, b: 1 },
+      'red': { r: 1, g: 0, b: 0 },
+      'gray': { r: 0.5, g: 0.5, b: 0.5 }
+    };
+    
+    const rgbColor = colorMap[color];
+    const numberedPdfs = [];
+    
+    for (let fileIndex = 0; fileIndex < selectedFiles.length; fileIndex++) {
+      const file = selectedFiles[fileIndex];
+      const arrayBuffer = await file.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+      const pages = pdfDoc.getPages();
+      const totalPages = pages.length;
+      
+      for (let i = 0; i < totalPages; i++) {
+        const page = pages[i];
+        const { width, height } = page.getSize();
+        
+        const batesNumber = prefix + String(currentNum).padStart(numDigits, '0');
+        
+        // Calculate position
+        let x, y;
+        const margin = 30;
+        
+        switch(position) {
+          case 'bottom-right':
+            x = width - margin - (batesNumber.length * fontSize * 0.5);
+            y = margin;
+            break;
+          case 'bottom-center':
+            x = (width - (batesNumber.length * fontSize * 0.5)) / 2;
+            y = margin;
+            break;
+          case 'bottom-left':
+            x = margin;
+            y = margin;
+            break;
+          case 'top-right':
+            x = width - margin - (batesNumber.length * fontSize * 0.5);
+            y = height - margin - fontSize;
+            break;
+          case 'top-center':
+            x = (width - (batesNumber.length * fontSize * 0.5)) / 2;
+            y = height - margin - fontSize;
+            break;
+          case 'top-left':
+            x = margin;
+            y = height - margin - fontSize;
+            break;
+        }
+        
+        page.drawText(batesNumber, {
+          x: x,
+          y: y,
+          size: fontSize,
+          color: PDFLib.rgb(rgbColor.r, rgbColor.g, rgbColor.b)
+        });
+        
+        currentNum++;
+        
+        // Update progress
+        const overallProgress = ((fileIndex * totalPages + i + 1) / (selectedFiles.reduce((acc, f) => acc + pages.length, 0))) * 100;
+        document.getElementById('progress-bar').style.width = overallProgress + '%';
+        document.getElementById('progress-text').textContent = `Processing ${file.name} (Page ${i + 1}/${totalPages})...`;
+      }
+      
+      const pdfBytes = await pdfDoc.save();
+      numberedPdfs.push({
+        name: file.name.replace('.pdf', '_BATES.pdf'),
+        data: pdfBytes
+      });
+    }
+    
+    // Show download section
+    progressSection.classList.add('hidden');
+    downloadSection.classList.remove('hidden');
+    
+    const downloadLinksDiv = document.getElementById('download-links');
+    downloadLinksDiv.innerHTML = '';
+    
+    numberedPdfs.forEach((pdf, index) => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(new Blob([pdf.data], { type: 'application/pdf' }));
+      link.download = pdf.name;
+      link.className = 'block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition';
+      link.textContent = `📄 Download ${pdf.name}`;
+      downloadLinksDiv.appendChild(link);
+    });
+    
+    // Add download all button if multiple files
+    if (numberedPdfs.length > 1) {
+      const downloadAllBtn = document.createElement('button');
+      downloadAllBtn.className = 'mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition';
+      downloadAllBtn.textContent = '📦 Download All Files';
+      downloadAllBtn.addEventListener('click', () => {
+        numberedPdfs.forEach(pdf => {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(new Blob([pdf.data], { type: 'application/pdf' }));
+          link.download = pdf.name;
+          link.click();
+        });
+      });
+      downloadLinksDiv.appendChild(downloadAllBtn);
+    }
+    
+  } catch (error) {
+    console.error('Error applying Bates numbers:', error);
+    progressSection.classList.add('hidden');
+    errorMessage.classList.remove('hidden');
+    errorText.textContent = 'Error applying Bates numbers: ' + error.message;
+  }
+});
+
+// Number another PDF
+document.getElementById('number-another').addEventListener('click', () => {
+  downloadSection.classList.add('hidden');
+  uploadSection.classList.remove('hidden');
+  fileInput.value = '';
+  selectedFiles = [];
+  fileListDiv.innerHTML = '';
+  fileListDiv.classList.add('hidden');
+  settingsSection.classList.add('hidden');
+});
+</script>
+
+</body>
+</html>

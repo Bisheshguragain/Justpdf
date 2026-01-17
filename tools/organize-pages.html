@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organize PDF Pages Online Free - Reorder & Rearrange PDF Pages | JustPdf</title>
+  <meta name="description" content="Organize and reorder PDF pages online for free. Drag & drop to rearrange, rotate, delete, and sort PDF pages easily. Fast, secure, no registration required.">
+  <meta property="og:title" content="Organize PDF Pages Online Free - Reorder & Rearrange Pages">
+  <meta property="og:description" content="Rearrange PDF pages in any order. Drag & drop interface, rotate pages, delete unwanted pages. 100% free, browser-based, no installation.">
+  <meta property="og:url" content="https://justpdf.net/tools/organize-pages/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://justpdf.net/tools/organize-pages/">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I reorder pages in a PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF, then drag and drop page thumbnails to rearrange them in any order. Click 'Save Organized PDF' when done to download your reorganized document."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I rotate and delete pages while organizing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Use the rotate buttons to rotate individual pages 90 degrees left or right. Click the delete button to remove unwanted pages. At least one page must remain in the PDF."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the PDF page organizer free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's page organizer is completely free with unlimited pages, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my PDF secure when organizing pages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. All processing happens client-side in your browser. Your PDF never leaves your device, ensuring complete privacy and security."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <style>
+    .page-item {
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: move;
+      cursor: grab;
+    }
+    .page-item:active {
+      cursor: grabbing;
+    }
+    .page-item.dragging {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+    .page-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .page-thumbnail canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      transition: transform 0.2s;
+    }
+    .action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #e5e7eb;
+      color: #374151;
+    }
+    .action-btn:hover {
+      background: #d1d5db;
+      transform: scale(1.1);
+    }
+    .action-btn.delete-btn {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+    .action-btn.delete-btn:hover {
+      background: #fecaca;
+    }
+    .upload-area {
+      transition: all 0.3s;
+    }
+    .upload-area.dragover {
+      border-color: #22c55e;
+      background-color: #f0fdf4;
+    }
+    .progress-bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <a href="../index.html" class="inline-flex items-center text-green-600 hover:text-green-700 font-semibold mb-4 transition">
+        ← Back to Home
+      </a>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🔄 Organize PDF Pages</h1>
+      <p class="text-xl text-gray-600">Drag & drop to reorder, rotate, or delete pages from your PDF</p>
+    </div>
+
+    <!-- Upload Area -->
+    <div id="uploadArea" class="bg-white rounded-lg shadow-lg border-2 border-dashed border-gray-300 p-12 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition upload-area">
+      <div class="text-6xl mb-4">📁</div>
+      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Click to upload or drag and drop</h2>
+      <p class="text-gray-600 mb-4">PDF files only</p>
+      <input type="file" id="fileInput" accept=".pdf" class="hidden">
+      <button id="selectBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+        Select PDF
+      </button>
+    </div>
+
+    <!-- File Info -->
+    <div id="fileInfo" class="hidden mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <h3 class="font-semibold text-blue-900 mb-2">📄 File loaded:</h3>
+      <p id="fileName" class="text-blue-800"></p>
+      <p id="pageCount" class="text-blue-700 text-sm"></p>
+    </div>
+
+    <!-- Instructions -->
+    <div id="instruction" class="hidden mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+      <strong class="text-green-900">💡 Instructions:</strong>
+      <ul class="mt-2 text-green-800 space-y-1">
+        <li>• <strong>Drag and drop</strong> page thumbnails to reorder them</li>
+        <li>• Click <strong>rotate buttons</strong> to rotate individual pages</li>
+        <li>• Click <strong>delete button</strong> to remove pages</li>
+        <li>• Click <strong>"Save Organized PDF"</strong> when done</li>
+      </ul>
+    </div>
+
+    <!-- Controls -->
+    <div id="controls" class="hidden mt-6 flex flex-wrap gap-4 justify-center">
+      <button id="saveBtn" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition font-semibold shadow-lg">
+        Save Organized PDF
+      </button>
+      <button id="resetBtn" class="bg-gray-600 text-white px-8 py-3 rounded-lg hover:bg-gray-700 transition font-semibold shadow-lg">
+        Reset Changes
+      </button>
+    </div>
+
+    <!-- Error Display -->
+    <div id="errorDiv" class="hidden mt-6 bg-red-50 border border-red-300 rounded-lg p-4 text-red-800"></div>
+
+    <!-- Progress Container -->
+    <div id="progressContainer" class="hidden mt-6 bg-white rounded-lg shadow-lg p-6">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Processing PDF...</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%;">0%</div>
+      </div>
+    </div>
+
+    <!-- Pages Container -->
+    <div id="pagesContainer" class="hidden mt-8">
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Pages (drag to reorder):</h3>
+      <div id="pagesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"></div>
+    </div>
+
+    <!-- Result Display -->
+    <div id="result" class="hidden mt-8 bg-green-50 border border-green-300 rounded-lg p-6">
+      <h3 class="text-2xl font-bold text-green-900 mb-2">✅ PDF organized successfully!</h3>
+      <p id="resultMessage" class="text-green-800 mb-4"></p>
+      <div class="flex flex-wrap gap-4">
+        <button id="downloadBtn" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition font-semibold shadow-lg">
+          Download Organized PDF
+        </button>
+        <button id="newFileBtn" class="bg-gray-600 text-white px-8 py-3 rounded-lg hover:bg-gray-700 transition font-semibold shadow-lg">
+          Organize Another File
+        </button>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="my-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Organize PDF Pages Online Free - Complete Guide</h2>
+      <p class="text-gray-700 mb-6">Take control of your PDF documents with JustPdf's powerful page organizer. Reorder, rearrange, rotate, and delete PDF pages with an intuitive drag-and-drop interface. Perfect for reorganizing reports, combining document sections, fixing page sequences, removing unwanted pages, and creating custom document layouts. No Adobe Acrobat required - organize PDF pages entirely in your browser with complete privacy.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Organize PDF Pages?</h3>
+      <p class="text-gray-700 mb-4">PDF page organization is essential for professional document management:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Fix Scanning Errors:</strong> Correct pages that were scanned in the wrong order or orientation</li>
+        <li><strong>Custom Document Creation:</strong> Build custom documents by selecting specific pages from larger files</li>
+        <li><strong>Remove Unnecessary Pages:</strong> Delete blank pages, duplicates, or irrelevant content to streamline documents</li>
+        <li><strong>Logical Flow:</strong> Rearrange chapters, sections, or pages into a more logical sequence</li>
+        <li><strong>Professional Presentation:</strong> Ensure documents are properly organized before sharing with clients or stakeholders</li>
+        <li><strong>File Size Reduction:</strong> Remove unwanted pages to reduce PDF file size and improve loading times</li>
+        <li><strong>Privacy Protection:</strong> Delete pages containing sensitive information before distribution</li>
+        <li><strong>Compliance:</strong> Organize documents to meet specific formatting or submission requirements</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Organize PDF Pages in 4 Simple Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload Your PDF:</strong> Click "Select PDF" or drag and drop your document into the upload area. The tool supports PDFs of any size with any number of pages.</li>
+        <li><strong>Rearrange Pages:</strong> View thumbnail previews of all pages. Simply drag and drop thumbnails to reorder them. Pages automatically renumber as you move them.</li>
+        <li><strong>Rotate or Delete (Optional):</strong> Use the rotate buttons (↺ left, ↻ right) to fix page orientation. Click the delete button (🗑) to remove unwanted pages.</li>
+        <li><strong>Download Organized PDF:</strong> Click "Save Organized PDF" to process your changes. Download the reorganized document with all modifications applied.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Powerful Page Organization Features</h3>
+      <div class="bg-gray-50 rounded-lg p-6 mb-6">
+        <ul class="grid md:grid-cols-2 gap-4 text-gray-700">
+          <li><strong>🔄 Drag & Drop Reordering:</strong> Intuitive interface for moving pages to any position</li>
+          <li><strong>↻ Page Rotation:</strong> Rotate pages 90° left or right to fix orientation</li>
+          <li><strong>🗑 Page Deletion:</strong> Remove unwanted, blank, or duplicate pages easily</li>
+          <li><strong>👁 Visual Thumbnails:</strong> Preview all pages as thumbnails before organizing</li>
+          <li><strong>↩️ Reset Changes:</strong> Undo all modifications and start over with original order</li>
+          <li><strong>📄 Multi-Page Support:</strong> Organize PDFs with unlimited page count</li>
+          <li><strong>🎯 Real-Time Preview:</strong> See page numbers update instantly as you rearrange</li>
+          <li><strong>⚡ Fast Processing:</strong> Client-side processing for instant page reorganization</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Professional Page Organization Tips</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Plan Before You Start:</strong> Review all pages and decide on the final order before making changes</li>
+        <li><strong>Check Page Orientation:</strong> Use rotation to ensure all pages are right-side-up and properly oriented</li>
+        <li><strong>Remove Blank Pages:</strong> Delete unnecessary blank pages that often result from scanning or printing</li>
+        <li><strong>Logical Grouping:</strong> Group related content together (e.g., all appendices at the end, chapters in order)</li>
+        <li><strong>Table of Contents:</strong> Ensure the table of contents appears before the main content</li>
+        <li><strong>Pagination Check:</strong> Verify page numbers make sense after reorganization if your PDF has printed page numbers</li>
+        <li><strong>Save Originals:</strong> Keep a backup of the original PDF before organizing, especially for important documents</li>
+        <li><strong>Test After Download:</strong> Open the reorganized PDF to verify all changes were applied correctly</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases for PDF Page Organization</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6 text-gray-700">
+        <div>
+          <h4 class="font-semibold mb-2">Business Documents:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Reorganizing quarterly reports and presentations</li>
+            <li>Fixing scanned contracts with mixed-up pages</li>
+            <li>Creating custom proposals from template sections</li>
+            <li>Removing draft pages before final distribution</li>
+            <li>Arranging financial statements in required order</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Academic & Research:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Organizing thesis chapters and appendices</li>
+            <li>Combining research papers in specific order</li>
+            <li>Fixing scanned textbook page sequences</li>
+            <li>Removing duplicate or blank pages from notes</li>
+            <li>Arranging bibliography and citations properly</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Legal & Government:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Organizing exhibits in legal filings</li>
+            <li>Rearranging contract sections and amendments</li>
+            <li>Fixing court document page order</li>
+            <li>Removing redacted pages from public versions</li>
+            <li>Organizing compliance documentation</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Personal & Creative:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Organizing photo albums and scrapbooks</li>
+            <li>Rearranging recipe collections</li>
+            <li>Fixing scanned document page order</li>
+            <li>Creating custom manuals from multiple sources</li>
+            <li>Organizing travel documents and itineraries</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">JustPdf Page Organizer vs. Adobe Acrobat</h3>
+      <div class="overflow-x-auto mb-6">
+        <table class="min-w-full bg-white border">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-4 py-2 border text-left">Feature</th>
+              <th class="px-4 py-2 border text-center">JustPdf Organizer</th>
+              <th class="px-4 py-2 border text-center">Adobe Acrobat Pro</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr>
+              <td class="px-4 py-2 border">Price</td>
+              <td class="px-4 py-2 border text-center text-green-600 font-semibold">Free</td>
+              <td class="px-4 py-2 border text-center">$19.99/month</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">Browser-Based</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+              <td class="px-4 py-2 border text-center">❌ No (desktop app)</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Installation Required</td>
+              <td class="px-4 py-2 border text-center">❌ No</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">Drag & Drop Reordering</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Page Rotation</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">Page Deletion</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+              <td class="px-4 py-2 border text-center">✅ Yes</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Privacy (Client-side)</td>
+              <td class="px-4 py-2 border text-center">✅ 100%</td>
+              <td class="px-4 py-2 border text-center">⚠️ Depends on settings</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">Page Limit</td>
+              <td class="px-4 py-2 border text-center">Unlimited</td>
+              <td class="px-4 py-2 border text-center">Unlimited</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Learning Curve</td>
+              <td class="px-4 py-2 border text-center">Very Easy</td>
+              <td class="px-4 py-2 border text-center">Moderate</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 border">File Size Limit</td>
+              <td class="px-4 py-2 border text-center">None (browser-dependent)</td>
+              <td class="px-4 py-2 border text-center">None</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Security & Privacy</h3>
+      <p class="text-gray-700 mb-4">Your document security is our highest priority:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>100% Client-Side Processing:</strong> All page organization happens locally in your browser using JavaScript. Your PDF never leaves your device.</li>
+        <li><strong>No Server Upload:</strong> We don't upload, store, or have any access to your documents. Everything stays on your computer.</li>
+        <li><strong>No Data Collection:</strong> We don't collect personal information, track your files, or store any data about your documents.</li>
+        <li><strong>Instant Memory Clearing:</strong> Files are automatically cleared from browser memory after download.</li>
+        <li><strong>HTTPS Secure:</strong> All connections use encryption for maximum security, even though files never leave your device.</li>
+        <li><strong>No Account Required:</strong> Use the tool anonymously without registration, login, or email submission.</li>
+        <li><strong>Confidential Documents Safe:</strong> Ideal for sensitive business, legal, financial, or personal documents that require confidentiality.</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Technical Specifications</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Supported Input:</strong> PDF files of any size (recommended under 100MB for optimal browser performance)</li>
+        <li><strong>Page Limit:</strong> No maximum - organize PDFs with hundreds or thousands of pages</li>
+        <li><strong>Output Format:</strong> Standard PDF maintaining all original quality, fonts, images, and formatting</li>
+        <li><strong>Processing Method:</strong> Client-side PDF manipulation using pdf-lib and PDF.js libraries</li>
+        <li><strong>Browser Support:</strong> Works on Chrome, Firefox, Safari, Edge, and other modern browsers</li>
+        <li><strong>Mobile Compatible:</strong> Full support for tablets and smartphones (desktop recommended for large PDFs)</li>
+        <li><strong>Rotation Increments:</strong> 90-degree rotations (clockwise or counter-clockwise)</li>
+        <li><strong>Quality Preservation:</strong> All page content, metadata, and formatting preserved exactly</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I organize large PDF files with many pages?</h4>
+          <p class="text-gray-700">Yes! There's no hard page limit. However, very large files (over 100MB or 500+ pages) may take longer to load and process depending on your device's performance. For best results, use a modern browser and adequate RAM.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Will the organized PDF lose quality?</h4>
+          <p class="text-gray-700">No. The tool preserves all original content, images, fonts, formatting, and metadata. The output PDF is identical to the input except for the page order, rotation, and deletions you specify.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I undo changes before downloading?</h4>
+          <p class="text-gray-700">Yes! Click the "Reset Changes" button to restore the original page order, rotations, and deleted pages. You can also refresh the page to start over, then upload your PDF again.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">What happens to bookmarks and links after reorganizing?</h4>
+          <p class="text-gray-700">Page reorganization may affect internal bookmarks and links that reference specific page numbers. The tool preserves these elements but they may point to different pages after reordering. Review important documents after organizing.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I delete all pages except a few?</h4>
+          <p class="text-gray-700">Almost! You can delete pages one by one, but at least one page must remain in the PDF. If you want to extract specific pages, consider using our Split PDF tool instead.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">How do I rotate multiple pages at once?</h4>
+          <p class="text-gray-700">Currently, pages must be rotated individually. If you need to rotate all pages, consider using a dedicated PDF rotation tool. This tool is optimized for selective rotation of specific pages.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Is there a limit to how many times I can reorganize a PDF?</h4>
+          <p class="text-gray-700">No limit! Organize as many PDFs as you need, as often as you need. The tool is completely free with unlimited usage.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I organize password-protected PDFs?</h4>
+          <p class="text-gray-700">If the PDF has restrictions that prevent modification, you'll need to remove the password first. Use our Remove Password tool, then organize the pages. PDFs with only viewing passwords can typically be organized without issues.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Does this work offline?</h4>
+          <p class="text-gray-700">You need an internet connection to load the page initially, but all processing happens locally in your browser. Once loaded, the actual PDF processing doesn't require internet access.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">Can I organize scanned PDFs?</h4>
+          <p class="text-gray-700">Absolutely! This tool works perfectly with scanned PDFs. It's especially useful for fixing scanning errors where pages were scanned in the wrong order or orientation.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Related Tools Section -->
+    <section class="mt-16 bg-gray-50 rounded-lg p-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">Related PDF Tools</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/split-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">✂️</div>
+          <div class="font-semibold text-gray-700">Split PDF</div>
+        </a>
+        <a href="/tools/merge-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">📄</div>
+          <div class="font-semibold text-gray-700">Merge PDF</div>
+        </a>
+        <a href="/tools/rotate-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">🔄</div>
+          <div class="font-semibold text-gray-700">Rotate PDF</div>
+        </a>
+        <a href="/tools/compress-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">🗜️</div>
+          <div class="font-semibold text-gray-700">Compress PDF</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+            <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+            <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+            <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+            <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+            <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+            <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+            <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+            <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+            <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+            <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+            <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 pt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2026 JustPdf.net - All rights reserved
+          </p>
+          
+          <div class="flex flex-wrap justify-center gap-6 text-sm">
+            <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+            <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+            <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    const { PDFDocument, degrees } = PDFLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    let pdfFile = null;
+    let pdfBytes = null;
+    let pdfDoc = null;
+    let pageOrder = [];
+    let pageRotations = {};
+    let deletedPages = new Set();
+    let organizedPdfBytes = null;
+
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const selectBtn = document.getElementById('selectBtn');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const pageCount = document.getElementById('pageCount');
+    const instruction = document.getElementById('instruction');
+    const controls = document.getElementById('controls');
+    const pagesContainer = document.getElementById('pagesContainer');
+    const pagesGrid = document.getElementById('pagesGrid');
+    const saveBtn = document.getElementById('saveBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressFill = document.getElementById('progressFill');
+    const result = document.getElementById('result');
+    const resultMessage = document.getElementById('resultMessage');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const newFileBtn = document.getElementById('newFileBtn');
+    const errorDiv = document.getElementById('errorDiv');
+
+    // Upload area handlers
+    selectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', handleFileSelect);
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        handleFileSelect();
+      }
+    });
+
+    async function handleFileSelect() {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      if (file.type !== 'application/pdf') {
+        showError('Please select a valid PDF file.');
+        return;
+      }
+
+      pdfFile = file;
+      hideError();
+      showProgress();
+      updateProgress(10);
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        pdfBytes = new Uint8Array(arrayBuffer);
+        updateProgress(30);
+        
+        pdfDoc = await PDFDocument.load(pdfBytes);
+        const totalPages = pdfDoc.getPageCount();
+        updateProgress(50);
+
+        pageOrder = Array.from({ length: totalPages }, (_, i) => i);
+        pageRotations = {};
+        deletedPages = new Set();
+
+        fileName.textContent = file.name;
+        pageCount.textContent = `Total pages: ${totalPages}`;
+        
+        show(fileInfo);
+        show(instruction);
+        show(controls);
+
+        await renderPages();
+        updateProgress(100);
+
+        setTimeout(() => {
+          hide(progressContainer);
+          show(pagesContainer);
+        }, 500);
+
+      } catch (error) {
+        hide(progressContainer);
+        showError('Error loading PDF: ' + error.message);
+      }
+    }
+
+    async function renderPages() {
+      pagesGrid.innerHTML = '';
+
+      const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+      const pdf = await loadingTask.promise;
+
+      for (let i = 0; i < pageOrder.length; i++) {
+        const pageIndex = pageOrder[i];
+        
+        if (deletedPages.has(pageIndex)) continue;
+
+        const pageItem = document.createElement('div');
+        pageItem.className = 'page-item bg-white rounded-lg shadow-md p-3';
+        pageItem.draggable = true;
+        pageItem.dataset.pageIndex = pageIndex;
+        pageItem.dataset.position = i;
+
+        const thumbnail = document.createElement('div');
+        thumbnail.className = 'page-thumbnail mb-2 bg-gray-100 rounded overflow-hidden';
+
+        const pageNumber = document.createElement('div');
+        pageNumber.className = 'text-center font-semibold text-gray-700 mb-2';
+        pageNumber.textContent = `Page ${i + 1}`;
+
+        const actions = document.createElement('div');
+        actions.className = 'flex justify-center gap-2';
+
+        const rotateLeftBtn = document.createElement('button');
+        rotateLeftBtn.className = 'action-btn';
+        rotateLeftBtn.textContent = '↺';
+        rotateLeftBtn.title = 'Rotate Left';
+        rotateLeftBtn.onclick = (e) => {
+          e.stopPropagation();
+          rotatePage(pageIndex, -90);
+        };
+
+        const rotateRightBtn = document.createElement('button');
+        rotateRightBtn.className = 'action-btn';
+        rotateRightBtn.textContent = '↻';
+        rotateRightBtn.title = 'Rotate Right';
+        rotateRightBtn.onclick = (e) => {
+          e.stopPropagation();
+          rotatePage(pageIndex, 90);
+        };
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'action-btn delete-btn';
+        deleteBtn.textContent = '🗑';
+        deleteBtn.title = 'Delete Page';
+        deleteBtn.onclick = (e) => {
+          e.stopPropagation();
+          deletePage(pageIndex);
+        };
+
+        actions.appendChild(rotateLeftBtn);
+        actions.appendChild(rotateRightBtn);
+        actions.appendChild(deleteBtn);
+
+        pageItem.appendChild(thumbnail);
+        pageItem.appendChild(pageNumber);
+        pageItem.appendChild(actions);
+
+        pageItem.addEventListener('dragstart', handleDragStart);
+        pageItem.addEventListener('dragover', handleDragOver);
+        pageItem.addEventListener('drop', handleDrop);
+        pageItem.addEventListener('dragend', handleDragEnd);
+
+        pagesGrid.appendChild(pageItem);
+
+        // Render thumbnail
+        const page = await pdf.getPage(pageIndex + 1);
+        const viewport = page.getViewport({ scale: 0.5 });
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        await page.render({
+          canvasContext: context,
+          viewport: viewport
+        }).promise;
+
+        const rotation = pageRotations[pageIndex] || 0;
+        if (rotation !== 0) {
+          canvas.style.transform = `rotate(${rotation}deg)`;
+        }
+
+        thumbnail.appendChild(canvas);
+      }
+    }
+
+    let draggedElement = null;
+
+    function handleDragStart(e) {
+      draggedElement = e.currentTarget;
+      draggedElement.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      
+      const afterElement = getDragAfterElement(pagesGrid, e.clientY);
+      const dragging = document.querySelector('.dragging');
+      
+      if (afterElement == null) {
+        pagesGrid.appendChild(dragging);
+      } else {
+        pagesGrid.insertBefore(dragging, afterElement);
+      }
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+    }
+
+    function handleDragEnd(e) {
+      draggedElement.classList.remove('dragging');
+      
+      const items = Array.from(pagesGrid.querySelectorAll('.page-item'));
+      pageOrder = items.map(item => parseInt(item.dataset.pageIndex));
+      
+      items.forEach((item, index) => {
+        item.querySelector('.text-center').textContent = `Page ${index + 1}`;
+        item.dataset.position = index;
+      });
+      
+      draggedElement = null;
+    }
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.page-item:not(.dragging)')];
+      
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function rotatePage(pageIndex, angle) {
+      pageRotations[pageIndex] = (pageRotations[pageIndex] || 0) + angle;
+      renderPages();
+    }
+
+    function deletePage(pageIndex) {
+      if (pageOrder.filter(p => !deletedPages.has(p)).length <= 1) {
+        showError('Cannot delete all pages. At least one page must remain.');
+        return;
+      }
+
+      if (confirm('Are you sure you want to delete this page?')) {
+        deletedPages.add(pageIndex);
+        renderPages();
+      }
+    }
+
+    resetBtn.addEventListener('click', () => {
+      const totalPages = pdfDoc.getPageCount();
+      pageOrder = Array.from({ length: totalPages }, (_, i) => i);
+      pageRotations = {};
+      deletedPages = new Set();
+      renderPages();
+    });
+
+    saveBtn.addEventListener('click', saveOrganizedPDF);
+
+    async function saveOrganizedPDF() {
+      if (!pdfDoc) return;
+
+      hideError();
+      showProgress();
+      updateProgress(10);
+
+      try {
+        const newPdf = await PDFDocument.create();
+        updateProgress(30);
+
+        const validPages = pageOrder.filter(p => !deletedPages.has(p));
+        const totalToCopy = validPages.length;
+
+        for (let i = 0; i < totalToCopy; i++) {
+          const pageIndex = validPages[i];
+          const [copiedPage] = await newPdf.copyPages(pdfDoc, [pageIndex]);
+          
+          const rotation = pageRotations[pageIndex] || 0;
+          if (rotation !== 0) {
+            copiedPage.setRotation(degrees(rotation));
+          }
+          
+          newPdf.addPage(copiedPage);
+          
+          const progress = 30 + ((i + 1) / totalToCopy) * 60;
+          updateProgress(progress);
+        }
+
+        updateProgress(95);
+
+        organizedPdfBytes = await newPdf.save();
+        updateProgress(100);
+
+        setTimeout(() => {
+          hide(progressContainer);
+          hide(pagesContainer);
+          hide(controls);
+          hide(instruction);
+          showResult(validPages.length);
+        }, 500);
+
+      } catch (error) {
+        hide(progressContainer);
+        showError('Error organizing PDF: ' + error.message);
+      }
+    }
+
+    function updateProgress(percent) {
+      progressFill.style.width = percent + '%';
+      progressFill.textContent = Math.round(percent) + '%';
+    }
+
+    function showResult(pageCount) {
+      resultMessage.textContent = `Successfully organized PDF with ${pageCount} page(s).`;
+      show(result);
+    }
+
+    function showError(message) {
+      errorDiv.textContent = '❌ ' + message;
+      show(errorDiv);
+    }
+
+    function hideError() {
+      hide(errorDiv);
+    }
+
+    function showProgress() {
+      show(progressContainer);
+    }
+
+    function show(el) {
+      el.classList.remove('hidden');
+    }
+
+    function hide(el) {
+      el.classList.add('hidden');
+    }
+
+    downloadBtn.addEventListener('click', () => {
+      if (!organizedPdfBytes) return;
+
+      const blob = new Blob([organizedPdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = pdfFile.name.replace('.pdf', '_organized.pdf');
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    newFileBtn.addEventListener('click', () => {
+      fileInput.value = '';
+      pdfFile = null;
+      pdfBytes = null;
+      pdfDoc = null;
+      organizedPdfBytes = null;
+      pageOrder = [];
+      pageRotations = {};
+      deletedPages = new Set();
+      hide(fileInfo);
+      hide(pagesContainer);
+      hide(controls);
+      hide(instruction);
+      hide(result);
+      hide(errorDiv);
+      hide(progressContainer);
+      pagesGrid.innerHTML = '';
+    });
+  </script>
+</body>
+</html>

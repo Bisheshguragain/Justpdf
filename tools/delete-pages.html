@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Delete PDF Pages Online Free - Remove PDF Pages | JustPdf</title>
+  <meta name="title" content="Delete PDF Pages Online Free - Remove PDF Pages | JustPdf">
+  <meta name="description" content="Delete pages from PDF files online for free. Remove unwanted pages quickly and easily. Fast, secure PDF page deletion. No registration required.">
+  <meta name="keywords" content="delete pdf pages, remove pdf pages, delete pages from pdf, pdf page remover, remove unwanted pages">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/delete-pages.html">
+  <meta property="og:title" content="Delete PDF Pages Online Free - Remove PDF Pages | JustPdf">
+  <meta property="og:description" content="Delete pages from PDF files online for free. Remove unwanted pages quickly and easily. Fast, secure PDF page deletion.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/delete-pages.html">
+  <meta property="twitter:title" content="Delete PDF Pages Online Free - Remove PDF Pages | JustPdf">
+  <meta property="twitter:description" content="Delete pages from PDF files online for free. Remove unwanted pages quickly and easily.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/delete-pages.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I delete pages from a PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF file, enter the page numbers you want to delete (e.g., 1, 3-5, 8), and click Delete Pages. Download your modified PDF instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it free to delete PDF pages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Our PDF page deletion tool is completely free with no watermarks, no file limits, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to delete pages from PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all processing happens in your browser using client-side JavaScript. Your files never leave your device, ensuring complete privacy and security."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I delete multiple pages at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can delete multiple pages by entering page ranges (e.g., 1-5, 8, 10-12) or individual page numbers separated by commas."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens to the page numbers after deletion?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After deleting pages, the remaining pages are automatically renumbered sequentially from 1. The original PDF remains unchanged until you download the modified version."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700">About</a></li>
+    </ul>
+  </nav>
+  
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Delete PDF Pages</h1>
+    <p class="text-gray-600 text-center mb-8">Remove unwanted pages from your PDF file</p>
+
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">🗑️</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file</strong> or drag it here</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <div id="page-section" class="hidden mt-8">
+      <h2 class="text-2xl font-bold mb-4">Select Pages to Delete</h2>
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Pages to Delete:</label>
+          <input type="text" id="page-range" class="w-full p-3 border rounded-lg" placeholder="e.g., 1, 3-5, 8">
+          <p class="text-sm text-gray-500 mt-1">Total pages: <span id="total-pages">0</span></p>
+        </div>
+
+        <button id="delete-btn" class="w-full bg-red-600 text-white px-8 py-4 rounded-lg hover:bg-red-700 transition font-bold text-lg">
+          Delete Pages
+        </button>
+      </div>
+    </div>
+
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Processing...</p>
+      </div>
+    </div>
+
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Pages Deleted!</h3>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download Modified PDF
+        </a>
+        <br>
+        <button id="delete-another" class="text-green-700 hover:underline">Delete from another PDF</button>
+      </div>
+    </div>
+
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- AdSense Unit 2 (Before SEO Content) -->
+    <div class="max-w-4xl mx-auto px-4 mt-12 mb-8">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- SEO Content Sections -->
+    <div class="bg-white rounded-lg shadow-lg p-8 mt-12">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Delete Pages from PDF Online Free</h2>
+      <p class="text-gray-700 mb-6">Removing unwanted pages from PDF files has never been easier. JustPdf's free online PDF page deletion tool lets you quickly remove specific pages, page ranges, or multiple non-consecutive pages from any PDF document. Whether you're cleaning up a scanned document, removing blank pages, or extracting only the content you need, our tool provides a fast, secure, and completely free solution that works directly in your browser.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Delete Pages from PDF?</h3>
+      <p class="text-gray-700 mb-4">There are many scenarios where you might need to remove pages from a PDF document:</p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-6">
+        <li><strong>Remove blank or unnecessary pages</strong> from scanned documents</li>
+        <li><strong>Delete confidential information</strong> before sharing documents</li>
+        <li><strong>Reduce file size</strong> by removing large image pages</li>
+        <li><strong>Create custom documents</strong> by removing unwanted sections</li>
+        <li><strong>Fix scanning errors</strong> by removing duplicate or misplaced pages</li>
+        <li><strong>Prepare documents for printing</strong> by removing cover pages or notes</li>
+        <li><strong>Comply with page limits</strong> for applications or submissions</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Delete PDF Pages in 3 Simple Steps</h3>
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start">
+          <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 font-bold">1</span>
+          <div>
+            <h4 class="font-bold text-gray-800 mb-1">Upload Your PDF</h4>
+            <p class="text-gray-700">Click the upload area or drag and drop your PDF file. Your file stays in your browser – it never gets uploaded to a server.</p>
+          </div>
+        </div>
+        <div class="flex items-start">
+          <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 font-bold">2</span>
+          <div>
+            <h4 class="font-bold text-gray-800 mb-1">Enter Pages to Delete</h4>
+            <p class="text-gray-700">Type the page numbers you want to remove. Use commas for individual pages (1, 3, 5) or hyphens for ranges (1-5, 8-12). You can combine both formats.</p>
+          </div>
+        </div>
+        <div class="flex items-start">
+          <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 font-bold">3</span>
+          <div>
+            <h4 class="font-bold text-gray-800 mb-1">Download Modified PDF</h4>
+            <p class="text-gray-700">Click the "Delete Pages" button and wait a few seconds. Download your new PDF with the specified pages removed.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">🔒 100% Private & Secure</h4>
+          <p class="text-gray-700 text-sm">All processing happens in your browser. Your PDF never leaves your device, ensuring complete privacy and security.</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">💰 Completely Free</h4>
+          <p class="text-gray-700 text-sm">No watermarks, no file size limits, no registration required. Delete as many pages as you want, absolutely free.</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">⚡ Fast Processing</h4>
+          <p class="text-gray-700 text-sm">Delete pages from PDFs in seconds. Client-side processing means no upload wait times.</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">📱 Works Everywhere</h4>
+          <p class="text-gray-700 text-sm">Use on any device - Windows, Mac, Linux, iOS, or Android. No software installation needed.</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">🎯 Flexible Selection</h4>
+          <p class="text-gray-700 text-sm">Delete individual pages, page ranges, or any combination. Supports complex deletion patterns.</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">✨ Quality Preserved</h4>
+          <p class="text-gray-700 text-sm">Original PDF quality maintained. All formatting, fonts, images, and links stay intact.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Page Selection Examples</h3>
+      <p class="text-gray-700 mb-4">Our tool supports flexible page selection. Here are some examples:</p>
+      <div class="bg-gray-50 p-4 rounded-lg mb-6">
+        <ul class="space-y-2 text-gray-700">
+          <li><code class="bg-white px-2 py-1 rounded">1, 3, 5</code> - Delete pages 1, 3, and 5</li>
+          <li><code class="bg-white px-2 py-1 rounded">1-5</code> - Delete pages 1 through 5</li>
+          <li><code class="bg-white px-2 py-1 rounded">1, 3-5, 8</code> - Delete page 1, pages 3 through 5, and page 8</li>
+          <li><code class="bg-white px-2 py-1 rounded">10-</code> - Delete from page 10 to the end (alternative: specify exact range)</li>
+          <li><code class="bg-white px-2 py-1 rounded">1-3, 5, 7-9, 11</code> - Delete multiple ranges and individual pages</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="space-y-4 mb-6">
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Is it really free to delete PDF pages?</h4>
+          <p class="text-gray-700">Yes! JustPdf's PDF page deletion tool is completely free with no watermarks and no registration required. Delete pages from as many PDFs as you need, absolutely free. There are no file size limits or usage restrictions.</p>
+        </div>
+        
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Is my PDF secure when deleting pages?</h4>
+          <p class="text-gray-700">Absolutely! All PDF processing happens entirely in your browser using JavaScript. Your file never gets uploaded to our servers or any third-party service. Once you close your browser, all data is gone. This ensures complete privacy and security for sensitive documents.</p>
+        </div>
+        
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Can I delete multiple pages at once?</h4>
+          <p class="text-gray-700">Yes! You can delete multiple pages using comma-separated values (e.g., 1, 3, 5) or page ranges with hyphens (e.g., 1-5, 10-15). You can also combine both formats (e.g., 1, 3-5, 8, 10-12) to delete any combination of pages.</p>
+        </div>
+        
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Will deleting pages affect my PDF quality?</h4>
+          <p class="text-gray-700">No, deleting pages does not affect the quality of the remaining pages. All text, images, formatting, fonts, hyperlinks, and other elements are preserved exactly as they were in the original PDF.</p>
+        </div>
+        
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">What happens to page numbers after deletion?</h4>
+          <p class="text-gray-700">After pages are deleted, the remaining pages are automatically renumbered sequentially starting from 1. For example, if you delete pages 1-3 from a 10-page PDF, the original page 4 becomes page 1, page 5 becomes page 2, and so on.</p>
+        </div>
+        
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Can I delete all pages except certain ones?</h4>
+          <p class="text-gray-700">While our tool requires you to specify which pages to delete, you can easily calculate which pages to remove. If you want to keep only pages 5-10 from a 20-page PDF, you would delete pages 1-4 and 11-20.</p>
+        </div>
+        
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Is there a file size limit?</h4>
+          <p class="text-gray-700">There's no strict file size limit, but very large files (over 100MB) may take longer to process depending on your device's performance. For best results with large files, use a modern browser and ensure sufficient RAM is available.</p>
+        </div>
+        
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Do I need to install any software?</h4>
+          <p class="text-gray-700">No software installation required! This is a web-based tool that works directly in your browser. Just visit our website, upload your PDF, and start deleting pages immediately. Works on Windows, Mac, Linux, iOS, and Android.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">📄 Clean Up Scanned Documents</h4>
+          <p class="text-gray-700 text-sm">Remove blank pages, cover sheets, or scanning artifacts from scanned PDFs. Perfect for digitized documents that have extra pages.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">🔐 Remove Confidential Pages</h4>
+          <p class="text-gray-700 text-sm">Delete pages containing sensitive information before sharing documents with clients, colleagues, or the public.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">📚 Create Custom Study Materials</h4>
+          <p class="text-gray-700 text-sm">Remove irrelevant chapters or pages from textbooks and manuals to create focused study guides.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">💼 Prepare Business Reports</h4>
+          <p class="text-gray-700 text-sm">Remove draft pages, internal notes, or appendices before sending reports to clients or stakeholders.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">📝 Meet Page Limit Requirements</h4>
+          <p class="text-gray-700 text-sm">Reduce documents to meet page limits for applications, submissions, or file sharing platforms.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">🖨️ Save Printing Costs</h4>
+          <p class="text-gray-700 text-sm">Remove unnecessary pages before printing to save paper and ink costs.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Best Results</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-6">
+        <li><strong>Preview your PDF first</strong> - Know which pages you want to delete before starting</li>
+        <li><strong>Use page ranges</strong> - For consecutive pages, use ranges (1-10) instead of listing each page</li>
+        <li><strong>Save the original</strong> - Keep a backup of your original PDF before making changes</li>
+        <li><strong>Check page numbers carefully</strong> - Remember that PDF page numbers start at 1, not 0</li>
+        <li><strong>Test with a small file first</strong> - If you're new to the tool, try it with a small PDF first</li>
+        <li><strong>Use a modern browser</strong> - Chrome, Firefox, Edge, or Safari work best for PDF processing</li>
+        <li><strong>Close unnecessary tabs</strong> - Free up system resources for faster processing</li>
+        <li><strong>Verify the result</strong> - Always check the output PDF to ensure the correct pages were deleted</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf for Deleting PDF Pages?</h3>
+      <p class="text-gray-700 mb-4">Unlike desktop software like Adobe Acrobat that requires expensive subscriptions ($15-30/month), or online services that upload your files to remote servers, JustPdf offers the perfect balance of convenience, security, and affordability. Our browser-based page deletion tool uses modern web technologies to remove pages from PDFs instantly without any uploads. You get professional results with zero security risks – all completely free. Whether you're removing a single page or cleaning up a large document, our PDF page deletion tool delivers fast, reliable, and private document editing every time.</p>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-6">
+        <h4 class="font-bold text-blue-800 mb-2">💡 Pro Tip</h4>
+        <p class="text-blue-800 text-sm">After deleting pages, you can use our other free tools to further edit your PDF. Try our Merge PDF tool to combine multiple PDFs, or use the Split PDF tool to extract specific pages into separate documents. All tools work together seamlessly!</p>
+      </div>
+    </div>
+
+    <!-- Related Tools Section -->
+    <div class="mt-12 bg-gray-50 rounded-lg p-8">
+      <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/split-pdf.html" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+          <div class="text-3xl mb-2">✂️</div>
+          <div class="font-semibold text-gray-800">Split PDF</div>
+        </a>
+        <a href="/tools/merge-pdf.html" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+          <div class="text-3xl mb-2">🔗</div>
+          <div class="font-semibold text-gray-800">Merge PDF</div>
+        </a>
+        <a href="/tools/extract-pages.html" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <div class="font-semibold text-gray-800">Extract Pages</div>
+        </a>
+        <a href="/tools/organize-pages.html" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+          <div class="text-3xl mb-2">🔀</div>
+          <div class="font-semibold text-gray-800">Organize Pages</div>
+        </a>
+        <a href="/tools/rotate-pdf.html" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+          <div class="text-3xl mb-2">🔄</div>
+          <div class="font-semibold text-gray-800">Rotate PDF</div>
+        </a>
+        <a href="/tools/compress-pdf.html" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+          <div class="text-3xl mb-2">🗜️</div>
+          <div class="font-semibold text-gray-800">Compress PDF</div>
+        </a>
+        <a href="/tools/pdf-editor.html" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+          <div class="text-3xl mb-2">✏️</div>
+          <div class="font-semibold text-gray-800">Edit PDF</div>
+        </a>
+        <a href="/" class="bg-green-600 text-white p-4 rounded-lg shadow hover:shadow-md transition text-center flex items-center justify-center">
+          <div class="font-semibold">View All Tools →</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    (function() {
+      const uploadBox = document.getElementById('upload-box');
+      const fileInput = document.getElementById('file-input');
+      const uploadSection = document.getElementById('upload-section');
+      const pageSection = document.getElementById('page-section');
+      const progressSection = document.getElementById('progress-section');
+      const downloadSection = document.getElementById('download-section');
+      const deleteBtn = document.getElementById('delete-btn');
+      const totalPagesSpan = document.getElementById('total-pages');
+      const pageRangeInput = document.getElementById('page-range');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const downloadLink = document.getElementById('download-link');
+      const deleteAnother = document.getElementById('delete-another');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+
+      let pdfDoc = null;
+      let selectedFile = null;
+
+      uploadBox.addEventListener('click', () => fileInput.click());
+      
+      uploadBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('dragleave', () => {
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+        if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) handleFile(e.target.files[0]);
+      });
+
+      async function handleFile(file) {
+        if (file.type !== 'application/pdf') {
+          showError('Please select a PDF file');
+          return;
+        }
+
+        selectedFile = file;
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const { PDFDocument } = PDFLib;
+          pdfDoc = await PDFDocument.load(arrayBuffer);
+          totalPagesSpan.textContent = pdfDoc.getPageCount();
+          
+          uploadSection.classList.add('hidden');
+          pageSection.classList.remove('hidden');
+        } catch (error) {
+          showError('Failed to load PDF');
+        }
+      }
+
+      deleteBtn.addEventListener('click', async () => {
+        const rangeStr = pageRangeInput.value.trim();
+        if (!rangeStr) {
+          showError('Please enter pages to delete');
+          return;
+        }
+
+        try {
+          progressSection.classList.remove('hidden');
+          pageSection.classList.add('hidden');
+          progressBar.style.width = '20%';
+          progressText.textContent = 'Loading PDF...';
+
+          const { PDFDocument } = PDFLib;
+          const newPdf = await PDFDocument.load(await selectedFile.arrayBuffer());
+          const totalPages = newPdf.getPageCount();
+          const pagesToDelete = parsePageRange(rangeStr, totalPages);
+
+          if (pagesToDelete.length === 0) {
+            throw new Error('Invalid page range');
+          }
+
+          if (pagesToDelete.length === totalPages) {
+            throw new Error('Cannot delete all pages');
+          }
+
+          progressBar.style.width = '50%';
+          progressText.textContent = 'Deleting pages...';
+
+          // Delete pages in reverse order to maintain indices
+          pagesToDelete.sort((a, b) => b - a).forEach(pageIndex => {
+            newPdf.removePage(pageIndex);
+          });
+
+          progressBar.style.width = '80%';
+          progressText.textContent = 'Saving PDF...';
+
+          const pdfBytes = await newPdf.save();
+
+          progressBar.style.width = '100%';
+          progressText.textContent = 'Complete!';
+
+          setTimeout(() => {
+            progressSection.classList.add('hidden');
+            downloadSection.classList.remove('hidden');
+            
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = selectedFile.name.replace('.pdf', '_deleted.pdf');
+          }, 500);
+
+        } catch (error) {
+          console.error(error);
+          progressSection.classList.add('hidden');
+          pageSection.classList.remove('hidden');
+          showError(error.message || 'Failed to delete pages');
+        }
+      });
+
+      deleteAnother.addEventListener('click', () => location.reload());
+
+      function parsePageRange(rangeStr, maxPages) {
+        const pages = new Set();
+        const parts = rangeStr.split(',');
+        
+        for (const part of parts) {
+          const trimmed = part.trim();
+          if (trimmed.includes('-')) {
+            const [start, end] = trimmed.split('-').map(n => parseInt(n.trim()));
+            if (isNaN(start) || isNaN(end)) continue;
+            for (let i = Math.max(1, start); i <= Math.min(maxPages, end); i++) {
+              pages.add(i - 1);
+            }
+          } else {
+            const pageNum = parseInt(trimmed);
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= maxPages) {
+              pages.add(pageNum - 1);
+            }
+          }
+        }
+        
+        return Array.from(pages).sort((a, b) => a - b);
+      }
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.remove('hidden');
+        setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+      }
+    })();
+  </script>
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

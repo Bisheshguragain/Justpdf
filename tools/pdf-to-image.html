@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>PDF to Image Converter Online Free - Convert PDF to JPG/PNG | JustPdf</title>
+  <meta name="title" content="PDF to Image Converter Online Free - Convert PDF to JPG/PNG | JustPdf">
+  <meta name="description" content="Convert PDF to image online for free. Export PDF pages as JPG or PNG images. High quality conversion with no watermarks. Fast, secure, and easy to use.">
+  <meta name="keywords" content="pdf to image, pdf to jpg, pdf to png, convert pdf to image, pdf image converter, pdf to picture">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/pdf-to-image.html">
+  <meta property="og:title" content="PDF to Image Converter Online Free - Convert PDF to JPG/PNG | JustPdf">
+  <meta property="og:description" content="Convert PDF to image online for free. Export PDF pages as JPG or PNG images. High quality conversion with no watermarks.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/pdf-to-image.html">
+  <meta property="twitter:title" content="PDF to Image Converter Online Free - Convert PDF to JPG/PNG | JustPdf">
+  <meta property="twitter:description" content="Convert PDF to image online for free. Export PDF pages as JPG or PNG images. High quality conversion with no watermarks.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/pdf-to-image.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert PDF to image online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF file, select the image format (JPG or PNG) and quality level, choose which pages to convert, and click Convert. Download your images instantly as individual files or in a ZIP archive."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What image formats are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We support JPG/JPEG (best for photos and complex graphics) and PNG (best for text, diagrams, and images requiring transparency)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert specific pages only?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can convert all pages, a specific page range (e.g., 1-5), or individual pages (e.g., 1, 3, 5) by selecting your preference in the conversion options."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does converting PDF to image reduce quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Image quality depends on your selected quality level. Higher quality settings produce sharper images with larger file sizes. We offer Standard, High, and Maximum quality options."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to convert PDFs to images online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all conversion happens in your browser using client-side processing. Files never upload to servers, ensuring complete privacy and security."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700">About</a></li>
+    </ul>
+  </nav>
+  
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Convert PDF to Image</h1>
+    <p class="text-gray-600 text-center mb-8">Convert PDF pages to high-quality JPG or PNG images</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">🖼️</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file</strong> or drag it here</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <!-- Conversion Options Section -->
+    <div id="options-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <h2 class="text-2xl font-bold mb-4">Conversion Options</h2>
+        
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Image Format:</label>
+          <select id="format-select" class="w-full p-3 border rounded-lg">
+            <option value="jpeg">JPG/JPEG (Smaller file size)</option>
+            <option value="png">PNG (Better for text/diagrams)</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Quality:</label>
+          <select id="quality-select" class="w-full p-3 border rounded-lg">
+            <option value="1">Standard Quality (72 DPI)</option>
+            <option value="2" selected>High Quality (150 DPI)</option>
+            <option value="3">Maximum Quality (300 DPI)</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Pages to Convert:</label>
+          <select id="pages-select" class="w-full p-3 border rounded-lg mb-2">
+            <option value="all">All Pages</option>
+            <option value="range">Specific Pages</option>
+          </select>
+          <input type="text" id="page-range" class="hidden w-full p-3 border rounded-lg" placeholder="e.g., 1-5, 8, 10-12">
+          <p class="text-sm text-gray-500 mt-1">Total pages: <span id="total-pages">0</span></p>
+        </div>
+
+        <button id="convert-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+          Convert to Images
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Processing...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Conversion Complete!</h3>
+        <p class="text-gray-600 mb-6"><span id="image-count">0</span> images ready to download</p>
+        <div id="download-links" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6"></div>
+        <button id="convert-another" class="text-green-700 hover:underline">Convert another PDF</button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Ad Unit 1 -->
+    <div class="my-8 text-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <article class="mt-16 prose prose-lg max-w-none">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">How to Convert PDF to Image Online</h2>
+      <p class="text-gray-700 mb-4">
+        Transform your PDF documents into high-quality images with JustPdf's free online PDF to image converter. Whether you need to extract pages for presentations, create thumbnails for websites, or share specific pages as images, our tool provides flexible options with excellent quality. Convert to JPG for photos and complex graphics, or PNG for text and diagrams requiring transparency.
+      </p>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Step-by-Step Guide to Converting PDF to Image</h3>
+      <ol class="list-decimal list-inside space-y-3 text-gray-700 mb-6">
+        <li><strong>Upload Your PDF:</strong> Click the upload area or drag and drop your PDF file.</li>
+        <li><strong>Choose Image Format:</strong> Select JPG/JPEG for general use and smaller file sizes, or PNG for better text quality and transparency support.</li>
+        <li><strong>Select Quality Level:</strong> Choose from Standard (72 DPI), High (150 DPI), or Maximum (300 DPI) quality based on your needs.</li>
+        <li><strong>Specify Pages:</strong> Convert all pages or specify a page range (e.g., 1-5, 8, 10-12) to convert only selected pages.</li>
+        <li><strong>Convert:</strong> Click "Convert to Images" and wait for processing to complete.</li>
+        <li><strong>Download:</strong> Download images individually or use the ZIP download option for multiple images.</li>
+      </ol>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Convert PDF to Image?</h3>
+      <p class="text-gray-700 mb-4">
+        Converting PDFs to images serves many practical purposes:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Web Publishing:</strong> Use images for websites, blogs, and social media posts</li>
+        <li><strong>Presentations:</strong> Insert PDF content into PowerPoint, Keynote, or Google Slides</li>
+        <li><strong>Email Sharing:</strong> Share specific pages as image attachments instead of full PDFs</li>
+        <li><strong>Thumbnails:</strong> Create preview images for document libraries or archives</li>
+        <li><strong>Image Editing:</strong> Edit PDF content in photo editing software like Photoshop</li>
+        <li><strong>Printing:</strong> Print individual pages as images with better control over sizing</li>
+        <li><strong>Documentation:</strong> Include PDF content in reports, manuals, or documentation</li>
+        <li><strong>Social Sharing:</strong> Share infographics, charts, or diagrams from PDFs on social platforms</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Key Features of Our PDF to Image Converter</h3>
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-green-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">🔒 100% Secure</h4>
+          <p class="text-gray-700">All conversion happens in your browser. Files never upload to servers, ensuring complete privacy and data security.</p>
+        </div>
+        <div class="bg-blue-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">🎨 Multiple Formats</h4>
+          <p class="text-gray-700">Convert to JPG for photos and complex graphics, or PNG for text, diagrams, and transparency.</p>
+        </div>
+        <div class="bg-purple-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">⚙️ Quality Control</h4>
+          <p class="text-gray-700">Choose from three quality levels (72, 150, or 300 DPI) to balance quality and file size.</p>
+        </div>
+        <div class="bg-yellow-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">💯 Free & Unlimited</h4>
+          <p class="text-gray-700">No hidden fees, watermarks, or conversion limits. Convert as many PDFs as you need, completely free.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">JPG vs PNG: Which Format to Choose?</h3>
+      <div class="space-y-4 mb-6">
+        <div class="border-l-4 border-blue-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">JPG/JPEG Format</h4>
+          <p class="text-gray-700 mb-2"><strong>Best for:</strong> Photos, colorful graphics, complex images</p>
+          <p class="text-gray-700 mb-2"><strong>Pros:</strong> Smaller file sizes, widely supported, good for web use</p>
+          <p class="text-gray-700"><strong>Cons:</strong> Lossy compression (some quality loss), no transparency support</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">PNG Format</h4>
+          <p class="text-gray-700 mb-2"><strong>Best for:</strong> Text documents, diagrams, logos, screenshots</p>
+          <p class="text-gray-700 mb-2"><strong>Pros:</strong> Lossless compression (perfect quality), transparency support, sharp text</p>
+          <p class="text-gray-700"><strong>Cons:</strong> Larger file sizes, may be too large for web use without optimization</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Understanding Quality Levels</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <ul class="space-y-3 text-gray-700">
+          <li><strong>Standard Quality (72 DPI):</strong> Best for web use, social media, and screen viewing. Creates smaller files that load quickly.</li>
+          <li><strong>High Quality (150 DPI):</strong> Balanced quality suitable for most uses including presentations, documents, and moderate-resolution printing.</li>
+          <li><strong>Maximum Quality (300 DPI):</strong> Professional print quality. Best for high-resolution printing, professional publications, and archiving. Creates larger files.</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Common Use Cases</h3>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Web Designers:</strong> Extract graphics, logos, or design elements from PDF mockups</li>
+        <li><strong>Marketers:</strong> Create social media content from PDF infographics or reports</li>
+        <li><strong>Students:</strong> Share specific pages of textbooks or notes as images</li>
+        <li><strong>Presenters:</strong> Insert PDF content into slide presentations</li>
+        <li><strong>Bloggers:</strong> Use PDF charts, diagrams, or illustrations in blog posts</li>
+        <li><strong>Developers:</strong> Create website thumbnails or preview images for PDF documents</li>
+        <li><strong>Archivists:</strong> Create visual catalogs of document collections</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Tips for Best Results</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <ul class="space-y-3 text-gray-700">
+          <li><strong>✓ Choose the Right Format:</strong> Use JPG for photos/graphics, PNG for text/diagrams</li>
+          <li><strong>✓ Match Quality to Purpose:</strong> Web = Standard, Print = Maximum, General = High</li>
+          <li><strong>✓ Extract Only Needed Pages:</strong> Convert specific pages to save time and storage</li>
+          <li><strong>✓ Check File Sizes:</strong> Maximum quality PNG files can be very large</li>
+          <li><strong>✓ Test Before Bulk Conversion:</strong> Convert one page first to check quality and file size</li>
+          <li><strong>✓ Name Files Systematically:</strong> Images are auto-named with page numbers for easy organization</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Frequently Asked Questions</h3>
+      <div class="space-y-6 mb-8">
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">How do I convert PDF to image online?</h4>
+          <p class="text-gray-700">Upload your PDF file, select the image format (JPG or PNG) and quality level, choose which pages to convert, and click Convert. Download your images instantly as individual files or in a ZIP archive.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">What image formats are supported?</h4>
+          <p class="text-gray-700">We support JPG/JPEG (best for photos and complex graphics) and PNG (best for text, diagrams, and images requiring transparency).</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I convert specific pages only?</h4>
+          <p class="text-gray-700">Yes, you can convert all pages, a specific page range (e.g., 1-5), or individual pages (e.g., 1, 3, 5) by selecting your preference in the conversion options.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Does converting PDF to image reduce quality?</h4>
+          <p class="text-gray-700">Image quality depends on your selected quality level. Higher quality settings produce sharper images with larger file sizes. We offer Standard, High, and Maximum quality options.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Is it safe to convert PDFs to images online?</h4>
+          <p class="text-gray-700">Yes, all conversion happens in your browser using client-side processing. Files never upload to servers, ensuring complete privacy and security.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I convert password-protected PDFs?</h4>
+          <p class="text-gray-700">You may need to unlock password-protected PDFs first using our Unlock PDF tool before conversion, depending on the type of protection.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Is there a file size or page limit?</h4>
+          <p class="text-gray-700">While there's no strict limit, very large PDFs (100+ pages) may take longer to process. For best performance, convert in batches of 20-30 pages.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I use the images commercially?</h4>
+          <p class="text-gray-700">Yes, you can use the converted images for any purpose. However, ensure you have rights to the original PDF content.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Related PDF Tools</h3>
+      <div class="grid md:grid-cols-3 gap-4 mb-8">
+        <a href="image-to-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">📄</div>
+          <h4 class="font-bold text-gray-800 mb-1">Image to PDF</h4>
+          <p class="text-sm text-gray-600">Convert images to PDF format</p>
+        </a>
+        <a href="split-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">✂️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Split PDF</h4>
+          <p class="text-sm text-gray-600">Extract pages from PDFs</p>
+        </a>
+        <a href="merge-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">📑</div>
+          <h4 class="font-bold text-gray-800 mb-1">Merge PDF</h4>
+          <p class="text-sm text-gray-600">Combine multiple PDFs</p>
+        </a>
+        <a href="rotate-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🔄</div>
+          <h4 class="font-bold text-gray-800 mb-1">Rotate PDF</h4>
+          <p class="text-sm text-gray-600">Fix page orientation</p>
+        </a>
+        <a href="optimize-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🗜️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Optimize PDF</h4>
+          <p class="text-sm text-gray-600">Reduce PDF file size</p>
+        </a>
+        <a href="pdf-to-html.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🌐</div>
+          <h4 class="font-bold text-gray-800 mb-1">PDF to HTML</h4>
+          <p class="text-sm text-gray-600">Convert PDF to web format</p>
+        </a>
+      </div>
+    </article>
+
+    <!-- AdSense Ad Unit 2 -->
+    <div class="my-8 text-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="9876543210"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    (function() {
+      const uploadBox = document.getElementById('upload-box');
+      const fileInput = document.getElementById('file-input');
+      const uploadSection = document.getElementById('upload-section');
+      const optionsSection = document.getElementById('options-section');
+      const progressSection = document.getElementById('progress-section');
+      const downloadSection = document.getElementById('download-section');
+      const formatSelect = document.getElementById('format-select');
+      const qualitySelect = document.getElementById('quality-select');
+      const pagesSelect = document.getElementById('pages-select');
+      const pageRangeInput = document.getElementById('page-range');
+      const convertBtn = document.getElementById('convert-btn');
+      const totalPagesSpan = document.getElementById('total-pages');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const imageCountSpan = document.getElementById('image-count');
+      const downloadLinks = document.getElementById('download-links');
+      const convertAnother = document.getElementById('convert-another');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+
+      let pdfFile = null;
+      let pdfDoc = null;
+
+      uploadBox.addEventListener('click', () => fileInput.click());
+      
+      uploadBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('dragleave', () => {
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+        if (e.dataTransfer.files.length > 0) {
+          handleFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          handleFile(e.target.files[0]);
+        }
+      });
+
+      pagesSelect.addEventListener('change', () => {
+        pageRangeInput.classList.toggle('hidden', pagesSelect.value === 'all');
+      });
+
+      async function handleFile(file) {
+        if (file.type !== 'application/pdf') {
+          showError('Please select a PDF file');
+          return;
+        }
+
+        pdfFile = file;
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          const pageCount = pdfDoc.numPages;
+          
+          totalPagesSpan.textContent = pageCount;
+          
+          uploadSection.classList.add('hidden');
+          optionsSection.classList.remove('hidden');
+        } catch (error) {
+          showError('Failed to load PDF file');
+        }
+      }
+
+      convertBtn.addEventListener('click', async () => {
+        try {
+          progressSection.classList.remove('hidden');
+          optionsSection.classList.add('hidden');
+          progressBar.style.width = '10%';
+          progressText.textContent = 'Preparing conversion...';
+
+          const format = formatSelect.value;
+          const qualityLevel = parseInt(qualitySelect.value);
+          const scale = qualityLevel === 1 ? 1 : qualityLevel === 2 ? 2 : 4;
+          const convertAll = pagesSelect.value === 'all';
+          
+          let pagesToConvert = [];
+          if (convertAll) {
+            for (let i = 1; i <= pdfDoc.numPages; i++) {
+              pagesToConvert.push(i);
+            }
+          } else {
+            pagesToConvert = parsePageRange(pageRangeInput.value, pdfDoc.numPages);
+            if (pagesToConvert.length === 0) {
+              throw new Error('Invalid page range');
+            }
+          }
+
+          const images = [];
+          for (let i = 0; i < pagesToConvert.length; i++) {
+            const pageNum = pagesToConvert[i];
+            progressText.textContent = `Converting page ${i + 1} of ${pagesToConvert.length}...`;
+            progressBar.style.width = `${10 + (i / pagesToConvert.length) * 80}%`;
+
+            const page = await pdfDoc.getPage(pageNum);
+            const viewport = page.getViewport({ scale });
+            
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            await page.render({ canvasContext: context, viewport }).promise;
+
+            const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
+            const quality = format === 'jpeg' ? 0.92 : undefined;
+            const imageData = canvas.toDataURL(mimeType, quality);
+            
+            images.push({
+              data: imageData,
+              name: `${pdfFile.name.replace('.pdf', '')}_page_${pageNum}.${format === 'png' ? 'png' : 'jpg'}`,
+              pageNum
+            });
+          }
+
+          progressBar.style.width = '100%';
+          progressText.textContent = 'Complete!';
+
+          setTimeout(() => {
+            progressSection.classList.add('hidden');
+            downloadSection.classList.remove('hidden');
+            
+            imageCountSpan.textContent = images.length;
+            downloadLinks.innerHTML = '';
+            
+            images.forEach(image => {
+              const link = document.createElement('a');
+              link.href = image.data;
+              link.download = image.name;
+              link.className = 'block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition';
+              link.textContent = `📥 ${image.name}`;
+              downloadLinks.appendChild(link);
+            });
+          }, 500);
+
+        } catch (error) {
+          console.error(error);
+          progressSection.classList.add('hidden');
+          optionsSection.classList.remove('hidden');
+          showError(error.message || 'Failed to convert PDF');
+        }
+      });
+
+      convertAnother.addEventListener('click', () => location.reload());
+
+      function parsePageRange(rangeStr, maxPages) {
+        const pages = new Set();
+        const parts = rangeStr.split(',');
+        
+        for (const part of parts) {
+          const trimmed = part.trim();
+          if (trimmed.includes('-')) {
+            const [start, end] = trimmed.split('-').map(n => parseInt(n.trim()));
+            if (isNaN(start) || isNaN(end)) continue;
+            for (let i = Math.max(1, start); i <= Math.min(maxPages, end); i++) {
+              pages.add(i);
+            }
+          } else {
+            const pageNum = parseInt(trimmed);
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= maxPages) {
+              pages.add(pageNum);
+            }
+          }
+        }
+        
+        return Array.from(pages).sort((a, b) => a - b);
+      }
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.remove('hidden');
+        setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+      }
+    })();
+  </script>
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

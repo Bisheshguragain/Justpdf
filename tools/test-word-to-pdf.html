@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word to PDF - Test Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-8">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+    <h1 class="text-3xl font-bold mb-6 text-green-700">Word to PDF Converter - Testing Guide</h1>
+    
+    <div class="mb-8 bg-green-50 border-l-4 border-green-500 p-4">
+      <h2 class="font-bold text-green-800 mb-2">✅ Page Break Fix Implemented</h2>
+      <p class="text-green-800">The undefined <code>splitIntoPages()</code> function has been removed and replaced with proper page-by-page rendering.</p>
+    </div>
+
+    <h2 class="text-2xl font-bold mb-4 mt-8">Quick Test Steps</h2>
+    
+    <ol class="space-y-4 mb-8">
+      <li class="flex">
+        <span class="font-bold text-green-600 mr-3">1.</span>
+        <div>
+          <strong>Open the Tool:</strong> 
+          <a href="word-to-pdf.html" target="_blank" class="text-blue-600 underline ml-2">Open Word to PDF Converter</a>
+        </div>
+      </li>
+      
+      <li class="flex">
+        <span class="font-bold text-green-600 mr-3">2.</span>
+        <div>
+          <strong>Create a Test Document:</strong> Use Microsoft Word or Google Docs to create a .DOCX file with:
+          <ul class="list-disc ml-6 mt-2 space-y-1">
+            <li>Multiple pages of content (3-5 pages recommended)</li>
+            <li>Headings (Heading 1, 2, 3)</li>
+            <li>Regular paragraphs with bold, italic, underline</li>
+            <li>A bulleted or numbered list</li>
+            <li>A simple table (optional)</li>
+            <li>An image (optional)</li>
+          </ul>
+        </div>
+      </li>
+      
+      <li class="flex">
+        <span class="font-bold text-green-600 mr-3">3.</span>
+        <div>
+          <strong>Upload and Convert:</strong> Drag and drop your .DOCX file or click to browse
+        </div>
+      </li>
+      
+      <li class="flex">
+        <span class="font-bold text-green-600 mr-3">4.</span>
+        <div>
+          <strong>Check Progress:</strong> Watch for page-by-page progress updates like "Generating page 1 of 3..."
+        </div>
+      </li>
+      
+      <li class="flex">
+        <span class="font-bold text-green-600 mr-3">5.</span>
+        <div>
+          <strong>Download and Verify:</strong> Open the PDF and check:
+          <ul class="list-disc ml-6 mt-2 space-y-1">
+            <li>✅ Proper margins on all pages</li>
+            <li>✅ No text cut off mid-sentence at page breaks</li>
+            <li>✅ Formatting preserved (bold, italic, headings)</li>
+            <li>✅ Images appear correctly</li>
+            <li>✅ Tables render properly</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+    <h2 class="text-2xl font-bold mb-4 mt-8">What to Test</h2>
+    
+    <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <div class="border rounded-lg p-4">
+        <h3 class="font-bold text-lg mb-2">✅ Should Work</h3>
+        <ul class="space-y-2 text-sm">
+          <li>✅ Single-page documents</li>
+          <li>✅ Multi-page documents (2-10 pages)</li>
+          <li>✅ Text formatting (bold, italic, underline)</li>
+          <li>✅ Headings (H1, H2, H3)</li>
+          <li>✅ Paragraphs with proper spacing</li>
+          <li>✅ Bulleted and numbered lists</li>
+          <li>✅ Simple tables</li>
+          <li>✅ Embedded images (JPG, PNG)</li>
+          <li>✅ Hyperlinks (text color preserved)</li>
+          <li>✅ 1-inch margins on all pages</li>
+        </ul>
+      </div>
+      
+      <div class="border rounded-lg p-4 bg-yellow-50">
+        <h3 class="font-bold text-lg mb-2">⚠️ May Have Issues</h3>
+        <ul class="space-y-2 text-sm">
+          <li>⚠️ Very large documents (50+ pages)</li>
+          <li>⚠️ Complex tables (merged cells, custom borders)</li>
+          <li>⚠️ Custom fonts (will use Calibri/Arial)</li>
+          <li>⚠️ SmartArt graphics</li>
+          <li>⚠️ Text boxes and shapes</li>
+          <li>⚠️ Headers and footers (not extracted)</li>
+          <li>⚠️ Page numbers (not preserved)</li>
+          <li>⚠️ Comments and track changes</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold mb-4 mt-8">Browser Console Check</h2>
+    
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+      <p class="mb-2"><strong>Open Developer Console:</strong></p>
+      <ul class="space-y-1 text-sm">
+        <li>Chrome/Edge: Press <kbd class="bg-white px-2 py-1 rounded border">F12</kbd> or <kbd class="bg-white px-2 py-1 rounded border">Ctrl+Shift+I</kbd></li>
+        <li>Firefox: Press <kbd class="bg-white px-2 py-1 rounded border">F12</kbd> or <kbd class="bg-white px-2 py-1 rounded border">Ctrl+Shift+K</kbd></li>
+        <li>Safari: Enable Develop menu, then press <kbd class="bg-white px-2 py-1 rounded border">Cmd+Option+I</kbd></li>
+      </ul>
+      <p class="mt-3"><strong>Look for:</strong></p>
+      <ul class="space-y-1 text-sm">
+        <li>✅ <code class="bg-white px-2 py-1 rounded">Total content height: XXXXpx, Pages: N</code></li>
+        <li>❌ No errors about undefined functions</li>
+        <li>❌ No "splitIntoPages is not defined" errors</li>
+      </ul>
+    </div>
+
+    <h2 class="text-2xl font-bold mb-4 mt-8">Sample Test Document Template</h2>
+    
+    <div class="bg-gray-100 border rounded-lg p-6 mb-8 font-mono text-sm">
+      <p class="font-bold text-2xl mb-4">Sample Document Title</p>
+      <p class="mb-4">This is a sample Word document to test the Word to PDF converter.</p>
+      
+      <p class="font-bold text-xl mb-2">Heading 1: Introduction</p>
+      <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      
+      <p class="font-bold text-lg mb-2">Heading 2: Features</p>
+      <ul class="list-disc ml-6 mb-4">
+        <li>Feature one with <strong>bold text</strong></li>
+        <li>Feature two with <em>italic text</em></li>
+        <li>Feature three with <u>underlined text</u></li>
+      </ul>
+      
+      <p class="mb-4">Add several more paragraphs here to reach 3+ pages...</p>
+      
+      <p class="text-xs text-gray-500 mt-4">💡 Tip: Copy this template into Word, expand it to 3+ pages, save as .DOCX, and test!</p>
+    </div>
+
+    <h2 class="text-2xl font-bold mb-4 mt-8">Expected Results</h2>
+    
+    <div class="space-y-4">
+      <div class="flex items-start">
+        <span class="text-2xl mr-3">✅</span>
+        <div>
+          <strong>Page Breaks:</strong> Content flows naturally from page to page without cutting mid-sentence or mid-word
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <span class="text-2xl mr-3">✅</span>
+        <div>
+          <strong>Margins:</strong> Consistent 1-inch (2.54cm) margins on all sides of every page
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <span class="text-2xl mr-3">✅</span>
+        <div>
+          <strong>Formatting:</strong> Bold, italic, underline, and heading sizes preserved
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <span class="text-2xl mr-3">✅</span>
+        <div>
+          <strong>Progress:</strong> Shows "Generating page X of Y..." during conversion
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <span class="text-2xl mr-3">✅</span>
+        <div>
+          <strong>No Errors:</strong> No console errors about undefined functions
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 bg-green-50 border-l-4 border-green-500 p-6">
+      <h3 class="font-bold text-green-800 mb-2">🎉 Ready for Testing!</h3>
+      <p class="text-green-800">The Word to PDF converter now properly handles page breaks and spacing. Test it with various document types and report any issues you find.</p>
+      <div class="mt-4">
+        <a href="word-to-pdf.html" target="_blank" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-bold">
+          Open Word to PDF Converter →
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-8 border-t pt-6">
+      <h3 class="font-bold mb-2">Documentation:</h3>
+      <ul class="space-y-1 text-sm text-blue-600">
+        <li><a href="../WORD-TO-PDF-PAGE-BREAK-FIX.md" class="underline">Page Break Fix Documentation</a></li>
+        <li><a href="../WORD-TO-PDF-FINAL-IMPLEMENTATION.md" class="underline">Final Implementation Guide</a></li>
+        <li><a href="../WORD-TO-PDF-TESTING-GUIDE.md" class="underline">Testing Guide</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

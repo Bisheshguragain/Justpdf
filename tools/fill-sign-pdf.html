@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fill & Sign PDF Online Free - Add Signature to PDF | JustPdf</title>
+  <meta name="description" content="Fill out PDF forms and add signatures online for free. Professional PDF signing tool with text, signature, and annotation features. No registration required.">
+  <meta property="og:title" content="Fill & Sign PDF - Add Signatures and Text to PDFs Online Free">
+  <meta property="og:description" content="Fill PDF forms and add signatures online for free. Professional PDF signing tool with no registration required.">
+  <meta property="og:url" content="https://justpdf.net/tools/fill-sign-pdf/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://justpdf.net/tools/fill-sign-pdf/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I fill and sign a PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF document, use the text tool to fill in fields, click the signature button to add your signature (draw, type, or upload), add checkmarks as needed, then download your completed and signed PDF."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I sign PDFs for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's fill and sign tool is completely free with no limits on documents, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to sign PDFs online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All processing happens in your browser. Your documents never leave your device and are not uploaded to any server."
+        }
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="flex items-center">
+      <span class="font-bold text-2xl text-green-700">JustPdf</span>
+    </a>
+    <ul class="flex space-x-6 text-gray-700 text-base">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Fill & Sign PDF</h1>
+    <p class="text-gray-600 text-center mb-8">Add text, signatures, and annotations to your PDF documents</p>
+
+    <!-- Upload Area -->
+    <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center mb-6 bg-white hover:border-green-500 transition cursor-pointer">
+      <div class="text-6xl mb-4">✍️</div>
+      <h2 class="text-xl font-semibold text-gray-700 mb-2">Select PDF File</h2>
+      <p class="text-gray-500 mb-4">Drag and drop a file here or click to browse</p>
+      <input type="file" id="fileInput" accept=".pdf" class="hidden">
+      <button id="selectBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+        Select File
+      </button>
+    </div>
+
+    <!-- Editor Container -->
+    <div id="editorContainer" class="hidden">
+      <!-- Toolbar -->
+      <div class="bg-white rounded-lg shadow-lg p-4 mb-4 sticky top-0 z-10">
+        <div class="flex flex-wrap items-center gap-4">
+          <!-- Tool Selection -->
+          <div class="flex gap-2">
+            <button id="textTool" class="tool-btn active px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition" title="Click on PDF to add text">
+              📝 Add Text
+            </button>
+            <button id="signatureTool" class="tool-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition relative" title="Create and place a signature on your PDF">
+              ✍️ Signature
+              <span id="signatureReady" class="hidden absolute top-0 right-0 bg-green-500 text-white text-xs px-1 rounded-full">✓</span>
+            </button>
+            <button id="checkmarkTool" class="tool-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition" title="Click on PDF to add a checkmark">
+              ✓ Checkmark
+            </button>
+          </div>
+
+          <div class="border-l border-gray-300 h-8"></div>
+
+          <!-- Text Options (shown when text tool is active) -->
+          <div id="textOptions" class="flex gap-2 items-center">
+            <select id="fontSize" class="px-3 py-2 border border-gray-300 rounded-lg">
+              <option value="10">10pt</option>
+              <option value="12" selected>12pt</option>
+              <option value="14">14pt</option>
+              <option value="16">16pt</option>
+              <option value="18">18pt</option>
+              <option value="20">20pt</option>
+              <option value="24">24pt</option>
+            </select>
+            <input type="color" id="textColor" value="#000000" class="h-10 w-12 border border-gray-300 rounded cursor-pointer">
+          </div>
+
+          <div class="border-l border-gray-300 h-8"></div>
+
+          <!-- Actions -->
+          <div class="flex gap-2 ml-auto">
+            <button id="undoBtn" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition" title="Remove the last annotation (Ctrl+Z)" disabled>
+              ↶ Undo
+            </button>
+            <button id="downloadBtn" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition" title="Save your filled and signed PDF">
+              📥 Download
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help Banner -->
+      <div id="helpBanner" class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4 flex items-start justify-between">
+        <div class="flex-1">
+          <h3 class="font-semibold text-blue-900 mb-2">💡 Quick Tips:</h3>
+          <ul class="text-sm text-blue-800 space-y-1">
+            <li>• <strong>Click</strong> annotations to select, <strong>drag</strong> to move, use <strong>corner handles</strong> to resize</li>
+            <li>• Press <strong>Delete</strong> or <strong>Backspace</strong> to remove selected annotation, <strong>Escape</strong> to deselect</li>
+            <li>• Use <strong>Ctrl+Z</strong> (or Cmd+Z on Mac) to undo the last annotation</li>
+          </ul>
+        </div>
+        <button id="closeBanner" class="text-blue-500 hover:text-blue-700 ml-4 text-xl font-bold">&times;</button>
+      </div>
+
+      <!-- Canvas Area -->
+      <div class="bg-white rounded-lg shadow-lg p-4">
+        <!-- Page Navigation -->
+        <div class="flex justify-between items-center mb-4 pb-4 border-b">
+          <button id="prevPage" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition" disabled>
+            ← Previous
+          </button>
+          <span id="pageInfo" class="text-gray-700 font-semibold">Page 1 of 1</span>
+          <button id="nextPage" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition" disabled>
+            Next →
+          </button>
+        </div>
+
+        <!-- Canvas Container -->
+        <div id="canvasContainer" class="relative border border-gray-300 rounded-lg overflow-auto max-h-[600px] bg-gray-100" style="display: flex; justify-content: center;">
+          <div style="position: relative; display: inline-block;">
+            <canvas id="pdfCanvas"></canvas>
+            <div id="annotationsLayer" class="absolute top-0 left-0" style="pointer-events: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature Modal -->
+    <div id="signatureModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 p-4" style="display: none; align-items: center; justify-content: center;">
+      <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-2xl font-bold text-gray-800">Create Your Signature</h3>
+          <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+        </div>
+
+        <!-- Signature Tabs -->
+        <div class="flex gap-4 mb-4 border-b">
+          <button id="drawTab" class="tab-btn px-4 py-2 border-b-2 border-green-600 text-green-600 font-semibold">
+            Draw
+          </button>
+          <button id="typeTab" class="tab-btn px-4 py-2 text-gray-600 hover:text-gray-800">
+            Type
+          </button>
+        </div>
+
+        <!-- Draw Signature -->
+        <div id="drawSignature" class="signature-panel">
+          <canvas id="signatureCanvas" class="border-2 border-gray-300 rounded-lg cursor-crosshair w-full" width="600" height="200"></canvas>
+          <div class="flex gap-2 mt-4">
+            <button id="clearSignature" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition">
+              Clear
+            </button>
+            <button id="saveSignature" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition ml-auto">
+              Add Signature
+            </button>
+          </div>
+        </div>
+
+        <!-- Type Signature -->
+        <div id="typeSignature" class="signature-panel hidden">
+          <input type="text" id="signatureText" placeholder="Type your name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-2xl font-signature mb-4">
+          <div class="flex gap-4 mb-4">
+            <button class="font-btn px-4 py-2 border-2 border-gray-300 rounded-lg font-signature text-xl hover:border-green-500" data-font="Brush Script MT">
+              Signature Style 1
+            </button>
+            <button class="font-btn px-4 py-2 border-2 border-gray-300 rounded-lg font-cursive text-xl hover:border-green-500" data-font="cursive">
+              Signature Style 2
+            </button>
+            <button class="font-btn px-4 py-2 border-2 border-gray-300 rounded-lg font-serif text-xl hover:border-green-500" data-font="serif">
+              Signature Style 3
+            </button>
+          </div>
+          <button id="saveTypedSignature" class="w-full px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+            Add Signature
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Fill & Sign PDF Documents Online Free</h2>
+      <p class="text-gray-700 mb-6">Filling out and signing PDF forms has never been easier. JustPdf's online fill and sign tool lets you complete any PDF document, add your signature, check boxes, and fill in fields - all without printing. Perfect for contracts, applications, tax forms, and legal documents. No software installation or registration required, and your documents never leave your device for complete privacy.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Fill & Sign PDFs Online?</h3>
+      <p class="text-gray-700 mb-4">Digital document signing offers numerous advantages over printing and scanning:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Save time:</strong> Complete and sign documents in minutes without printing or scanning</li>
+        <li><strong>Go paperless:</strong> Reduce paper waste and contribute to environmental sustainability</li>
+        <li><strong>Instant delivery:</strong> Email signed documents immediately instead of mailing physical copies</li>
+        <li><strong>Professional appearance:</strong> Digital signatures look cleaner than scanned handwritten signatures</li>
+        <li><strong>Secure storage:</strong> Keep digital copies that won't fade, tear, or get lost</li>
+        <li><strong>Work anywhere:</strong> Sign documents from your computer, tablet, or phone</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Available Tools</h3>
+      
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">✍️ Signature Tool</h4>
+      <p class="text-gray-700 mb-4">Add your signature in three ways: draw it with your mouse or touchscreen, type it in a signature font, or upload an image of your handwritten signature. Resize and position it anywhere on your document.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📝 Text Tool</h4>
+      <p class="text-gray-700 mb-4">Click anywhere to add text. Fill in form fields, add dates, names, addresses, or any other information. Customize font size, color, and style. Perfect for completing application forms and documents.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">✓ Checkmark Tool</h4>
+      <p class="text-gray-700 mb-4">Add checkmarks to checkbox fields with a single click. Choose from different checkmark styles and colors. Ideal for consent forms, application checklists, and surveys.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📅 Date Tool</h4>
+      <p class="text-gray-700 mb-4">Automatically insert today's date in various formats. Click to add the current date to your document with proper formatting. Essential for contracts and legal documents.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Fill & Sign a PDF in 3 Simple Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload your PDF:</strong> Click the upload button or drag and drop your PDF document. The file loads instantly in the editor - everything stays on your device for complete privacy.</li>
+        <li><strong>Fill and sign:</strong> Use the text tool to fill in form fields, add your signature using the signature tool (draw, type, or upload), and add checkmarks where needed. Click and drag to position everything perfectly.</li>
+        <li><strong>Download completed PDF:</strong> Click "Download PDF" to save your filled and signed document. The file is ready to email or submit immediately.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">✍️ Multiple Signature Options</h4>
+          <p class="text-sm text-gray-700">Draw, type, or upload your signature. Full control over size and placement.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+          <p class="text-sm text-gray-700">All processing happens in your browser. Your documents never leave your device.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+          <p class="text-sm text-gray-700">No subscriptions, trials, or hidden costs. Sign unlimited PDFs free forever.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📝 Rich Text Options</h4>
+          <p class="text-sm text-gray-700">Customize font size, color, and style. Professional-looking text fields.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">⚡ Instant Processing</h4>
+          <p class="text-sm text-gray-700">Fill and sign documents in minutes. No upload or processing delays.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">✅ No Watermarks</h4>
+          <p class="text-sm text-gray-700">Your signed PDFs have no watermarks or branding. Professional results.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How do I fill and sign a PDF online?</h4>
+        <p class="text-gray-700">Upload your PDF document using the upload button above, use the text tool to fill in fields, click the signature button to add your signature (you can draw it, type it, or upload an image), add checkmarks as needed, then click "Download PDF" to save your completed document.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I sign PDFs for free?</h4>
+        <p class="text-gray-700">Yes! JustPdf's fill and sign tool is completely free with no limits on the number of documents, no file size restrictions, no watermarks, and no registration required. Sign unlimited PDFs at no cost.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it safe to sign PDFs online?</h4>
+        <p class="text-gray-700">Yes, absolutely. All processing is done client-side in your browser using JavaScript. Your PDF documents never leave your device and are not uploaded to any server. We cannot see, access, or store your documents in any way.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Are digital signatures legally binding?</h4>
+        <p class="text-gray-700">In most jurisdictions, digital signatures created with tools like this are legally binding under laws like the ESIGN Act (US) and eIDAS (EU). However, some documents may require specific types of signatures. Check your local requirements or consult a legal professional for important documents.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I save my signature for future use?</h4>
+        <p class="text-gray-700">While the tool doesn't automatically save signatures between sessions for privacy reasons, you can create and upload an image of your signature that you can reuse across multiple documents.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What's the difference between drawn and typed signatures?</h4>
+        <p class="text-gray-700">Drawn signatures let you create a handwritten-style signature using your mouse or touchscreen. Typed signatures convert your name into a signature-style font. Both are equally valid - choose whichever looks more professional to you.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I edit text after adding it?</h4>
+        <p class="text-gray-700">Yes! Click on any text element you've added to select it, then you can move it, resize it, change its color or font size, or delete it. You have full control over all elements until you download the final PDF.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I sign multiple pages?</h4>
+        <p class="text-gray-700">Yes! Use the page navigation controls to move between pages. You can add signatures, text, and checkmarks to any page in your PDF document. All changes are saved when you download.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Employment contracts:</strong> Sign job offers, NDAs, and employment agreements</li>
+        <li><strong>Lease agreements:</strong> Complete and sign rental applications and lease contracts</li>
+        <li><strong>Tax documents:</strong> Fill out and sign tax forms, W-9s, and financial declarations</li>
+        <li><strong>Legal documents:</strong> Sign power of attorney, wills, and legal affidavits</li>
+        <li><strong>Business contracts:</strong> Sign vendor agreements, purchase orders, and service contracts</li>
+        <li><strong>Permission forms:</strong> Sign consent forms, medical releases, and school permissions</li>
+        <li><strong>Applications:</strong> Complete job applications, college applications, and registration forms</li>
+        <li><strong>Insurance forms:</strong> Fill out and sign insurance claims and policy documents</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Professional Signatures</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Practice your drawn signature a few times to get it looking consistent</li>
+        <li>For typed signatures, try different fonts to find one that matches your style</li>
+        <li>Size your signature appropriately - not too small or overwhelmingly large</li>
+        <li>Place signatures on the designated signature line when present</li>
+        <li>Add the date next to your signature for legal documents</li>
+        <li>For contracts, initial each page and sign the final page</li>
+        <li>Keep a copy of all signed documents for your records</li>
+        <li>Use a consistent signature style across all your professional documents</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf Fill & Sign Tool?</h3>
+      <p class="text-gray-700 mb-4">Unlike expensive software like Adobe Acrobat that requires subscriptions, or online services that upload your sensitive documents to remote servers, JustPdf offers the perfect balance of power, convenience, and privacy. Our browser-based tool uses advanced client-side PDF manipulation to fill and sign documents instantly without any uploads. You get professional results with multiple signature options, rich text formatting, and checkmark tools - all completely free with no registration. Whether you're signing employment contracts, lease agreements, tax documents, or any other forms, our tool delivers fast, reliable, and completely private PDF signing every time.</p>
+    </article>
+
+    <!-- Related Tools -->
+    <section class="mt-12 bg-white rounded-lg p-8 shadow-sm">
+      <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/pdf-editor.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✏️</div>
+          <span class="font-semibold text-green-700">PDF Editor</span>
+        </a>
+        <a href="/tools/protect-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🔒</div>
+          <span class="font-semibold text-green-700">Protect PDF</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📄</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+        <a href="/tools/compress-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">�️</div>
+          <span class="font-semibold text-green-700">Compress PDF</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+        </a>
+        <a href="/tools/rotate-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">🔄</div>
+          <div class="font-semibold text-gray-700">Rotate PDF</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script>
+    // Configure PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    // State
+    let pdfDoc = null;
+    let pdfBytes = null;
+    let currentPage = 1;
+    let totalPages = 0;
+    let currentTool = 'text';
+    let annotations = [];
+    let selectedFont = 'Brush Script MT';
+    let isDrawing = false;
+    let signatureData = null;
+    let signaturePreview = null;
+    let selectedAnnotation = null;
+    let isDragging = false;
+    let isResizing = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let resizeHandle = null;
+    let renderScheduled = false;
+
+    // Elements
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const selectBtn = document.getElementById('selectBtn');
+    const editorContainer = document.getElementById('editorContainer');
+    const canvas = document.getElementById('pdfCanvas');
+    const ctx = canvas.getContext('2d');
+    const annotationsLayer = document.getElementById('annotationsLayer');
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const pageInfo = document.getElementById('pageInfo');
+
+    // Tools
+    const textTool = document.getElementById('textTool');
+    const signatureTool = document.getElementById('signatureTool');
+    const checkmarkTool = document.getElementById('checkmarkTool');
+    const textOptions = document.getElementById('textOptions');
+    const fontSize = document.getElementById('fontSize');
+    const textColor = document.getElementById('textColor');
+    const undoBtn = document.getElementById('undoBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const signatureReady = document.getElementById('signatureReady');
+
+    // Signature Modal
+    const signatureModal = document.getElementById('signatureModal');
+    const closeModal = document.getElementById('closeModal');
+    const drawTab = document.getElementById('drawTab');
+    const typeTab = document.getElementById('typeTab');
+    const drawSignature = document.getElementById('drawSignature');
+    const typeSignature = document.getElementById('typeSignature');
+    const signatureCanvas = document.getElementById('signatureCanvas');
+    const signatureCtx = signatureCanvas.getContext('2d');
+    const clearSignature = document.getElementById('clearSignature');
+    const saveSignature = document.getElementById('saveSignature');
+    const signatureText = document.getElementById('signatureText');
+    const saveTypedSignature = document.getElementById('saveTypedSignature');
+    
+    // Help Banner
+    const helpBanner = document.getElementById('helpBanner');
+    const closeBanner = document.getElementById('closeBanner');
+    
+    // Close help banner
+    if (closeBanner) {
+      closeBanner.addEventListener('click', () => {
+        helpBanner.style.display = 'none';
+        // Store preference in localStorage
+        localStorage.setItem('hideHelpBanner', 'true');
+      });
+      
+      // Check if user previously closed the banner
+      if (localStorage.getItem('hideHelpBanner') === 'true') {
+        helpBanner.style.display = 'none';
+      }
+    }
+
+    // File Upload
+    selectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('border-green-500', 'bg-green-50');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('border-green-500', 'bg-green-50');
+    });
+
+    uploadArea.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('border-green-500', 'bg-green-50');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'application/pdf') {
+        await loadPDF(file);
+      }
+    });
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (file) await loadPDF(file);
+    });
+
+    // Load PDF
+    async function loadPDF(file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        console.log('ArrayBuffer loaded, size:', arrayBuffer.byteLength);
+        
+        // Store original bytes for pdf-lib (download)
+        pdfBytes = new Uint8Array(arrayBuffer).slice();
+        console.log('pdfBytes stored, length:', pdfBytes.length);
+        
+        // Load with pdf.js for rendering
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        pdfDoc = await loadingTask.promise;
+        totalPages = pdfDoc.numPages;
+        console.log('PDF loaded successfully, pages:', totalPages);
+        
+        uploadArea.classList.add('hidden');
+        editorContainer.classList.remove('hidden');
+        
+        await renderPage(1);
+      } catch (error) {
+        console.error('Error loading PDF:', error);
+        alert('Failed to load PDF. Please try again.');
+      }
+    }
+
+    // Render Page
+    async function renderPage(pageNum) {
+      const page = await pdfDoc.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1.5 });
+      
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      
+      // Explicitly set annotations layer dimensions and ensure it's visible
+      annotationsLayer.style.width = viewport.width + 'px';
+      annotationsLayer.style.height = viewport.height + 'px';
+      annotationsLayer.style.display = 'block';
+      
+      await page.render({
+        canvasContext: ctx,
+        viewport: viewport
+      }).promise;
+      
+      currentPage = pageNum;
+      updatePageInfo();
+      renderAnnotations();
+    }
+
+    // Update Page Info
+    function updatePageInfo() {
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      prevPageBtn.disabled = currentPage === 1;
+      nextPageBtn.disabled = currentPage === totalPages;
+    }
+
+    // Navigation
+    prevPageBtn.addEventListener('click', () => {
+      if (currentPage > 1) renderPage(currentPage - 1);
+    });
+
+    nextPageBtn.addEventListener('click', () => {
+      if (currentPage < totalPages) renderPage(currentPage + 1);
+    });
+
+    // Tool Selection
+    [textTool, signatureTool, checkmarkTool].forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tool-btn').forEach(b => {
+          b.classList.remove('active', 'bg-green-600', 'text-white');
+          b.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        btn.classList.add('active', 'bg-green-600', 'text-white');
+        btn.classList.remove('bg-gray-200', 'text-gray-700');
+        
+        currentTool = btn.id.replace('Tool', '');
+        textOptions.style.display = currentTool === 'text' ? 'flex' : 'none';
+        
+        if (currentTool === 'signature') {
+          // Always open modal to create a new signature
+          signatureModal.style.display = 'flex';
+          // Clear previous signature canvas
+          signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+          signatureText.value = '';
+        } else {
+          // Clean up signature preview when switching tools
+          if (signaturePreview) {
+            signaturePreview.remove();
+            signaturePreview = null;
+          }
+        }
+      });
+    });
+
+    // Canvas Click
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      if (currentTool === 'text') {
+        const text = prompt('Enter text:');
+        if (text) {
+          addAnnotation({
+            type: 'text',
+            text: text,
+            x: x,
+            y: y,
+            page: currentPage,
+            fontSize: parseInt(fontSize.value),
+            color: textColor.value
+          });
+        }
+      } else if (currentTool === 'checkmark') {
+        addAnnotation({
+          type: 'checkmark',
+          x: x,
+          y: y,
+          page: currentPage
+        });
+      } else if (currentTool === 'signature' && signatureData) {
+        addAnnotation({
+          type: 'signature',
+          data: signatureData,
+          x: x,
+          y: y,
+          page: currentPage
+        });
+        
+        // Clear signature data after placing (prevent multiple placements)
+        signatureData = null;
+        signatureReady.classList.add('hidden');
+        
+        // Remove signature preview
+        if (signaturePreview) {
+          signaturePreview.remove();
+          signaturePreview = null;
+        }
+        canvas.style.cursor = 'default';
+        
+        // Show success message with instruction
+        const msg = document.createElement('div');
+        msg.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #22c55e;
+          color: white;
+          padding: 16px 24px;
+          border-radius: 8px;
+          font-size: 16px;
+          z-index: 10000;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        msg.textContent = '✅ Signature added! Click the Signature button again to add more.';
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 2500);
+        
+        // Switch back to text tool
+        textTool.click();
+      }
+    });
+
+    // Canvas hover for signature preview
+    canvas.addEventListener('mousemove', (e) => {
+      if (currentTool === 'signature' && signatureData) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Create or update preview
+        if (!signaturePreview) {
+          signaturePreview = document.createElement('div');
+          signaturePreview.style.position = 'absolute';
+          signaturePreview.style.pointerEvents = 'none';
+          signaturePreview.style.opacity = '0.7';
+          signaturePreview.style.border = '2px dashed #22c55e';
+          signaturePreview.style.zIndex = '100';
+          const img = document.createElement('img');
+          img.src = signatureData;
+          img.style.maxWidth = '200px';
+          img.style.height = 'auto';
+          signaturePreview.appendChild(img);
+          annotationsLayer.appendChild(signaturePreview);
+        }
+        
+        signaturePreview.style.left = x + 'px';
+        signaturePreview.style.top = y + 'px';
+        canvas.style.cursor = 'crosshair';
+      } else {
+        if (signaturePreview) {
+          signaturePreview.remove();
+          signaturePreview = null;
+        }
+        canvas.style.cursor = currentTool === 'text' || currentTool === 'checkmark' ? 'crosshair' : 'default';
+      }
+    });
+
+    // Remove preview when mouse leaves canvas
+    canvas.addEventListener('mouseleave', () => {
+      if (signaturePreview && currentTool === 'signature') {
+        signaturePreview.style.opacity = '0.3';
+      }
+    });
+
+    canvas.addEventListener('mouseenter', () => {
+      if (signaturePreview && currentTool === 'signature') {
+        signaturePreview.style.opacity = '0.7';
+      }
+    });
+
+    // Add Annotation
+    function addAnnotation(annotation) {
+      annotation.id = Date.now() + Math.random(); // Unique ID for each annotation
+      // Set default width and height for resizing
+      if (annotation.type === 'signature') {
+        annotation.width = 150;
+        annotation.height = 50;
+      } else if (annotation.type === 'text') {
+        annotation.width = null; // Will be calculated
+        annotation.height = null;
+      } else if (annotation.type === 'checkmark') {
+        annotation.width = 24;
+        annotation.height = 24;
+      }
+      annotations.push(annotation);
+      renderAnnotations();
+      undoBtn.disabled = false;
+    }
+    
+    // Delete Annotation
+    function deleteAnnotation(id) {
+      annotations = annotations.filter(a => a.id !== id);
+      renderAnnotations();
+      if (annotations.length === 0) undoBtn.disabled = true;
+    }
+
+    // Select Annotation
+    annotationsLayer.addEventListener('mousedown', (e) => {
+      const annotationEl = e.target.closest('.annotation-item');
+      if (!annotationEl) return;
+      
+      const annotationId = parseFloat(annotationEl.dataset.id);
+      const annotation = annotations.find(a => a.id === annotationId);
+      if (!annotation) return;
+      
+      // Check if clicking on resize handle
+      if (e.target.classList.contains('resize-handle')) {
+        isResizing = true;
+        resizeHandle = e.target.dataset.handle;
+        selectedAnnotation = annotation;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        e.preventDefault();
+        return;
+      }
+      
+      // Check if clicking delete button
+      if (e.target.classList.contains('delete-annotation') || 
+          e.target.classList.contains('delete-annotation-hover')) {
+        return;
+      }
+      
+      // Select and prepare for drag
+      selectedAnnotation = annotation;
+      isDragging = true;
+      const rect = canvas.getBoundingClientRect();
+      // Store the offset between mouse position and annotation position
+      dragStartX = (e.clientX - rect.left) - annotation.x;
+      dragStartY = (e.clientY - rect.top) - annotation.y;
+      renderAnnotations();
+      e.preventDefault();
+    });
+
+    // Mouse move for dragging and resizing
+    document.addEventListener('mousemove', (e) => {
+      if (!selectedAnnotation) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      
+      if (isDragging) {
+        // Update position using the stored offset
+        selectedAnnotation.x = mouseX - dragStartX;
+        selectedAnnotation.y = mouseY - dragStartY;
+        
+        // Keep within canvas bounds with proper margins
+        const marginX = selectedAnnotation.width || 50;
+        const marginY = selectedAnnotation.height || 50;
+        selectedAnnotation.x = Math.max(0, Math.min(canvas.width - marginX, selectedAnnotation.x));
+        selectedAnnotation.y = Math.max(0, Math.min(canvas.height - marginY, selectedAnnotation.y));
+        
+        scheduleRender();
+      } else if (isResizing && (selectedAnnotation.type === 'signature' || selectedAnnotation.type === 'text')) {
+        const deltaX = e.clientX - dragStartX;
+        const deltaY = e.clientY - dragStartY;
+        
+        const minSize = 20;
+        
+        if (selectedAnnotation.type === 'signature') {
+          const aspectRatio = selectedAnnotation.width / selectedAnnotation.height;
+          
+          if (resizeHandle === 'se') {
+            selectedAnnotation.width = Math.max(minSize, selectedAnnotation.width + deltaX);
+            selectedAnnotation.height = selectedAnnotation.width / aspectRatio;
+          } else if (resizeHandle === 'sw') {
+            const newWidth = Math.max(minSize, selectedAnnotation.width - deltaX);
+            selectedAnnotation.x += selectedAnnotation.width - newWidth;
+            selectedAnnotation.width = newWidth;
+            selectedAnnotation.height = selectedAnnotation.width / aspectRatio;
+          } else if (resizeHandle === 'ne') {
+            const newWidth = Math.max(minSize, selectedAnnotation.width + deltaX);
+            selectedAnnotation.width = newWidth;
+            selectedAnnotation.height = selectedAnnotation.width / aspectRatio;
+          } else if (resizeHandle === 'nw') {
+            const newWidth = Math.max(minSize, selectedAnnotation.width - deltaX);
+            selectedAnnotation.x += selectedAnnotation.width - newWidth;
+            selectedAnnotation.width = newWidth;
+            selectedAnnotation.height = selectedAnnotation.width / aspectRatio;
+          }
+        } else if (selectedAnnotation.type === 'text') {
+          // For text, adjust font size
+          if (resizeHandle === 'se' || resizeHandle === 'ne') {
+            selectedAnnotation.fontSize = Math.max(8, Math.min(72, selectedAnnotation.fontSize + deltaY / 5));
+          } else if (resizeHandle === 'sw' || resizeHandle === 'nw') {
+            selectedAnnotation.fontSize = Math.max(8, Math.min(72, selectedAnnotation.fontSize - deltaY / 5));
+          }
+        }
+        
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        scheduleRender();
+      }
+    });
+
+    // Mouse up to stop dragging/resizing
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      isResizing = false;
+      resizeHandle = null;
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Delete key or Backspace to delete selected annotation
+      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedAnnotation) {
+        e.preventDefault();
+        if (confirm('Delete this annotation?')) {
+          deleteAnnotation(selectedAnnotation.id);
+          selectedAnnotation = null;
+        }
+      }
+      // Escape to deselect
+      if (e.key === 'Escape' && selectedAnnotation) {
+        selectedAnnotation = null;
+        renderAnnotations();
+      }
+      // Ctrl+Z or Cmd+Z to undo
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && annotations.length > 0) {
+        e.preventDefault();
+        undoBtn.click();
+      }
+    });
+
+    // Click on canvas to deselect or add new annotation
+    canvas.addEventListener('mousedown', (e) => {
+      // If clicking on canvas (not annotation), deselect
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Check if click is on an annotation
+      let clickedOnAnnotation = false;
+      const annotationElements = annotationsLayer.querySelectorAll('.annotation-item');
+      annotationElements.forEach(el => {
+        const elRect = el.getBoundingClientRect();
+        const canvasRect = canvas.getBoundingClientRect();
+        if (e.clientX >= elRect.left && e.clientX <= elRect.right &&
+            e.clientY >= elRect.top && e.clientY <= elRect.bottom) {
+          clickedOnAnnotation = true;
+        }
+      });
+      
+      if (!clickedOnAnnotation) {
+        selectedAnnotation = null;
+        renderAnnotations();
+      }
+    });
+
+    // Render Annotations (throttled version)
+    function scheduleRender() {
+      if (!renderScheduled) {
+        renderScheduled = true;
+        requestAnimationFrame(() => {
+          renderAnnotations();
+          renderScheduled = false;
+        });
+      }
+    }
+
+    // Render Annotations
+    function renderAnnotations() {
+      annotationsLayer.innerHTML = '';
+      
+      annotations.filter(a => a.page === currentPage).forEach(annotation => {
+        
+        const container = document.createElement('div');
+        container.style.position = 'absolute';
+        container.style.left = annotation.x + 'px';
+        container.style.top = annotation.y + 'px';
+        container.style.zIndex = '1000';
+        container.className = 'annotation-item';
+        container.dataset.id = annotation.id;
+        
+        const elem = document.createElement('div');
+        elem.style.position = 'relative';
+        elem.style.pointerEvents = 'auto';
+        elem.style.cursor = 'move';
+        
+        if (annotation.type === 'text') {
+          elem.textContent = annotation.text;
+          elem.style.fontSize = annotation.fontSize + 'px';
+          elem.style.color = annotation.color;
+          elem.style.fontFamily = 'Arial, sans-serif';
+          elem.style.padding = '2px';
+          elem.style.userSelect = 'none';
+          elem.style.backgroundColor = 'rgba(255,255,255,0.9)';
+        } else if (annotation.type === 'checkmark') {
+          elem.textContent = '✓';
+          elem.style.fontSize = '24px';
+          elem.style.color = '#22c55e';
+          elem.style.fontWeight = 'bold';
+          elem.style.userSelect = 'none';
+          elem.style.backgroundColor = 'rgba(255,255,255,0.9)';
+          elem.style.padding = '2px';
+        } else if (annotation.type === 'signature') {
+          const img = document.createElement('img');
+          img.src = annotation.data;
+          img.style.width = (annotation.width || 150) + 'px';
+          img.style.height = (annotation.height || 50) + 'px';
+          img.style.userSelect = 'none';
+          img.draggable = false;
+          img.style.backgroundColor = 'rgba(255,255,255,0.9)';
+          img.style.padding = '2px';
+          elem.appendChild(img);
+        }
+        
+        // Selected state
+        if (selectedAnnotation && selectedAnnotation.id === annotation.id) {
+          container.classList.add('selected');
+          container.style.outline = '2px solid #3b82f6';
+          container.style.outlineOffset = '2px';
+          
+          // Add resize handles for signatures and text
+          if (annotation.type === 'signature' || annotation.type === 'text') {
+            const handles = ['nw', 'ne', 'sw', 'se'];
+            handles.forEach(pos => {
+              const handle = document.createElement('div');
+              handle.className = `resize-handle resize-${pos}`;
+              handle.dataset.handle = pos;
+              handle.style.cssText = `
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background: #3b82f6;
+                border: 2px solid white;
+                border-radius: 50%;
+                cursor: ${pos === 'nw' || pos === 'se' ? 'nwse-resize' : 'nesw-resize'};
+                pointer-events: auto;
+                z-index: 1001;
+              `;
+              
+              // Position handles
+              if (pos.includes('n')) handle.style.top = '-5px';
+              if (pos.includes('s')) handle.style.bottom = '-5px';
+              if (pos.includes('w')) handle.style.left = '-5px';
+              if (pos.includes('e')) handle.style.right = '-5px';
+              
+              container.appendChild(handle);
+            });
+          }
+          
+          // Delete button (always show when selected)
+          const deleteBtn = document.createElement('button');
+          deleteBtn.innerHTML = '×';
+          deleteBtn.className = 'delete-annotation';
+          deleteBtn.style.cssText = `
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            pointer-events: auto;
+            z-index: 1002;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+          `;
+          deleteBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (confirm('Delete this annotation?')) {
+              deleteAnnotation(annotation.id);
+              selectedAnnotation = null;
+            }
+          };
+          container.appendChild(deleteBtn);
+        } else {
+          // Show delete button on hover for non-selected items
+          const deleteBtn = document.createElement('button');
+          deleteBtn.innerHTML = '×';
+          deleteBtn.className = 'delete-annotation-hover';
+          deleteBtn.style.cssText = `
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            display: none;
+            pointer-events: auto;
+            z-index: 1000;
+          `;
+          deleteBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (confirm('Delete this annotation?')) {
+              deleteAnnotation(annotation.id);
+            }
+          };
+          container.appendChild(deleteBtn);
+        }
+        
+        container.appendChild(elem);
+        annotationsLayer.appendChild(container);
+      });
+    }
+
+    // Undo
+    undoBtn.addEventListener('click', () => {
+      if (annotations.length > 0) {
+        annotations.pop();
+        renderAnnotations();
+        if (annotations.length === 0) undoBtn.disabled = true;
+      }
+    });
+
+    // Signature Modal
+    closeModal.addEventListener('click', () => {
+      signatureModal.style.display = 'none';
+    });
+
+    drawTab.addEventListener('click', () => {
+      drawTab.classList.add('border-green-600', 'text-green-600');
+      typeTab.classList.remove('border-green-600', 'text-green-600');
+      drawSignature.classList.remove('hidden');
+      typeSignature.classList.add('hidden');
+    });
+
+    typeTab.addEventListener('click', () => {
+      typeTab.classList.add('border-green-600', 'text-green-600');
+      drawTab.classList.remove('border-green-600', 'text-green-600');
+      typeSignature.classList.remove('hidden');
+      drawSignature.classList.add('hidden');
+    });
+
+    // Draw Signature
+    let drawing = false;
+    
+    signatureCanvas.addEventListener('mousedown', (e) => {
+      drawing = true;
+      const rect = signatureCanvas.getBoundingClientRect();
+      signatureCtx.beginPath();
+      signatureCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    });
+
+    signatureCanvas.addEventListener('mousemove', (e) => {
+      if (!drawing) return;
+      const rect = signatureCanvas.getBoundingClientRect();
+      signatureCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+      signatureCtx.strokeStyle = '#000';
+      signatureCtx.lineWidth = 2;
+      signatureCtx.stroke();
+    });
+
+    signatureCanvas.addEventListener('mouseup', () => {
+      drawing = false;
+    });
+
+    clearSignature.addEventListener('click', () => {
+      signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+    });
+
+    saveSignature.addEventListener('click', () => {
+      signatureData = signatureCanvas.toDataURL();
+      signatureModal.style.display = 'none';
+      signatureReady.classList.remove('hidden');
+      
+      // Show instruction to user
+      alert('✅ Signature created! Click anywhere on the PDF to place it.\n\n💡 Tip: You can add the same signature multiple times by clicking the Signature button again.');
+    });
+
+    // Type Signature
+    document.querySelectorAll('.font-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedFont = btn.dataset.font;
+        document.querySelectorAll('.font-btn').forEach(b => b.classList.remove('border-green-500', 'bg-green-50'));
+        btn.classList.add('border-green-500', 'bg-green-50');
+      });
+    });
+
+    saveTypedSignature.addEventListener('click', () => {
+      const text = signatureText.value.trim();
+      if (!text) return alert('Please enter your name');
+      
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = 400;
+      tempCanvas.height = 100;
+      const tempCtx = tempCanvas.getContext('2d');
+      
+      tempCtx.font = `40px ${selectedFont}`;
+      tempCtx.fillStyle = '#000';
+      tempCtx.fillText(text, 10, 60);
+      
+      signatureData = tempCanvas.toDataURL();
+      signatureModal.style.display = 'none';
+      signatureReady.classList.remove('hidden');
+      
+      // Show instruction to user
+      alert('✅ Signature created! Click anywhere on the PDF to place it.\n\n💡 Tip: You can add the same signature multiple times by clicking the Signature button again.');
+    });
+
+    // Download
+    downloadBtn.addEventListener('click', async () => {
+      try {
+        console.log('Starting download...');
+        console.log('pdfBytes type:', pdfBytes?.constructor?.name);
+        console.log('pdfBytes length:', pdfBytes?.length);
+        console.log('Number of annotations:', annotations.length);
+        
+        // pdfBytes is already a Uint8Array, safe to use directly
+        const pdfLibDoc = await PDFLib.PDFDocument.load(pdfBytes);
+        console.log('PDF loaded successfully');
+        
+        const pages = pdfLibDoc.getPages();
+        console.log('Number of pages:', pages.length);
+        
+        // The scale factor used for canvas rendering - annotations need to be scaled down
+        const CANVAS_SCALE = 1.5;
+        
+        for (const annotation of annotations) {
+          console.log('Processing annotation:', annotation.type, 'on page', annotation.page);
+          const page = pages[annotation.page - 1];
+          const { width, height } = page.getSize();
+          
+          // Scale down coordinates and sizes to match PDF coordinate space
+          const scaledX = annotation.x / CANVAS_SCALE;
+          const scaledY = annotation.y / CANVAS_SCALE;
+          
+          if (annotation.type === 'text') {
+            const scaledFontSize = annotation.fontSize / CANVAS_SCALE;
+            page.drawText(annotation.text, {
+              x: scaledX,
+              y: height - scaledY - scaledFontSize,
+              size: scaledFontSize,
+              color: PDFLib.rgb(
+                parseInt(annotation.color.slice(1, 3), 16) / 255,
+                parseInt(annotation.color.slice(3, 5), 16) / 255,
+                parseInt(annotation.color.slice(5, 7), 16) / 255
+              )
+            });
+            console.log('Text annotation added at', scaledX, scaledY, 'size', scaledFontSize);
+          } else if (annotation.type === 'checkmark') {
+            // Draw checkmark as a green square with white checkmark symbol inside
+            // Since Unicode checkmark isn't in WinAnsi, we'll draw it as a geometric shape
+            const scaledCheckSize = 24 / CANVAS_SCALE;
+            
+            // Draw a filled green circle/square
+            page.drawSquare({
+              x: scaledX,
+              y: height - scaledY - scaledCheckSize,
+              size: scaledCheckSize,
+              color: PDFLib.rgb(0.13, 0.77, 0.37),
+              borderColor: PDFLib.rgb(0.13, 0.77, 0.37),
+              borderWidth: 1
+            });
+            
+            // Draw a simple "v" shape using lines to represent checkmark
+            const checkX = scaledX + scaledCheckSize * 0.3;
+            const checkY = height - scaledY - scaledCheckSize * 0.5;
+            page.drawLine({
+              start: { x: checkX, y: checkY },
+              end: { x: checkX + scaledCheckSize * 0.2, y: checkY - scaledCheckSize * 0.3 },
+              thickness: 2,
+              color: PDFLib.rgb(1, 1, 1)
+            });
+            page.drawLine({
+              start: { x: checkX + scaledCheckSize * 0.2, y: checkY - scaledCheckSize * 0.3 },
+              end: { x: checkX + scaledCheckSize * 0.6, y: checkY + scaledCheckSize * 0.4 },
+              thickness: 2,
+              color: PDFLib.rgb(1, 1, 1)
+            });
+            console.log('Checkmark annotation added at', scaledX, scaledY, 'size', scaledCheckSize);
+          } else if (annotation.type === 'signature') {
+            console.log('Embedding signature image...');
+            const pngImage = await pdfLibDoc.embedPng(annotation.data);
+            const scaledWidth = (annotation.width || 150) / CANVAS_SCALE;
+            const scaledHeight = (annotation.height || 50) / CANVAS_SCALE;
+            page.drawImage(pngImage, {
+              x: scaledX,
+              y: height - scaledY - scaledHeight,
+              width: scaledWidth,
+              height: scaledHeight
+            });
+            console.log('Signature annotation added at', scaledX, scaledY, 'size', scaledWidth, 'x', scaledHeight);
+          }
+        }
+        
+        console.log('Saving PDF...');
+        const modifiedPdfBytes = await pdfLibDoc.save();
+        console.log('PDF saved, creating blob...');
+        
+        const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'filled-signed.pdf';
+        a.click();
+        
+        console.log('Download triggered successfully');
+        
+        // Clean up
+        setTimeout(() => URL.revokeObjectURL(url), 100);
+      } catch (error) {
+        console.error('Download error:', error);
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+        console.error('Error stack:', error.stack);
+        alert('Failed to save PDF. Error: ' + error.message);
+      }
+    });
+
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <style>
+    .font-signature {
+      font-family: 'Brush Script MT', cursive;
+    }
+    .font-cursive {
+      font-family: cursive;
+    }
+    .font-serif {
+      font-family: serif;
+    }
+    .annotation-item:hover .delete-annotation-hover {
+      display: block !important;
+    }
+    .annotation-item {
+      cursor: move;
+      user-select: none;
+    }
+    .annotation-item:hover {
+      outline: 2px dashed #cbd5e1;
+      outline-offset: 2px;
+    }
+    .annotation-item.selected {
+      outline: 2px solid #3b82f6 !important;
+      outline-offset: 2px;
+    }
+    .resize-handle {
+      transition: transform 0.1s;
+    }
+    .resize-handle:hover {
+      transform: scale(1.3);
+      background: #2563eb !important;
+    }
+    #annotationsLayer {
+      pointer-events: none !important;
+      z-index: 10;
+      display: block;
+      min-width: 100%;
+      min-height: 100%;
+    }
+    .annotation-item {
+      z-index: 100;
+      pointer-events: auto !important;
+    }
+  </style>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "How do I sign a PDF online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Upload your PDF, click the Signature tool, draw or type your signature, then click where you want to add it. Download the signed PDF when done."
+      }
+    }, {
+      "@type": "Question",
+      "name": "Is it free to fill and sign PDFs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, JustPdf offers unlimited free PDF filling and signing with no registration required."
+      }
+    }]
+  }
+  </script>
+</body>
+</html>

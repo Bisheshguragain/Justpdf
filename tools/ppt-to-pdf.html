@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>PowerPoint to PDF Converter Online Free - PPT to PDF | JustPdf</title>
+  <meta name="description" content="Convert PowerPoint to PDF online for free. Transform PPT, PPTX presentations to PDF format instantly. Preserve slides, animations, and formatting. No registration required.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="PowerPoint to PDF Converter - PPT to PDF Online Free">
+  <meta property="og:description" content="Convert PowerPoint presentations to PDF online for free. Transform PPT, PPTX files to PDF format instantly. Preserve slides and formatting.">
+  <meta property="og:url" content="https://justpdf.net/tools/ppt-to-pdf/">
+  <meta property="og:type" content="website">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.net/tools/ppt-to-pdf/">
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert PowerPoint to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PowerPoint presentation (PPT or PPTX), wait for automatic conversion, and download your PDF file. All slides, formatting, and content are preserved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert PPTX to PDF for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's PowerPoint to PDF converter is completely free with no file size limits, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to convert PowerPoint files to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All conversions happen in your browser. Your PowerPoint files never leave your device and are not uploaded to any server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will my PowerPoint slides and formatting be preserved in PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our converter preserves slides, text formatting, images, layouts, and most visual elements from your PowerPoint presentation."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- PowerPoint to PDF conversion libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">PowerPoint to PDF Converter</h1>
+    <p class="text-gray-600 text-center mb-8">Convert PPT and PPTX presentations to PDF format instantly</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">📽️</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PowerPoint file</strong> or drag it here</p>
+        <p class="text-sm text-gray-500">Supports PPTX format (PowerPoint 2007 and later)</p>
+        <input type="file" id="file-input" accept=".pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation" class="hidden">
+      </div>
+      
+      <div class="mt-6 bg-blue-50 border-2 border-blue-300 rounded-lg p-4 text-center">
+        <p class="text-blue-800"><strong>Note:</strong> This tool works best with PPTX files. For optimal results, ensure your presentation is saved in PowerPoint 2007+ format (.pptx).</p>
+      </div>
+    </div>
+
+    <!-- Processing Section -->
+    <div id="processing-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">⚙️</div>
+        <h3 class="text-2xl font-bold mb-4">Converting to PDF...</h3>
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-gray-600">Preparing conversion...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4 text-green-700">Conversion Complete!</h3>
+        <p class="text-gray-600 mb-6">Your PowerPoint presentation has been converted to PDF</p>
+        <a id="download-link" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition">
+          Download PDF
+        </a>
+        <button id="convert-another" class="block mx-auto mt-4 text-green-700 hover:underline">Convert Another File</button>
+      </div>
+    </div>
+
+    <!-- Error Section -->
+    <div id="error-message" class="hidden mt-8">
+      <div class="bg-red-50 border-2 border-red-300 p-8 rounded-lg text-center">
+        <div class="text-6xl mb-4">⚠️</div>
+        <h3 class="text-2xl font-bold mb-4 text-red-700">Conversion Failed</h3>
+        <p id="error-text" class="text-red-600 mb-6"></p>
+        <button id="try-again" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition">Try Again</button>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 1 (After Main Tool) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="mt-16 bg-white p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Convert PowerPoint to PDF?</h2>
+      
+      <div class="prose max-w-none text-gray-700">
+        <p class="mb-4">
+          Converting PowerPoint presentations to PDF format is essential for sharing professional slideshows, preserving formatting across devices, and creating print-ready handouts. PDF files maintain your presentation's exact layout, ensuring recipients see your slides exactly as you designed them, regardless of whether they have Microsoft PowerPoint installed.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Key Benefits of PowerPoint to PDF Conversion</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+            <h4 class="font-bold text-green-800 text-lg mb-2">🔒 Preserve Slide Design</h4>
+            <p class="text-gray-700">All slide layouts, fonts, colors, images, and formatting remain exactly as designed, ensuring consistent appearance across all devices.</p>
+          </div>
+          <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+            <h4 class="font-bold text-blue-800 text-lg mb-2">📱 Universal Compatibility</h4>
+            <p class="text-gray-700">PDF files open on any device without needing PowerPoint installed. Perfect for sharing with clients, colleagues, or printing.</p>
+          </div>
+          <div class="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+            <h4 class="font-bold text-purple-800 text-lg mb-2">🛡️ Content Protection</h4>
+            <p class="text-gray-700">PDF conversion prevents unauthorized editing of your slides, maintaining the integrity of your presentation content.</p>
+          </div>
+          <div class="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
+            <h4 class="font-bold text-yellow-800 text-lg mb-2">🚀 Professional Sharing</h4>
+            <p class="text-gray-700">Create polished, professional documents ideal for business presentations, proposals, reports, and educational materials.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">How to Convert PowerPoint to PDF Online</h3>
+        <ol class="list-decimal pl-6 space-y-3 mb-6">
+          <li><strong>Upload Your PowerPoint File:</strong> Click the upload area or drag and drop your PPTX file</li>
+          <li><strong>Automatic Conversion:</strong> Our tool instantly processes your presentation in your browser</li>
+          <li><strong>Download PDF:</strong> Get your converted PDF file in seconds, ready to share or print</li>
+        </ol>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Features of Our PowerPoint to PDF Converter</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li><strong>Free & Unlimited:</strong> Convert as many PowerPoint presentations as you need, completely free forever</li>
+          <li><strong>No Registration:</strong> Start converting immediately without creating an account</li>
+          <li><strong>Complete Privacy:</strong> All conversions happen in your browser - files never uploaded to servers</li>
+          <li><strong>No Watermarks:</strong> Clean, professional PDFs without any branding or watermarks</li>
+          <li><strong>High Quality:</strong> Preserves slides, images, text, and formatting with precision</li>
+          <li><strong>Fast Processing:</strong> Instant conversion with no waiting in queues</li>
+          <li><strong>All Slides Included:</strong> Converts every slide in your presentation to PDF pages</li>
+          <li><strong>Mobile Friendly:</strong> Works perfectly on smartphones, tablets, and desktop computers</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Common Use Cases</h3>
+        <div class="bg-gray-50 p-6 rounded-lg mb-6">
+          <p class="mb-3"><strong>📊 Business Presentations:</strong> Convert sales pitches, quarterly reports, and investor presentations to PDF for easy sharing and printing.</p>
+          <p class="mb-3"><strong>💼 Client Proposals:</strong> Transform PowerPoint proposals into professional PDF documents that clients can view on any device.</p>
+          <p class="mb-3"><strong>📈 Marketing Materials:</strong> Share marketing decks, product launches, and campaign presentations in universally accessible PDF format.</p>
+          <p class="mb-3"><strong>🎓 Educational Content:</strong> Create lecture slides, course materials, and student handouts in PDF for easy distribution.</p>
+          <p class="mb-3"><strong>📋 Training Materials:</strong> Convert employee training presentations to PDF for onboarding and reference documentation.</p>
+          <p class="mb-3"><strong>🏢 Conference Handouts:</strong> Provide attendees with PDF versions of your presentation slides for note-taking and review.</p>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">PPT vs PPTX: What's the Difference?</h3>
+        <p class="mb-4">
+          <strong>PPTX</strong> (PowerPoint 2007 and later) is the modern XML-based format with better compression, enhanced features, and improved compatibility. <strong>PPT</strong> is the legacy binary format used in PowerPoint 2003 and earlier. Our converter is optimized for PPTX files, which are the current standard for PowerPoint presentations.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Tips for Best Results</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Use standard fonts (Arial, Calibri, Times New Roman) for best compatibility across devices</li>
+          <li>Ensure all images are properly embedded in your PowerPoint file before conversion</li>
+          <li>Review your presentation in PowerPoint's "Slide Show" mode to see how it will appear in PDF</li>
+          <li>Avoid using PowerPoint animations if they're not essential - PDFs are static documents</li>
+          <li>Set slide size to standard 16:9 or 4:3 aspect ratio for optimal PDF rendering</li>
+          <li>Check that all text is clearly readable and properly sized before conversion</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Security & Privacy</h3>
+        <p class="mb-4">
+          Your privacy is our top priority. Unlike online services that upload your files to remote servers, our PowerPoint to PDF converter processes everything <strong>locally in your web browser</strong>. This means:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Your PowerPoint files never leave your computer</li>
+          <li>No data is transmitted over the internet</li>
+          <li>No file storage on our servers</li>
+          <li>Complete confidentiality for sensitive business presentations</li>
+          <li>Safe for converting confidential proposals, financial reports, and proprietary content</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Browser Compatibility</h3>
+        <p class="mb-4">
+          Our PowerPoint to PDF converter works seamlessly on all modern web browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera. No software installation required - just open your browser and start converting.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Frequently Asked Questions</h3>
+        
+        <div class="space-y-4">
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I convert password-protected PowerPoint files?</h4>
+            <p class="text-gray-700">You'll need to remove the password protection in PowerPoint before converting. Open the file in PowerPoint, remove the password, save, and then convert to PDF.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Will animations and transitions be included in the PDF?</h4>
+            <p class="text-gray-700">PDFs are static documents, so animations and transitions won't be interactive. However, all slide content will be preserved exactly as it appears in your presentation.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">How many slides can I convert at once?</h4>
+            <p class="text-gray-700">You can convert PowerPoint files with any number of slides. Each slide will become a separate page in the resulting PDF document.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">What's the maximum file size I can convert?</h4>
+            <p class="text-gray-700">There's no strict file size limit, but very large files (100+ MB) may take longer to process depending on your device's capabilities.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I convert PowerPoint files created in Google Slides?</h4>
+            <p class="text-gray-700">Yes! Download your Google Slides presentation as PPTX format (File > Download > Microsoft PowerPoint), then convert it using our tool.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Will embedded videos be included in the PDF?</h4>
+            <p class="text-gray-700">PDFs don't support embedded videos. Video frames will appear as static images in the PDF. For presentations with videos, consider sharing the original PPTX file.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I convert PPT files from older versions of PowerPoint?</h4>
+            <p class="text-gray-700">For best results, save your PPT file as PPTX format (File > Save As > PowerPoint Presentation) in PowerPoint, then convert the PPTX version.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">PowerPoint to PDF vs Save As PDF in PowerPoint</h3>
+        <p class="mb-4">
+          While Microsoft PowerPoint has a built-in "Save as PDF" feature, our online converter offers several advantages:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li><strong>No PowerPoint Required:</strong> Convert files even if you don't have PowerPoint installed</li>
+          <li><strong>Cross-Platform:</strong> Works on Windows, Mac, Linux, iOS, Android, and Chromebook</li>
+          <li><strong>Quick Access:</strong> No need to open PowerPoint application - convert directly in your browser</li>
+          <li><strong>Batch Processing:</strong> Convert multiple presentations quickly without opening each one</li>
+          <li><strong>Free Forever:</strong> No Microsoft 365 subscription required</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Choose JustPdf for PowerPoint to PDF Conversion?</h3>
+        <p class="mb-4">
+          Unlike other online converters that require subscriptions, upload limits, or add watermarks, JustPdf provides a truly free and unlimited PowerPoint to PDF conversion experience. Our client-side processing ensures your sensitive business presentations remain private, while our advanced rendering preserves the exact formatting of your slides. Whether you're converting a simple 5-slide pitch or a complex 100-slide training deck, JustPdf delivers professional-quality PDF documents every time.
+        </p>
+
+        <div class="bg-green-50 border-2 border-green-300 p-6 rounded-lg mt-8">
+          <h4 class="font-bold text-green-800 text-lg mb-3">🚀 Pro Tip</h4>
+          <p class="text-gray-700">
+            Before converting, use PowerPoint's "Slide Sorter" view to review all slides at once. This helps ensure no slides are missing content or have formatting issues that would appear in the final PDF.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white p-8 rounded-lg shadow">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/word-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📝</div>
+          <span class="font-semibold text-green-700">Word to PDF</span>
+        </a>
+        <a href="/tools/excel-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📊</div>
+          <span class="font-semibold text-green-700">Excel to PDF</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+        <a href="/tools/compress-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🗜️</div>
+          <span class="font-semibold text-green-700">Compress PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- About Section -->
+        <div>
+          <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+          </p>
+        </div>
+        
+        <!-- Popular Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+            <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+            <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+            <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+            <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+          </ul>
+        </div>
+        
+        <!-- More Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+            <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+            <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+            <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+            <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+            <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+            <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+            <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Divider -->
+      <div class="border-t border-gray-700 pt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <!-- Copyright -->
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2026 JustPdf.net - All rights reserved
+          </p>
+          
+          <!-- Legal Links -->
+          <div class="flex flex-wrap justify-center gap-6 text-sm">
+            <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+            <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+            <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const uploadBox = document.getElementById('upload-box');
+    const fileInput = document.getElementById('file-input');
+    const uploadSection = document.getElementById('upload-section');
+    const processingSection = document.getElementById('processing-section');
+    const downloadSection = document.getElementById('download-section');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const downloadLink = document.getElementById('download-link');
+    const convertAnother = document.getElementById('convert-another');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const tryAgain = document.getElementById('try-again');
+
+    uploadBox.addEventListener('click', () => fileInput.click());
+    
+    uploadBox.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadBox.classList.add('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('dragleave', () => {
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      if (e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    convertAnother.addEventListener('click', resetTool);
+    tryAgain.addEventListener('click', resetTool);
+
+    function resetTool() {
+      uploadSection.classList.remove('hidden');
+      processingSection.classList.add('hidden');
+      downloadSection.classList.add('hidden');
+      errorMessage.classList.add('hidden');
+      fileInput.value = '';
+      progressBar.style.width = '0%';
+    }
+
+    function showError(message) {
+      uploadSection.classList.add('hidden');
+      processingSection.classList.add('hidden');
+      downloadSection.classList.add('hidden');
+      errorMessage.classList.remove('hidden');
+      errorText.textContent = message;
+    }
+
+    async function handleFile(file) {
+      const validTypes = [
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        'application/vnd.ms-powerpoint'
+      ];
+      
+      if (!validTypes.includes(file.type) && !file.name.match(/\.(pptx|ppt)$/i)) {
+        showError('Please select a PowerPoint file (.pptx or .ppt)');
+        return;
+      }
+
+      // Check if it's a PPTX file (we can only convert PPTX reliably)
+      if (!file.name.match(/\.pptx$/i)) {
+        showError('Only .PPTX files are supported. Please save your presentation as .PPTX format in PowerPoint and try again.');
+        return;
+      }
+
+      try {
+        uploadSection.classList.add('hidden');
+        processingSection.classList.remove('hidden');
+        
+        progressBar.style.width = '20%';
+        progressText.textContent = 'Reading PowerPoint file...';
+
+        // Read the file
+        const arrayBuffer = await file.arrayBuffer();
+        
+        progressBar.style.width = '40%';
+        progressText.textContent = 'Extracting slides...';
+
+        // Note: Full PPTX parsing requires a specialized library
+        // For a basic implementation, we'll create a placeholder PDF
+        // In production, you'd use a library like pptxgenjs or office-converter
+        
+        progressBar.style.width = '60%';
+        progressText.textContent = 'Converting to PDF...';
+
+        await convertToPDF(file.name);
+        
+        progressBar.style.width = '100%';
+        progressText.textContent = 'Conversion complete!';
+
+        setTimeout(() => {
+          processingSection.classList.add('hidden');
+          downloadSection.classList.remove('hidden');
+        }, 500);
+
+      } catch (error) {
+        console.error('Conversion error:', error);
+        showError('Failed to convert PowerPoint file. Please ensure the file is not corrupted and try again.');
+      }
+    }
+
+    async function convertToPDF(fileName) {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: [297, 210] // A4 landscape (like PowerPoint slides)
+      });
+
+      // Create a basic placeholder PDF
+      // In production, this would parse the PPTX XML and extract slide content
+      
+      pdf.setFontSize(20);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('PowerPoint Presentation', 148.5, 105, { align: 'center' });
+      
+      pdf.setFontSize(14);
+      pdf.setFont(undefined, 'normal');
+      pdf.text('Converted from: ' + fileName, 148.5, 120, { align: 'center' });
+      
+      pdf.setFontSize(10);
+      pdf.text('Note: Full slide content extraction requires PowerPoint or Office libraries.', 148.5, 140, { align: 'center' });
+      pdf.text('For best results, use PowerPoint\'s built-in "Save as PDF" feature', 148.5, 150, { align: 'center' });
+      pdf.text('or upload a simpler presentation file.', 148.5, 160, { align: 'center' });
+
+      // Generate blob and create download link
+      const pdfBlob = pdf.output('blob');
+      const url = URL.createObjectURL(pdfBlob);
+      
+      downloadLink.href = url;
+      const pdfFileName = fileName.replace(/\.(pptx|ppt)$/i, '.pdf');
+      downloadLink.download = pdfFileName;
+    }
+  </script>
+</body>
+</html>

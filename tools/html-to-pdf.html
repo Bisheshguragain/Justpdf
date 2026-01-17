@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>HTML to PDF Converter Online Free - Convert Webpage to PDF | JustPdf</title>
+  <meta name="description" content="Convert HTML to PDF online for free. Transform HTML files, web pages, and code to PDF format instantly. Preserves CSS styling, responsive design. No registration required.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="HTML to PDF Converter - Convert Webpage to PDF Online Free">
+  <meta property="og:description" content="Convert HTML to PDF online for free. Transform HTML files, web pages, and code to PDF format instantly with CSS styling preserved.">
+  <meta property="og:url" content="https://justpdf.net/tools/html-to-pdf/">
+  <meta property="og:type" content="website">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.net/tools/html-to-pdf/">
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert HTML to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your HTML file or paste your HTML code, and click convert. The tool will render your HTML with CSS styling and convert it to a professional PDF instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the HTML to PDF converter preserve CSS styling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Our converter preserves inline CSS, internal stylesheets, and basic external CSS. Your HTML will be rendered with proper formatting, colors, fonts, and layouts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to convert HTML to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All conversions happen in your browser. Your HTML code and files never leave your device and are not uploaded to any server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert a complete website to PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! You can paste the HTML code of any webpage or upload an HTML file. The converter will render it with styling and create a PDF snapshot of the page."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+  
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">HTML to PDF Converter</h1>
+    <p class="text-gray-600 text-center mb-8">Convert HTML files and web pages to PDF - Preserves CSS styling</p>
+
+    <!-- Input Method Selection -->
+    <div class="mb-6 flex justify-center gap-4">
+      <button id="file-method-btn" class="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold">📁 Upload HTML File</button>
+      <button id="code-method-btn" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold">💻 Paste HTML Code</button>
+    </div>
+
+    <!-- File Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">📄</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose HTML file</strong> or drag it here</p>
+        <p class="text-sm text-gray-500">.html, .htm files supported</p>
+        <input type="file" id="file-input" accept=".html,.htm" class="hidden">
+      </div>
+    </div>
+
+    <!-- Code Input Section -->
+    <div id="code-section" class="hidden">
+      <div class="bg-white rounded-lg shadow p-6">
+        <label class="block text-gray-700 font-semibold mb-2">Paste your HTML code:</label>
+        <textarea id="html-code-input" class="w-full h-64 p-4 border-2 border-gray-300 rounded-lg font-mono text-sm" placeholder="<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+  <style>
+    body { font-family: Arial; }
+    h1 { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  <p>This is my HTML content.</p>
+</body>
+</html>"></textarea>
+        <button id="convert-code-btn" class="mt-4 w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+          Convert to PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div id="preview-section" class="hidden mt-8">
+      <h2 class="text-2xl font-bold mb-4">HTML Preview</h2>
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <div id="html-preview" class="border-2 border-gray-200 rounded p-4 max-h-96 overflow-auto bg-white"></div>
+      </div>
+      <button id="convert-file-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+        Convert to PDF
+      </button>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Processing...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">PDF Created!</h3>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download PDF
+        </a>
+        <br>
+        <button id="convert-another" class="text-green-700 hover:underline">Convert another HTML</button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Main Tool) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="mt-16 bg-white p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Convert HTML to PDF?</h2>
+      
+      <div class="prose max-w-none text-gray-700">
+        <p class="mb-4">
+          Converting HTML to PDF is essential for preserving web content, creating professional reports, archiving web pages, and sharing formatted documents. PDF files maintain the visual appearance of your HTML, including fonts, colors, layouts, and images, making them perfect for documentation, presentations, invoices, and digital archives that need to look consistent across all devices.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Key Benefits of HTML to PDF Conversion</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+            <h4 class="font-bold text-green-800 text-lg mb-2">🎨 Preserve Styling</h4>
+            <p class="text-gray-700">Maintain CSS styles, fonts, colors, and layouts exactly as designed. Your HTML renders beautifully in PDF format.</p>
+          </div>
+          <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+            <h4 class="font-bold text-blue-800 text-lg mb-2">📱 Universal Format</h4>
+            <p class="text-gray-700">PDF files open on any device without needing a web browser or internet connection. Perfect for offline viewing.</p>
+          </div>
+          <div class="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+            <h4 class="font-bold text-purple-800 text-lg mb-2">🔒 Content Protection</h4>
+            <p class="text-gray-700">Lock your content in a static format that can't be easily edited or altered, ensuring document integrity.</p>
+          </div>
+          <div class="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
+            <h4 class="font-bold text-yellow-800 text-lg mb-2">📄 Professional Output</h4>
+            <p class="text-gray-700">Create professional-looking documents, reports, and presentations from HTML that are ready to print or share.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">How to Convert HTML to PDF Online</h3>
+        <ol class="list-decimal pl-6 space-y-3 mb-6">
+          <li><strong>Choose Input Method:</strong> Select whether to upload an HTML file or paste HTML code directly</li>
+          <li><strong>Upload or Paste:</strong> Upload your .html file or paste your complete HTML code with CSS</li>
+          <li><strong>Preview & Convert:</strong> Review the rendered HTML preview and click "Convert to PDF"</li>
+          <li><strong>Download PDF:</strong> Get your professional PDF file instantly, ready to use</li>
+        </ol>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Features of Our HTML to PDF Converter</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li><strong>Free & Unlimited:</strong> Convert as many HTML files as you need, completely free forever</li>
+          <li><strong>CSS Support:</strong> Preserves inline styles, internal stylesheets, and basic external CSS</li>
+          <li><strong>No Registration:</strong> Start converting immediately without creating an account</li>
+          <li><strong>Complete Privacy:</strong> All conversions happen in your browser - code never uploaded to servers</li>
+          <li><strong>No Watermarks:</strong> Clean, professional PDFs without any branding or watermarks</li>
+          <li><strong>High Quality:</strong> Crisp text rendering and proper image embedding</li>
+          <li><strong>Fast Processing:</strong> Instant conversion with no waiting in queues</li>
+          <li><strong>Multiple Input Methods:</strong> Upload files or paste code directly</li>
+          <li><strong>Mobile Friendly:</strong> Works perfectly on smartphones and tablets</li>
+          <li><strong>No File Size Limits:</strong> Convert large HTML files without restrictions</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Common Use Cases</h3>
+        <div class="bg-gray-50 p-6 rounded-lg mb-6">
+          <p class="mb-3"><strong>📄 Reports & Documentation:</strong> Convert HTML documentation, technical reports, and user guides to PDF for professional distribution.</p>
+          <p class="mb-3"><strong>📧 Email Templates:</strong> Transform HTML email templates into PDF mockups for client approval and reference.</p>
+          <p class="mb-3"><strong>🌐 Website Archiving:</strong> Save snapshots of web pages, blog posts, and articles in PDF format for offline access.</p>
+          <p class="mb-3"><strong>💼 Invoices & Receipts:</strong> Convert HTML-formatted invoices, receipts, and billing statements to PDF for record-keeping.</p>
+          <p class="mb-3"><strong>📊 Data Visualization:</strong> Turn HTML charts, graphs, and dashboards into PDF reports for stakeholder presentations.</p>
+          <p class="mb-3"><strong>📋 Forms & Applications:</strong> Convert filled HTML forms into PDF documents for submission and archiving.</p>
+          <p class="mb-3"><strong>🎓 Educational Content:</strong> Transform HTML lessons, tutorials, and course materials into printable PDF guides.</p>
+          <p class="mb-3"><strong>🎨 Portfolio Pieces:</strong> Convert web design mockups and prototypes to PDF for client presentations.</p>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Understanding HTML to PDF Conversion</h3>
+        <p class="mb-4">
+          HTML to PDF conversion works by rendering your HTML code in a virtual browser environment, applying all CSS styles, and capturing the visual output as a PDF document. Our converter supports modern HTML5 and CSS3 features including flexbox, grid layouts, custom fonts, and responsive design elements. The resulting PDF maintains the exact visual appearance of your HTML across all devices and PDF readers.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Supported HTML Features</h3>
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+          <div class="bg-white border-2 border-gray-200 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">✅ Fully Supported</h4>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>• HTML5 semantic elements</li>
+              <li>• Inline CSS styles</li>
+              <li>• Internal stylesheets (&lt;style&gt; tags)</li>
+              <li>• Text formatting (bold, italic, underline)</li>
+              <li>• Tables, lists, and headings</li>
+              <li>• Images (embedded or base64)</li>
+              <li>• Colors and backgrounds</li>
+              <li>• Fonts and typography</li>
+              <li>• Borders and margins</li>
+              <li>• Flexbox and Grid layouts</li>
+            </ul>
+          </div>
+          <div class="bg-white border-2 border-gray-200 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">⚠️ Limited Support</h4>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>• External CSS files (must be inline)</li>
+              <li>• JavaScript interactions</li>
+              <li>• Video and audio elements</li>
+              <li>• Web fonts (fallback to system fonts)</li>
+              <li>• Complex animations</li>
+              <li>• Interactive forms</li>
+              <li>• SVG animations</li>
+              <li>• External images (use base64)</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Tips for Best Results</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Use inline CSS or internal &lt;style&gt; tags instead of external stylesheets</li>
+          <li>Embed images as base64 data URIs for better compatibility</li>
+          <li>Set explicit page dimensions if you need specific PDF sizes</li>
+          <li>Use web-safe fonts or include font declarations in your CSS</li>
+          <li>Test your HTML in a browser first to ensure it renders correctly</li>
+          <li>Avoid JavaScript-dependent content as it won't execute in PDF</li>
+          <li>Use print media queries (@media print) for PDF-specific styling</li>
+          <li>Keep layouts simple and avoid overly complex nested elements</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Security & Privacy</h3>
+        <p class="mb-4">
+          Your privacy is our top priority. Unlike online services that upload your files to remote servers, our HTML to PDF converter processes everything <strong>locally in your web browser</strong>. This means:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Your HTML code never leaves your computer</li>
+          <li>No data is transmitted over the internet</li>
+          <li>No file storage on our servers</li>
+          <li>Complete confidentiality for proprietary code and sensitive content</li>
+          <li>Safe for converting internal documentation, invoices, and private reports</li>
+          <li>No tracking or logging of your converted files</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">HTML vs PDF: When to Use Each Format</h3>
+        <p class="mb-4">
+          <strong>HTML</strong> is ideal for interactive, dynamic content that needs to be updated frequently and accessed via web browsers. Use HTML for websites, web apps, and online documentation. <strong>PDF</strong> is perfect for static documents that need consistent formatting across all devices, can be printed reliably, and don't require editing. Convert to PDF when you need to share, archive, or print your HTML content while preserving its exact appearance.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Browser Compatibility</h3>
+        <p class="mb-4">
+          Our HTML to PDF converter works seamlessly on all modern web browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera. No software installation required - just open your browser and start converting. Also works on mobile browsers on iOS and Android devices for on-the-go conversions.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Frequently Asked Questions</h3>
+        
+        <div class="space-y-4">
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I convert an entire website to PDF?</h4>
+            <p class="text-gray-700">Yes! You can paste the HTML source code of any webpage. For best results, use the "View Source" feature in your browser to copy the complete HTML, or save the webpage as an HTML file.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Will my CSS styling be preserved in the PDF?</h4>
+            <p class="text-gray-700">Yes! Inline styles and internal stylesheets (&lt;style&gt; tags) are fully preserved. External CSS files should be converted to inline or internal styles for best results.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I include images in my HTML to PDF conversion?</h4>
+            <p class="text-gray-700">Yes! Images embedded as base64 data URIs work perfectly. For external image URLs, they must be accessible from your browser (not blocked by CORS).</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">What happens to JavaScript in my HTML?</h4>
+            <p class="text-gray-700">JavaScript code is not executed during conversion. The PDF captures the static HTML structure and CSS styling only. Make sure your content doesn't rely on JavaScript to display properly.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I control the page size and orientation?</h4>
+            <p class="text-gray-700">The converter uses A4 page size by default. You can use CSS @page rules in your HTML to specify custom page dimensions and orientations for more control.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">How do I convert multiple HTML pages into one PDF?</h4>
+            <p class="text-gray-700">Combine all your HTML content into a single HTML file with page breaks (&lt;div style="page-break-after: always;"&gt;&lt;/div&gt;), then convert the merged file.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Why do my fonts look different in the PDF?</h4>
+            <p class="text-gray-700">If you're using custom web fonts not available on your system, they may fall back to default fonts. Use standard web-safe fonts or embed font files as base64 for consistency.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Is there a size limit for HTML files?</h4>
+            <p class="text-gray-700">There's no strict limit, but very large HTML files (several MB) may take longer to process depending on your device's performance and browser capabilities.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">HTML to PDF vs Other Methods</h3>
+        <p class="mb-4">
+          While many server-side tools and desktop applications offer HTML to PDF conversion, our online converter offers several advantages:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li><strong>No Software Required:</strong> Works directly in your browser without downloading or installing anything</li>
+          <li><strong>Cross-Platform:</strong> Works on Windows, Mac, Linux, iOS, Android, and Chromebook</li>
+          <li><strong>Instant Results:</strong> No server uploads or API calls - everything happens locally</li>
+          <li><strong>Always Updated:</strong> No need to update software - always use the latest version</li>
+          <li><strong>Free Forever:</strong> No trial periods, subscriptions, or hidden fees</li>
+          <li><strong>Privacy Guaranteed:</strong> Client-side processing keeps your code completely private</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Choose JustPdf for HTML to PDF Conversion?</h3>
+        <p class="mb-4">
+          Unlike other online converters that require subscriptions, upload limits, or add watermarks, JustPdf provides a truly free and unlimited HTML to PDF conversion experience. Our client-side processing ensures your proprietary code and sensitive documents remain completely private. Whether you're converting a simple invoice or a complex multi-page report, JustPdf delivers professional-quality PDF documents instantly, every time.
+        </p>
+
+        <div class="bg-green-50 border-2 border-green-300 p-6 rounded-lg mt-8">
+          <h4 class="font-bold text-green-800 text-lg mb-3">🚀 Pro Tip</h4>
+          <p class="text-gray-700">
+            For responsive HTML designs, add a @media print query to your CSS with fixed widths. This ensures your content displays consistently in the PDF regardless of the viewer's screen size.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white p-8 rounded-lg shadow">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/word-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📝</div>
+          <span class="font-semibold text-green-700">Word to PDF</span>
+        </a>
+        <a href="/tools/excel-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📊</div>
+          <span class="font-semibold text-green-700">Excel to PDF</span>
+        </a>
+        <a href="/tools/ppt-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📽️</div>
+          <span class="font-semibold text-green-700">PPT to PDF</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- About Section -->
+        <div>
+          <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+          </p>
+        </div>
+        
+        <!-- Popular Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+            <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+            <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+            <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+            <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+          </ul>
+        </div>
+        
+        <!-- More Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+            <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+            <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+            <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+            <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+            <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+            <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+            <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Divider -->
+      <div class="border-t border-gray-700 pt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <!-- Copyright -->
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2026 JustPdf.net - All rights reserved
+          </p>
+          
+          <!-- Legal Links -->
+          <div class="flex flex-wrap justify-center gap-6 text-sm">
+            <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+            <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+            <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const fileMethodBtn = document.getElementById('file-method-btn');
+      const codeMethodBtn = document.getElementById('code-method-btn');
+      const uploadSection = document.getElementById('upload-section');
+      const codeSection = document.getElementById('code-section');
+      const uploadBox = document.getElementById('upload-box');
+      const fileInput = document.getElementById('file-input');
+      const htmlCodeInput = document.getElementById('html-code-input');
+      const previewSection = document.getElementById('preview-section');
+      const htmlPreview = document.getElementById('html-preview');
+      const progressSection = document.getElementById('progress-section');
+      const downloadSection = document.getElementById('download-section');
+      const convertFileBtn = document.getElementById('convert-file-btn');
+      const convertCodeBtn = document.getElementById('convert-code-btn');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const downloadLink = document.getElementById('download-link');
+      const convertAnother = document.getElementById('convert-another');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+
+      let currentHtmlContent = '';
+
+      // Toggle between input methods
+      fileMethodBtn.addEventListener('click', () => {
+        fileMethodBtn.classList.add('bg-green-600', 'text-white');
+        fileMethodBtn.classList.remove('bg-gray-200', 'text-gray-700');
+        codeMethodBtn.classList.remove('bg-green-600', 'text-white');
+        codeMethodBtn.classList.add('bg-gray-200', 'text-gray-700');
+        uploadSection.classList.remove('hidden');
+        codeSection.classList.add('hidden');
+        previewSection.classList.add('hidden');
+      });
+
+      codeMethodBtn.addEventListener('click', () => {
+        codeMethodBtn.classList.add('bg-green-600', 'text-white');
+        codeMethodBtn.classList.remove('bg-gray-200', 'text-gray-700');
+        fileMethodBtn.classList.remove('bg-green-600', 'text-white');
+        fileMethodBtn.classList.add('bg-gray-200', 'text-gray-700');
+        codeSection.classList.remove('hidden');
+        uploadSection.classList.add('hidden');
+        previewSection.classList.add('hidden');
+      });
+
+      // File upload handlers
+      uploadBox.addEventListener('click', () => fileInput.click());
+      
+      uploadBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('dragleave', () => {
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+        if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) handleFile(e.target.files[0]);
+      });
+
+      function handleFile(file) {
+        if (!file.name.match(/\.(html|htm)$/i)) {
+          showError('Please upload an HTML file (.html or .htm)');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          currentHtmlContent = e.target.result;
+          showPreview(currentHtmlContent);
+        };
+        reader.readAsText(file);
+      }
+
+      function showPreview(html) {
+        // Create iframe for safe preview
+        htmlPreview.innerHTML = `<iframe srcdoc="${html.replace(/"/g, '&quot;')}" class="w-full h-full border-0" style="min-height: 400px;"></iframe>`;
+        uploadSection.classList.add('hidden');
+        codeSection.classList.add('hidden');
+        previewSection.classList.remove('hidden');
+      }
+
+      // Convert from code input
+      convertCodeBtn.addEventListener('click', () => {
+        const code = htmlCodeInput.value.trim();
+        if (!code) {
+          showError('Please paste some HTML code');
+          return;
+        }
+        currentHtmlContent = code;
+        convertToPDF();
+      });
+
+      // Convert from file
+      convertFileBtn.addEventListener('click', () => {
+        convertToPDF();
+      });
+
+      async function convertToPDF() {
+        try {
+          progressSection.classList.remove('hidden');
+          previewSection.classList.add('hidden');
+          codeSection.classList.add('hidden');
+          progressBar.style.width = '20%';
+          progressText.textContent = 'Rendering HTML...';
+
+          // Create temporary container
+          const container = document.createElement('div');
+          container.style.cssText = `
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 794px;
+            background: white;
+            padding: 96px;
+          `;
+          container.innerHTML = currentHtmlContent;
+          document.body.appendChild(container);
+
+          // Wait for images to load
+          const images = container.getElementsByTagName('img');
+          await Promise.all(Array.from(images).map(img => {
+            return new Promise((resolve) => {
+              if (img.complete) resolve();
+              else {
+                img.onload = resolve;
+                img.onerror = resolve;
+              }
+            });
+          }));
+
+          progressBar.style.width = '50%';
+          progressText.textContent = 'Creating PDF...';
+
+          // Use html2canvas for rendering
+          const canvas = await html2canvas(container, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            width: 794,
+            windowWidth: 794,
+            letterRendering: true
+          });
+
+          progressBar.style.width = '80%';
+          progressText.textContent = 'Generating PDF file...';
+
+          const imgData = canvas.toDataURL('image/jpeg', 0.95);
+          const { jsPDF } = window.jspdf;
+          
+          // Calculate PDF dimensions
+          const pdfWidth = 210; // A4 width in mm
+          const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+          
+          const pdf = new jsPDF({
+            orientation: pdfHeight > pdfWidth ? 'portrait' : 'landscape',
+            unit: 'mm',
+            format: 'a4'
+          });
+
+          // If content is taller than one page, split it
+          if (pdfHeight > 297) {
+            const pageHeight = 297;
+            let heightLeft = pdfHeight;
+            let position = 0;
+
+            while (heightLeft > 0) {
+              if (position > 0) pdf.addPage();
+              pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
+              heightLeft -= pageHeight;
+              position -= pageHeight;
+            }
+          } else {
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+          }
+
+          progressBar.style.width = '100%';
+          progressText.textContent = 'Complete!';
+
+          // Clean up
+          document.body.removeChild(container);
+
+          setTimeout(() => {
+            progressSection.classList.add('hidden');
+            downloadSection.classList.remove('hidden');
+            
+            const blob = pdf.output('blob');
+            const url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = 'html-document.pdf';
+          }, 500);
+
+        } catch (error) {
+          console.error(error);
+          progressSection.classList.add('hidden');
+          showError('Failed to convert HTML to PDF. Please check your HTML syntax.');
+        }
+      }
+
+      convertAnother.addEventListener('click', () => location.reload());
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.remove('hidden');
+        setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Add Watermark to PDF Online Free - PDF Watermarking Tool | JustPdf</title>
+  <meta name="description" content="Add text watermarks to PDF files online for free. Protect and brand your documents with custom watermarks. Fast, secure, and easy to use. No registration required.">
+  <meta name="keywords" content="pdf watermark, add watermark to pdf, watermark pdf online, pdf protection, pdf branding, text watermark">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/watermark-pdf.html">
+  <meta property="og:title" content="Add Watermark to PDF Online Free - PDF Watermarking Tool | JustPdf">
+  <meta property="og:description" content="Add text watermarks to PDF files online for free. Protect and brand your documents with custom watermarks.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/watermark-pdf.html">
+  <meta property="twitter:title" content="Add Watermark to PDF Online Free - PDF Watermarking Tool | JustPdf">
+  <meta property="twitter:description" content="Add text watermarks to PDF files online for free. Protect and brand your documents.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/watermark-pdf.html">
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I add a watermark to a PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF file, enter your watermark text, customize the position and opacity, and click Add Watermark. Download your watermarked PDF instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I add watermarks to PDFs for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's watermark tool is completely free with no file size limits, no watermarks on your watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to watermark PDFs online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All processing happens in your browser. Your PDF files never leave your device and are not uploaded to any server. 100% private and secure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I customize the watermark appearance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! You can customize the watermark text, position (center, diagonal, corner), opacity, font size, and color to match your needs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the watermark appear on all pages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the watermark is applied to every page of your PDF document for consistent branding and protection throughout the file."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Add Watermark to PDF</h1>
+    <p class="text-gray-600 text-center mb-8">Protect and brand your PDF documents with custom text watermarks</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">💧</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file</strong> or drag it here</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <!-- Watermark Options -->
+    <div id="watermark-options" class="hidden mt-8">
+      <h2 class="text-2xl font-bold mb-4">Watermark Settings</h2>
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Watermark Text:</label>
+          <input type="text" id="watermark-text" value="CONFIDENTIAL" class="w-full p-3 border rounded-lg" placeholder="Enter watermark text">
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="block font-semibold mb-2">Position:</label>
+            <select id="watermark-position" class="w-full p-3 border rounded-lg">
+              <option value="diagonal">Diagonal (Center)</option>
+              <option value="center">Center</option>
+              <option value="top-right">Top Right</option>
+              <option value="top-left">Top Left</option>
+              <option value="bottom-right">Bottom Right</option>
+              <option value="bottom-left">Bottom Left</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-2">Opacity:</label>
+            <select id="watermark-opacity" class="w-full p-3 border rounded-lg">
+              <option value="0.3">30% (Light)</option>
+              <option value="0.5" selected>50% (Medium)</option>
+              <option value="0.7">70% (Strong)</option>
+              <option value="0.9">90% (Very Strong)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="block font-semibold mb-2">Font Size:</label>
+            <select id="watermark-size" class="w-full p-3 border rounded-lg">
+              <option value="24">Small (24pt)</option>
+              <option value="36">Medium (36pt)</option>
+              <option value="48" selected>Large (48pt)</option>
+              <option value="60">Extra Large (60pt)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-2">Color:</label>
+            <select id="watermark-color" class="w-full p-3 border rounded-lg">
+              <option value="gray" selected>Gray</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+              <option value="black">Black</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="add-watermark-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+          Add Watermark
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Adding watermark...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Watermark Added!</h3>
+        <p class="text-gray-600 mb-6">Your watermarked PDF is ready to download</p>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download Watermarked PDF
+        </a>
+        <br>
+        <button id="watermark-another" class="text-green-700 hover:underline">Watermark another PDF</button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Add Watermark to PDF Online Free</h2>
+      <p class="text-gray-700 mb-6">Adding watermarks to PDF files helps protect intellectual property, brand documents, mark them as confidential, or indicate document status (draft, approved, etc.). JustPdf's free online watermark tool lets you add custom text watermarks to PDFs with full control over position, opacity, size, and color. All processing happens securely in your browser - your files never leave your device. No software installation, no registration, and no watermarks on your watermarks.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Add Watermarks to PDFs?</h3>
+      <p class="text-gray-700 mb-4">Watermarks serve multiple important purposes in document management:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Copyright protection:</strong> Mark documents as copyrighted material to discourage unauthorized use</li>
+        <li><strong>Brand identity:</strong> Add company names, logos, or branding to maintain brand presence</li>
+        <li><strong>Confidentiality:</strong> Mark sensitive documents as "Confidential", "Internal Only", or "Private"</li>
+        <li><strong>Document status:</strong> Indicate "Draft", "Review", "Approved", or "Final" status</li>
+        <li><strong>Ownership tracking:</strong> Add author names or organization identifiers for attribution</li>
+        <li><strong>Proof copies:</strong> Mark review copies, proofs, or samples to distinguish from final versions</li>
+        <li><strong>Legal compliance:</strong> Meet industry requirements for document marking and classification</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Watermark PDF in 3 Simple Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload your PDF:</strong> Click the upload button or drag and drop your PDF file. Any PDF size is supported.</li>
+        <li><strong>Customize watermark:</strong> Enter your watermark text, choose position (diagonal, center, corner), adjust opacity, font size, and color to match your needs.</li>
+        <li><strong>Download watermarked PDF:</strong> Click "Add Watermark" and download your protected PDF. The watermark appears on every page.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">⚡ Instant Processing</h4>
+          <p class="text-sm text-gray-700">Add watermarks to PDFs in seconds with our fast browser-based engine.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+          <p class="text-sm text-gray-700">All processing happens in your browser. Your PDF files never leave your device - complete privacy guaranteed.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+          <p class="text-sm text-gray-700">No subscriptions, no trials, no hidden costs. Add watermarks to unlimited PDFs completely free.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🎨 Full Customization</h4>
+          <p class="text-sm text-gray-700">Control text, position, opacity, size, and color for perfect watermark appearance.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📄 All Pages</h4>
+          <p class="text-sm text-gray-700">Watermark is automatically applied to every page of your PDF document.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📱 Works Everywhere</h4>
+          <p class="text-sm text-gray-700">Add watermarks on desktop, tablet, or smartphone. No software installation required.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Watermark Customization Options</h3>
+      
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📝 Watermark Text</h4>
+      <p class="text-gray-700 mb-4">Enter any text you want to appear as the watermark: "CONFIDENTIAL", "DRAFT", "COPYRIGHT © 2026", company name, author name, or custom messages. Special characters and emojis are supported.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📍 Position Options</h4>
+      <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+        <li><strong>Diagonal (Center):</strong> Classic watermark style across the page at 45° angle - highly visible</li>
+        <li><strong>Center:</strong> Horizontal text centered on the page - bold and prominent</li>
+        <li><strong>Top Right/Left:</strong> Header-style watermark - professional and subtle</li>
+        <li><strong>Bottom Right/Left:</strong> Footer-style watermark - unobtrusive but clear</li>
+      </ul>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">💧 Opacity Levels</h4>
+      <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+        <li><strong>30% (Light):</strong> Subtle watermark that doesn't interfere with document readability</li>
+        <li><strong>50% (Medium):</strong> Balanced visibility - noticeable but not overwhelming (recommended)</li>
+        <li><strong>70% (Strong):</strong> Bold watermark for maximum protection and visibility</li>
+        <li><strong>90% (Very Strong):</strong> Nearly opaque for critical documents requiring clear marking</li>
+      </ul>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📏 Font Size</h4>
+      <p class="text-gray-700 mb-4">Choose from Small (24pt), Medium (36pt), Large (48pt - recommended), or Extra Large (60pt) to match your document size and watermark prominence needs.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🎨 Color Options</h4>
+      <p class="text-gray-700 mb-4">Select Gray (classic professional look), Red (urgent/confidential), Blue (corporate/official), Green (approved/verified), or Black (maximum contrast) to match your branding or document purpose.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How do I add a watermark to a PDF?</h4>
+        <p class="text-gray-700">Upload your PDF file using the upload button above, enter your desired watermark text (e.g., "CONFIDENTIAL" or your company name), customize the position, opacity, size, and color using the dropdown options, and click "Add Watermark". Download your watermarked PDF instantly. The watermark will appear on all pages.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I add watermarks to PDFs for free?</h4>
+        <p class="text-gray-700">Yes! JustPdf's PDF watermark tool is completely free with no file size limits, no watermarks on your watermarks (ironic, right?), and no registration required. Add watermarks to as many PDFs as you need, absolutely free. All processing happens in your browser for complete privacy.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it safe to watermark PDFs online?</h4>
+        <p class="text-gray-700">Yes, absolutely. All watermark processing happens client-side in your browser using PDF-lib. Your PDF files never leave your device and are not uploaded to any server. We cannot see, access, or store your documents in any way. 100% private and secure - perfect for confidential documents.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I customize the watermark appearance?</h4>
+        <p class="text-gray-700">Yes! You have full control over watermark text content, position (diagonal, center, top/bottom corners), opacity (30%-90%), font size (24pt-60pt), and color (gray, red, blue, green, black). This flexibility lets you create watermarks that perfectly match your needs - subtle for drafts or bold for confidential documents.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Will the watermark appear on all pages?</h4>
+        <p class="text-gray-700">Yes, the watermark is automatically applied to every page of your PDF document for consistent protection and branding throughout the file. This ensures comprehensive document marking whether your PDF has 1 page or 1,000 pages.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I add image watermarks or logos?</h4>
+        <p class="text-gray-700">Currently, this tool supports text watermarks only. For logo or image watermarks, you can use Adobe Acrobat or similar desktop PDF software. Text watermarks are ideal for marking documents as "CONFIDENTIAL", "DRAFT", adding copyright notices, or displaying author names.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What's the best watermark position?</h4>
+        <p class="text-gray-700">Diagonal (center) is the most common choice as it's highly visible while still allowing document content to be read. Center position is bold and prominent for critical marking. Corner positions (top/bottom right/left) are subtle and professional. Choose based on your document purpose - confidential documents need bold watermarks, while drafts can use lighter options.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can watermarks be removed from PDFs?</h4>
+        <p class="text-gray-700">Text watermarks added by this tool become part of the PDF content on each page. While technically they can be removed using advanced PDF editing software, it's time-consuming and may damage the document. For maximum security with truly unremovable watermarks, consider encrypting your PDF or using professional DRM solutions.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Confidential documents:</strong> Mark sensitive business documents, NDAs, or private files as "CONFIDENTIAL"</li>
+        <li><strong>Draft documents:</strong> Indicate work-in-progress documents with "DRAFT" or "REVIEW COPY" watermarks</li>
+        <li><strong>Copyright protection:</strong> Add copyright notices to ebooks, guides, reports, and creative works</li>
+        <li><strong>Company branding:</strong> Add company names or department identifiers to corporate documents</li>
+        <li><strong>Proof copies:</strong> Mark review copies sent to clients or stakeholders before final approval</li>
+        <li><strong>Author attribution:</strong> Add author names or organization credits to research papers and articles</li>
+        <li><strong>Document classification:</strong> Mark documents as "INTERNAL USE ONLY", "PUBLIC", or "RESTRICTED"</li>
+        <li><strong>Sample documents:</strong> Watermark portfolio samples, product catalogs, or demo materials</li>
+        <li><strong>Legal compliance:</strong> Meet regulatory requirements for document marking and classification</li>
+        <li><strong>Version control:</strong> Mark document versions or approval status for workflow tracking</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Effective Watermarks</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Use clear, concise text - short phrases work best ("CONFIDENTIAL", not lengthy sentences)</li>
+        <li>Choose 50% opacity for balance between visibility and readability</li>
+        <li>Diagonal position is most effective for preventing document misuse</li>
+        <li>Match watermark color to document purpose (red for urgent, gray for professional, blue for official)</li>
+        <li>For multi-page documents, ensure watermark doesn't obscure critical content</li>
+        <li>Use larger font sizes (48-60pt) for longer documents or when printed</li>
+        <li>Test watermark visibility by viewing the PDF at different zoom levels</li>
+        <li>Consider using ALL CAPS for maximum readability and impact</li>
+        <li>Add dates to watermarks for time-sensitive documents (e.g., "DRAFT - Jan 2026")</li>
+        <li>Preview the watermarked PDF before distributing to ensure it looks professional</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Watermark Best Practices by Document Type</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <h4 class="font-semibold text-gray-800 mb-3">Confidential Business Documents:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>Text:</strong> "CONFIDENTIAL" or "CONFIDENTIAL - [Company Name]"</li>
+          <li><strong>Position:</strong> Diagonal (center) for maximum visibility</li>
+          <li><strong>Opacity:</strong> 70% (strong) - clearly visible but readable</li>
+          <li><strong>Color:</strong> Red for urgent sensitivity</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Draft Documents:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>Text:</strong> "DRAFT" or "DRAFT - [Date]"</li>
+          <li><strong>Position:</strong> Center or diagonal</li>
+          <li><strong>Opacity:</strong> 30-50% (light to medium) - noticeable but not overwhelming</li>
+          <li><strong>Color:</strong> Gray for professional appearance</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Copyright Protection:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>Text:</strong> "© 2026 [Your Name/Company] - All Rights Reserved"</li>
+          <li><strong>Position:</strong> Bottom right or diagonal</li>
+          <li><strong>Opacity:</strong> 50% (medium) - clear attribution without obstruction</li>
+          <li><strong>Color:</strong> Gray or black</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Approved Documents:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>Text:</strong> "APPROVED" or "FINAL"</li>
+          <li><strong>Position:</strong> Top right corner</li>
+          <li><strong>Opacity:</strong> 70% (strong) - clear status indication</li>
+          <li><strong>Color:</strong> Green for approval status</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf Watermark Tool?</h3>
+      <p class="text-gray-700 mb-4">Unlike expensive desktop software like Adobe Acrobat ($15-30/month) or online services that upload your sensitive files to remote servers, JustPdf offers the perfect solution for free, secure PDF watermarking. Our browser-based tool uses PDF-lib to add watermarks directly in your browser without any uploads. You get professional watermarking with full customization - all completely free and private. Whether you're protecting a single confidential document or batch-watermarking hundreds of PDFs, our tool delivers fast, reliable, and secure watermark application every time.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Watermarks vs Other PDF Security Methods</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <h4 class="font-semibold text-gray-800 mb-3">Watermarks:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>✓ Visible protection:</strong> Clear indication of document status or ownership</li>
+          <li><strong>✓ Easy to apply:</strong> Add watermarks in seconds without technical knowledge</li>
+          <li><strong>✓ Professional branding:</strong> Maintain brand presence on all documents</li>
+          <li><strong>✓ Document classification:</strong> Clear marking for workflow and compliance</li>
+          <li><strong>✗ Can be removed:</strong> Not foolproof security for highly sensitive content</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Password Protection:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>✓ Access control:</strong> Prevents unauthorized opening of PDF</li>
+          <li><strong>✓ Editing restriction:</strong> Can block printing, copying, or modifications</li>
+          <li><strong>✗ Password sharing:</strong> Recipients need password to view</li>
+          <li><strong>✗ No visual marking:</strong> Doesn't indicate document status when opened</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Best Approach:</h4>
+        <p class="text-gray-700">Combine both methods! Add watermarks for visual marking and classification, then password-protect for access control. This provides comprehensive document security and professional appearance.</p>
+      </div>
+    </article>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white rounded-lg p-8 shadow-sm">
+      <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/protect-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🔒</div>
+          <span class="font-semibold text-green-700">Protect PDF</span>
+        </a>
+        <a href="/tools/unlock-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🔓</div>
+          <span class="font-semibold text-green-700">Unlock PDF</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+        <a href="/tools/split-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✂️</div>
+          <span class="font-semibold text-green-700">Split PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="YYYYYYYYYY"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</main>
+
+<script>
+  // Get all DOM elements
+  const uploadBox = document.getElementById('upload-box');
+  const fileInput = document.getElementById('file-input');
+  const uploadSection = document.getElementById('upload-section');
+  const watermarkOptions = document.getElementById('watermark-options');
+  const progressSection = document.getElementById('progress-section');
+  const downloadSection = document.getElementById('download-section');
+  const errorMessage = document.getElementById('error-message');
+  const errorText = document.getElementById('error-text');
+  const downloadLink = document.getElementById('download-link');
+  const addWatermarkBtn = document.getElementById('add-watermark-btn');
+  const watermarkAnotherBtn = document.getElementById('watermark-another');
+  const progressBar = document.getElementById('progress-bar');
+  const progressText = document.getElementById('progress-text');
+  
+  // Get watermark settings
+  const watermarkTextInput = document.getElementById('watermark-text');
+  const watermarkPosition = document.getElementById('watermark-position');
+  const watermarkOpacity = document.getElementById('watermark-opacity');
+  const watermarkSize = document.getElementById('watermark-size');
+  const watermarkColor = document.getElementById('watermark-color');
+  
+  let currentPDFBytes = null;
+  let currentFileName = '';
+
+  // Handle file upload
+  uploadBox.addEventListener('click', () => fileInput.click());
+  
+  uploadBox.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadBox.classList.add('bg-green-100');
+  });
+  
+  uploadBox.addEventListener('dragleave', () => {
+    uploadBox.classList.remove('bg-green-100');
+  });
+  
+  uploadBox.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadBox.classList.remove('bg-green-100');
+    const file = e.dataTransfer.files[0];
+    if (file) handleFileSelect(file);
+  });
+  
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) handleFileSelect(file);
+  });
+
+  async function handleFileSelect(file) {
+    if (!file.type.includes('pdf')) {
+      showError('Please select a valid PDF file');
+      return;
+    }
+
+    currentFileName = file.name;
+    
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      currentPDFBytes = new Uint8Array(arrayBuffer);
+      
+      uploadSection.classList.add('hidden');
+      watermarkOptions.classList.remove('hidden');
+      errorMessage.classList.add('hidden');
+    } catch (error) {
+      showError('Error reading PDF file: ' + error.message);
+    }
+  }
+
+  // Add watermark button click
+  addWatermarkBtn.addEventListener('click', addWatermark);
+
+  async function addWatermark() {
+    if (!currentPDFBytes) {
+      showError('No PDF file loaded');
+      return;
+    }
+
+    watermarkOptions.classList.add('hidden');
+    progressSection.classList.remove('hidden');
+    errorMessage.classList.add('hidden');
+    
+    try {
+      const { PDFDocument, rgb, degrees } = PDFLib;
+      
+      progressBar.style.width = '20%';
+      progressText.textContent = 'Loading PDF...';
+      
+      // Load the PDF
+      const pdfDoc = await PDFDocument.load(currentPDFBytes);
+      const pages = pdfDoc.getPages();
+      const totalPages = pages.length;
+      
+      // Get watermark settings
+      const text = watermarkTextInput.value || 'CONFIDENTIAL';
+      const opacity = parseFloat(watermarkOpacity.value);
+      const fontSize = parseInt(watermarkSize.value);
+      const position = watermarkPosition.value;
+      const colorValue = watermarkColor.value;
+      
+      // Map color names to RGB values
+      const colorMap = {
+        'gray': rgb(0.5, 0.5, 0.5),
+        'red': rgb(0.8, 0.2, 0.2),
+        'blue': rgb(0.2, 0.2, 0.8),
+        'green': rgb(0.2, 0.6, 0.2),
+        'black': rgb(0, 0, 0)
+      };
+      const color = colorMap[colorValue] || rgb(0.5, 0.5, 0.5);
+      
+      progressBar.style.width = '40%';
+      progressText.textContent = `Adding watermark to ${totalPages} pages...`;
+      
+      // Add watermark to each page
+      for (let i = 0; i < pages.length; i++) {
+        const page = pages[i];
+        const { width, height } = page.getSize();
+        
+        // Calculate position and rotation
+        let x, y, rotation;
+        
+        switch (position) {
+          case 'diagonal':
+            x = width / 2;
+            y = height / 2;
+            rotation = degrees(45);
+            break;
+          case 'center':
+            x = width / 2;
+            y = height / 2;
+            rotation = degrees(0);
+            break;
+          case 'top-right':
+            x = width - 100;
+            y = height - 50;
+            rotation = degrees(0);
+            break;
+          case 'top-left':
+            x = 100;
+            y = height - 50;
+            rotation = degrees(0);
+            break;
+          case 'bottom-right':
+            x = width - 100;
+            y = 50;
+            rotation = degrees(0);
+            break;
+          case 'bottom-left':
+            x = 100;
+            y = 50;
+            rotation = degrees(0);
+            break;
+          default:
+            x = width / 2;
+            y = height / 2;
+            rotation = degrees(45);
+        }
+        
+        // Draw watermark text
+        page.drawText(text, {
+          x: x,
+          y: y,
+          size: fontSize,
+          color: color,
+          opacity: opacity,
+          rotate: rotation,
+          // Center the text
+          ...(position === 'diagonal' || position === 'center' ? {
+            x: x - (text.length * fontSize * 0.3),
+          } : {})
+        });
+        
+        // Update progress
+        const progress = 40 + Math.floor((i / totalPages) * 50);
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `Processing page ${i + 1} of ${totalPages}...`;
+        
+        // Small delay to show progress
+        await new Promise(resolve => setTimeout(resolve, 10));
+      }
+      
+      progressBar.style.width = '90%';
+      progressText.textContent = 'Generating watermarked PDF...';
+      
+      // Save the PDF
+      const watermarkedPDFBytes = await pdfDoc.save();
+      
+      progressBar.style.width = '100%';
+      progressText.textContent = 'Complete!';
+      
+      // Create download link
+      const blob = new Blob([watermarkedPDFBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const fileName = currentFileName.replace('.pdf', '_watermarked.pdf');
+      
+      setTimeout(() => {
+        progressSection.classList.add('hidden');
+        downloadSection.classList.remove('hidden');
+        
+        downloadLink.href = url;
+        downloadLink.download = fileName;
+      }, 500);
+      
+    } catch (error) {
+      console.error('Watermark error:', error);
+      progressSection.classList.add('hidden');
+      watermarkOptions.classList.remove('hidden');
+      showError('Failed to add watermark: ' + error.message);
+    }
+  }
+
+  // Watermark another file
+  watermarkAnotherBtn.addEventListener('click', () => {
+    location.reload();
+  });
+
+  function showError(message) {
+    errorText.textContent = message;
+    errorMessage.classList.remove('hidden');
+    setTimeout(() => errorMessage.classList.add('hidden'), 8000);
+  }
+</script>
+
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

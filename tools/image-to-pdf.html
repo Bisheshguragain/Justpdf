@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Image to PDF Converter Online Free - JPG PNG to PDF | JustPdf</title>
+  <meta name="description" content="Convert images to PDF online for free. Transform JPG, PNG, JPEG photos to PDF format instantly. Support multiple images, batch conversion. No registration required.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Image to PDF Converter - JPG PNG to PDF Online Free">
+  <meta property="og:description" content="Convert images to PDF online for free. Transform JPG, PNG photos to PDF format instantly. Support multiple images and batch conversion.">
+  <meta property="og:url" content="https://justpdf.net/tools/image-to-pdf/">
+  <meta property="og:type" content="website">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.net/tools/image-to-pdf/">
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert images to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your images (JPG, PNG, JPEG), arrange them in the desired order, and click convert. All images will be combined into a single PDF file instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert multiple images to one PDF for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's image to PDF converter is completely free and supports multiple images. You can combine unlimited photos into a single PDF with no watermarks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to convert images to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All conversions happen in your browser. Your images never leave your device and are not uploaded to any server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What image formats are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We support JPG, JPEG, and PNG image formats. All common photo formats from cameras, phones, and scanners work perfectly."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+  
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Image to PDF Converter</h1>
+    <p class="text-gray-600 text-center mb-8">Convert JPG, PNG images to PDF - Support multiple images in batch</p>
+
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">🖼️</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose images</strong> or drag them here</p>
+        <p class="text-sm text-gray-500">JPG, PNG supported (multiple files allowed)</p>
+        <input type="file" id="file-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden">
+      </div>
+    </div>
+
+    <div id="preview-section" class="hidden mt-8">
+      <h2 class="text-2xl font-bold mb-4">Selected Images (<span id="image-count">0</span>)</h2>
+      <div id="image-list" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"></div>
+      <button id="convert-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+        Convert to PDF
+      </button>
+    </div>
+
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Processing...</p>
+      </div>
+    </div>
+
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">PDF Created!</h3>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download PDF
+        </a>
+        <br>
+        <button id="convert-another" class="text-green-700 hover:underline">Convert more images</button>
+      </div>
+    </div>
+
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Main Tool) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="mt-16 bg-white p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Convert Images to PDF?</h2>
+      
+      <div class="prose max-w-none text-gray-700">
+        <p class="mb-4">
+          Converting images to PDF format is essential for creating professional documents, sharing multiple photos in a single file, and preserving image quality across devices. PDF files are universally compatible, making them perfect for presenting photos, scanned documents, receipts, contracts, and visual portfolios without worrying about compatibility issues.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Key Benefits of Image to PDF Conversion</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+            <h4 class="font-bold text-green-800 text-lg mb-2">📄 Combine Multiple Images</h4>
+            <p class="text-gray-700">Merge dozens of photos, scans, or screenshots into a single organized PDF document. Perfect for creating photo albums, reports, or documentation.</p>
+          </div>
+          <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+            <h4 class="font-bold text-blue-800 text-lg mb-2">🔒 Preserve Quality</h4>
+            <p class="text-gray-700">Images maintain their original resolution and quality in PDF format. No compression or quality loss during conversion.</p>
+          </div>
+          <div class="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+            <h4 class="font-bold text-purple-800 text-lg mb-2">📱 Universal Compatibility</h4>
+            <p class="text-gray-700">PDF files open on any device - smartphones, tablets, computers - without needing special software or image viewers.</p>
+          </div>
+          <div class="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
+            <h4 class="font-bold text-yellow-800 text-lg mb-2">📤 Easy Sharing</h4>
+            <p class="text-gray-700">Share multiple images via email in one file. Recipients can view all photos without downloading multiple attachments.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">How to Convert Images to PDF Online</h3>
+        <ol class="list-decimal pl-6 space-y-3 mb-6">
+          <li><strong>Select Images:</strong> Click the upload area or drag and drop your JPG, PNG, or JPEG files</li>
+          <li><strong>Arrange Order:</strong> Preview all selected images and arrange them in your desired sequence</li>
+          <li><strong>Convert & Download:</strong> Click "Convert to PDF" and download your combined PDF file instantly</li>
+        </ol>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Features of Our Image to PDF Converter</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li><strong>Free & Unlimited:</strong> Convert as many images as you need, completely free forever</li>
+          <li><strong>Batch Conversion:</strong> Upload multiple images at once and combine them into one PDF</li>
+          <li><strong>No Registration:</strong> Start converting immediately without creating an account</li>
+          <li><strong>Complete Privacy:</strong> All conversions happen in your browser - images never uploaded to servers</li>
+          <li><strong>No Watermarks:</strong> Clean, professional PDFs without any branding or watermarks</li>
+          <li><strong>High Quality:</strong> Preserves original image resolution and quality</li>
+          <li><strong>Fast Processing:</strong> Instant conversion with no waiting in queues</li>
+          <li><strong>Multiple Formats:</strong> Supports JPG, JPEG, and PNG image formats</li>
+          <li><strong>Mobile Friendly:</strong> Works perfectly on smartphones and tablets</li>
+          <li><strong>No File Size Limits:</strong> Convert large high-resolution images without restrictions</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Common Use Cases</h3>
+        <div class="bg-gray-50 p-6 rounded-lg mb-6">
+          <p class="mb-3"><strong>📸 Photo Albums:</strong> Create digital photo albums from vacation pictures, family events, or special occasions in a single PDF document.</p>
+          <p class="mb-3"><strong>📄 Document Scanning:</strong> Combine scanned pages of contracts, receipts, invoices, or legal documents into one organized PDF file.</p>
+          <p class="mb-3"><strong>🎓 Educational Materials:</strong> Compile lecture notes, worksheets, diagrams, or study materials from images into shareable PDF documents.</p>
+          <p class="mb-3"><strong>💼 Business Reports:</strong> Convert charts, graphs, screenshots, and infographics into professional PDF presentations.</p>
+          <p class="mb-3"><strong>🏠 Real Estate Listings:</strong> Create property portfolios with multiple photos of houses, apartments, or rental properties.</p>
+          <p class="mb-3"><strong>📋 Resumes & Portfolios:</strong> Combine your resume, certificates, and work samples into a comprehensive PDF portfolio.</p>
+          <p class="mb-3"><strong>🎨 Design Mockups:</strong> Compile design iterations, mockups, or artwork samples for client presentations.</p>
+          <p class="mb-3"><strong>📱 Social Media Archives:</strong> Save and organize screenshots from social media, conversations, or important posts.</p>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">JPG vs PNG: Which Format to Use?</h3>
+        <p class="mb-4">
+          <strong>JPG/JPEG</strong> is ideal for photographs and images with many colors. It uses compression to create smaller file sizes, making it perfect for photos from cameras and phones. <strong>PNG</strong> is better for images with text, logos, or transparent backgrounds. It maintains perfect quality but creates larger files. Both formats convert to PDF perfectly - choose based on your original image type.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Tips for Best Results</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Use consistent image sizes and orientations for a professional-looking PDF</li>
+          <li>Arrange images in logical order before converting (you can rearrange in the preview)</li>
+          <li>For scanned documents, ensure images are clear and properly cropped</li>
+          <li>Use high-resolution images (300 DPI or higher) for print-quality PDFs</li>
+          <li>Compress large images before conversion if file size is a concern</li>
+          <li>Name your images sequentially (photo1, photo2, etc.) for automatic ordering</li>
+          <li>Remove unwanted images from the selection before converting</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Security & Privacy</h3>
+        <p class="mb-4">
+          Your privacy is our top priority. Unlike online services that upload your files to remote servers, our image to PDF converter processes everything <strong>locally in your web browser</strong>. This means:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Your photos never leave your computer</li>
+          <li>No data is transmitted over the internet</li>
+          <li>No file storage on our servers</li>
+          <li>Complete confidentiality for personal photos and sensitive documents</li>
+          <li>Safe for converting ID cards, passports, medical records, and private documents</li>
+          <li>No tracking or logging of your converted files</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Browser Compatibility</h3>
+        <p class="mb-4">
+          Our image to PDF converter works seamlessly on all modern web browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera. No software installation required - just open your browser and start converting. Also works on mobile browsers on iOS and Android devices.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Frequently Asked Questions</h3>
+        
+        <div class="space-y-4">
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">How many images can I convert at once?</h4>
+            <p class="text-gray-700">There's no strict limit! You can upload and convert dozens or even hundreds of images in a single PDF. Very large batches may take a bit longer to process.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Will the image quality be reduced in the PDF?</h4>
+            <p class="text-gray-700">No! Our converter preserves the original image quality and resolution. Your photos will look exactly as they did in the original files.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I change the order of images before converting?</h4>
+            <p class="text-gray-700">Yes! You can see a preview of all selected images and they'll be converted in the order you selected them. Upload images in your desired sequence.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">What's the maximum file size I can convert?</h4>
+            <p class="text-gray-700">There's no imposed file size limit, but very large images (100+ MB each) may take longer to process depending on your device's performance.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I convert HEIC or RAW image formats?</h4>
+            <p class="text-gray-700">Currently we support JPG, JPEG, and PNG formats. For HEIC (iPhone photos) or RAW files, please convert them to JPG first using your phone or photo software.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Will the PDF maintain the original image dimensions?</h4>
+            <p class="text-gray-700">Yes! Each image becomes a page in the PDF with the same dimensions as the original. Vertical images create portrait pages, horizontal images create landscape pages.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I add images from my phone camera directly?</h4>
+            <p class="text-gray-700">Yes! On mobile devices, you can select photos directly from your camera roll or take new photos to convert to PDF.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Is there a way to compress the PDF after conversion?</h4>
+            <p class="text-gray-700">Yes! After converting, you can use our separate "Compress PDF" tool to reduce the file size while maintaining good quality.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Image to PDF vs Other Methods</h3>
+        <p class="mb-4">
+          While many photo editing software and mobile apps offer image to PDF conversion, our online converter offers several advantages:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li><strong>No Software Required:</strong> Works directly in your browser without downloading or installing anything</li>
+          <li><strong>Cross-Platform:</strong> Works on Windows, Mac, Linux, iOS, Android, and Chromebook</li>
+          <li><strong>Batch Processing:</strong> Handle multiple images faster than most desktop software</li>
+          <li><strong>Always Updated:</strong> No need to update software - always use the latest version</li>
+          <li><strong>Free Forever:</strong> No trial periods, subscriptions, or hidden fees</li>
+          <li><strong>Privacy Guaranteed:</strong> Client-side processing keeps your images completely private</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Choose JustPdf for Image to PDF Conversion?</h3>
+        <p class="mb-4">
+          Unlike other online converters that require subscriptions, upload limits, or add watermarks, JustPdf provides a truly free and unlimited image to PDF conversion experience. Our client-side processing ensures your personal photos and sensitive documents remain completely private. Whether you're converting a single receipt or creating a 100-page photo album, JustPdf delivers professional-quality PDF documents instantly, every time.
+        </p>
+
+        <div class="bg-green-50 border-2 border-green-300 p-6 rounded-lg mt-8">
+          <h4 class="font-bold text-green-800 text-lg mb-3">🚀 Pro Tip</h4>
+          <p class="text-gray-700">
+            For scanned documents, use your phone's camera with good lighting and crop the images before converting. This creates cleaner, more professional-looking PDF documents that are easier to read and share.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white p-8 rounded-lg shadow">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/pdf-to-image.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🖼️</div>
+          <span class="font-semibold text-green-700">PDF to Image</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+        <a href="/tools/compress-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🗜️</div>
+          <span class="font-semibold text-green-700">Compress PDF</span>
+        </a>
+        <a href="/tools/split-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✂️</div>
+          <span class="font-semibold text-green-700">Split PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- About Section -->
+        <div>
+          <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+          </p>
+        </div>
+        
+        <!-- Popular Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+            <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+            <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+            <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+            <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+          </ul>
+        </div>
+        
+        <!-- More Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+            <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+            <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+            <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+            <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+            <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+            <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+            <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Divider -->
+      <div class="border-t border-gray-700 pt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <!-- Copyright -->
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2026 JustPdf.net - All rights reserved
+          </p>
+          
+          <!-- Legal Links -->
+          <div class="flex flex-wrap justify-center gap-6 text-sm">
+            <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+            <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+            <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const uploadBox = document.getElementById('upload-box');
+      const fileInput = document.getElementById('file-input');
+      const uploadSection = document.getElementById('upload-section');
+      const previewSection = document.getElementById('preview-section');
+      const progressSection = document.getElementById('progress-section');
+      const downloadSection = document.getElementById('download-section');
+      const imageList = document.getElementById('image-list');
+      const imageCount = document.getElementById('image-count');
+      const convertBtn = document.getElementById('convert-btn');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const downloadLink = document.getElementById('download-link');
+      const convertAnother = document.getElementById('convert-another');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+
+      let selectedImages = [];
+
+      uploadBox.addEventListener('click', () => fileInput.click());
+      
+      uploadBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('dragleave', () => {
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+        if (files.length > 0) handleFiles(files);
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) handleFiles(Array.from(e.target.files));
+      });
+
+      function handleFiles(files) {
+        selectedImages = files;
+        imageCount.textContent = files.length;
+        imageList.innerHTML = '';
+        
+        files.forEach((file, index) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const div = document.createElement('div');
+            div.className = 'bg-white p-2 rounded-lg shadow';
+            div.innerHTML = `
+              <img src="${e.target.result}" class="w-full h-32 object-cover rounded mb-2">
+              <p class="text-xs text-gray-600 truncate">${file.name}</p>
+            `;
+            imageList.appendChild(div);
+          };
+          reader.readAsDataURL(file);
+        });
+
+        uploadSection.classList.add('hidden');
+        previewSection.classList.remove('hidden');
+      }
+
+      convertBtn.addEventListener('click', async () => {
+        try {
+          progressSection.classList.remove('hidden');
+          previewSection.classList.add('hidden');
+          progressBar.style.width = '10%';
+          progressText.textContent = 'Creating PDF...';
+
+          const { PDFDocument } = PDFLib;
+          const pdfDoc = await PDFDocument.create();
+
+          for (let i = 0; i < selectedImages.length; i++) {
+            progressBar.style.width = `${10 + (i / selectedImages.length) * 70}%`;
+            progressText.textContent = `Adding image ${i + 1} of ${selectedImages.length}...`;
+
+            const imageBytes = await selectedImages[i].arrayBuffer();
+            let image;
+
+            if (selectedImages[i].type === 'image/jpeg' || selectedImages[i].type === 'image/jpg') {
+              image = await pdfDoc.embedJpg(imageBytes);
+            } else if (selectedImages[i].type === 'image/png') {
+              image = await pdfDoc.embedPng(imageBytes);
+            }
+
+            const page = pdfDoc.addPage([image.width, image.height]);
+            page.drawImage(image, {
+              x: 0,
+              y: 0,
+              width: image.width,
+              height: image.height,
+            });
+          }
+
+          progressBar.style.width = '90%';
+          progressText.textContent = 'Saving PDF...';
+
+          const pdfBytes = await pdfDoc.save();
+
+          progressBar.style.width = '100%';
+          progressText.textContent = 'Complete!';
+
+          setTimeout(() => {
+            progressSection.classList.add('hidden');
+            downloadSection.classList.remove('hidden');
+            
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = 'images.pdf';
+          }, 500);
+
+        } catch (error) {
+          console.error(error);
+          progressSection.classList.add('hidden');
+          previewSection.classList.remove('hidden');
+          showError('Failed to create PDF');
+        }
+      });
+
+      convertAnother.addEventListener('click', () => location.reload());
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.remove('hidden');
+        setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Excel to PDF Converter Online Free - XLSX to PDF | JustPdf</title>
+  <meta name="description" content="Convert Excel to PDF online for free. Transform XLSX, XLS spreadsheets to PDF format instantly. Preserve tables, charts, and formatting. No registration required.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Excel to PDF Converter - XLSX to PDF Online Free">
+  <meta property="og:description" content="Convert Excel spreadsheets to PDF online for free. Transform XLSX, XLS files to PDF format instantly. Preserve tables, charts, and formatting.">
+  <meta property="og:url" content="https://justpdf.net/tools/excel-to-pdf/">
+  <meta property="og:type" content="website">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.net/tools/excel-to-pdf/">
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert Excel to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your Excel spreadsheet (XLSX or XLS), wait for automatic conversion, and download your PDF file. All tables, charts, formatting, and data are preserved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert XLSX to PDF for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's Excel to PDF converter is completely free with no file size limits, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to convert Excel files to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All conversions happen in your browser. Your Excel files never leave your device and are not uploaded to any server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will my Excel charts and formatting be preserved in PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our converter preserves tables, cell formatting, borders, colors, and most visual elements. Complex charts and formulas are rendered as they appear in Excel."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Excel to PDF conversion libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Excel to PDF Converter</h1>
+    <p class="text-gray-600 text-center mb-8">Convert XLSX and XLS spreadsheets to PDF format instantly</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">📊</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose Excel file</strong> or drag it here</p>
+        <p class="text-sm text-gray-500">Supports XLSX and XLS formats</p>
+        <input type="file" id="file-input" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hidden">
+      </div>
+    </div>
+
+    <!-- Processing Section -->
+    <div id="processing-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">⚙️</div>
+        <h3 class="text-2xl font-bold mb-4">Converting to PDF...</h3>
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-gray-600">Preparing conversion...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4 text-green-700">Conversion Complete!</h3>
+        <p class="text-gray-600 mb-6">Your Excel file has been converted to PDF</p>
+        <a id="download-link" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition">
+          Download PDF
+        </a>
+        <button id="convert-another" class="block mx-auto mt-4 text-green-700 hover:underline">Convert Another File</button>
+      </div>
+    </div>
+
+    <!-- Error Section -->
+    <div id="error-message" class="hidden mt-8">
+      <div class="bg-red-50 border-2 border-red-300 p-8 rounded-lg text-center">
+        <div class="text-6xl mb-4">⚠️</div>
+        <h3 class="text-2xl font-bold mb-4 text-red-700">Conversion Failed</h3>
+        <p id="error-text" class="text-red-600 mb-6"></p>
+        <button id="try-again" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition">Try Again</button>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 1 (After Main Tool) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="mt-16 bg-white p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Convert Excel to PDF?</h2>
+      
+      <div class="prose max-w-none text-gray-700">
+        <p class="mb-4">
+          Converting Excel spreadsheets to PDF format is essential for sharing professional reports, preserving formatting across devices, and creating print-ready documents. PDF files maintain your spreadsheet's exact layout, ensuring recipients see your data exactly as you intended, regardless of whether they have Microsoft Excel installed.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Key Benefits of Excel to PDF Conversion</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+            <h4 class="font-bold text-green-800 text-lg mb-2">🔒 Preserve Formatting</h4>
+            <p class="text-gray-700">Tables, cell borders, colors, and fonts remain exactly as designed, ensuring consistent appearance across all devices and platforms.</p>
+          </div>
+          <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+            <h4 class="font-bold text-blue-800 text-lg mb-2">📱 Universal Compatibility</h4>
+            <p class="text-gray-700">PDF files open on any device without needing Excel installed. Perfect for sharing with clients, colleagues, or printing.</p>
+          </div>
+          <div class="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+            <h4 class="font-bold text-purple-800 text-lg mb-2">🛡️ Data Protection</h4>
+            <p class="text-gray-700">PDF conversion prevents accidental editing of formulas or data, maintaining the integrity of your financial reports and analyses.</p>
+          </div>
+          <div class="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
+            <h4 class="font-bold text-yellow-800 text-lg mb-2">🚀 Professional Presentation</h4>
+            <p class="text-gray-700">Create polished, professional documents ideal for business reports, invoices, budgets, and financial statements.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">How to Convert Excel to PDF Online</h3>
+        <ol class="list-decimal pl-6 space-y-3 mb-6">
+          <li><strong>Upload Your Excel File:</strong> Click the upload area or drag and drop your XLSX or XLS file</li>
+          <li><strong>Automatic Conversion:</strong> Our tool instantly processes your spreadsheet in your browser</li>
+          <li><strong>Download PDF:</strong> Get your converted PDF file in seconds, ready to share or print</li>
+        </ol>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Features of Our Excel to PDF Converter</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li><strong>Free & Unlimited:</strong> Convert as many Excel files as you need, completely free forever</li>
+          <li><strong>No Registration:</strong> Start converting immediately without creating an account</li>
+          <li><strong>Complete Privacy:</strong> All conversions happen in your browser - files never uploaded to servers</li>
+          <li><strong>No Watermarks:</strong> Clean, professional PDFs without any branding or watermarks</li>
+          <li><strong>High Quality:</strong> Preserves tables, formatting, colors, and cell borders with precision</li>
+          <li><strong>Fast Processing:</strong> Instant conversion with no waiting in queues</li>
+          <li><strong>Multiple Sheets:</strong> Converts all worksheets in your Excel file to PDF pages</li>
+          <li><strong>Mobile Friendly:</strong> Works perfectly on smartphones, tablets, and desktop computers</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Common Use Cases</h3>
+        <div class="bg-gray-50 p-6 rounded-lg mb-6">
+          <p class="mb-3"><strong>📊 Business Reports:</strong> Convert financial statements, sales reports, and analytics dashboards to PDF for board meetings and presentations.</p>
+          <p class="mb-3"><strong>💼 Invoices & Quotes:</strong> Transform Excel invoices into professional PDF documents for sending to clients.</p>
+          <p class="mb-3"><strong>📈 Data Analysis:</strong> Share data analysis results and visualizations in a format that preserves charts and tables.</p>
+          <p class="mb-3"><strong>📋 Budgets & Forecasts:</strong> Distribute budget plans and financial forecasts as locked PDF files to prevent unauthorized changes.</p>
+          <p class="mb-3"><strong>🎓 Educational Materials:</strong> Create assignment sheets, grade books, and study materials in PDF format.</p>
+          <p class="mb-3"><strong>🏢 HR Documents:</strong> Convert employee schedules, timesheets, and attendance records to PDF for archiving.</p>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">XLSX vs XLS: What's the Difference?</h3>
+        <p class="mb-4">
+          <strong>XLSX</strong> (Excel 2007 and later) is the modern XML-based format with better compression, corruption recovery, and support for larger spreadsheets. <strong>XLS</strong> is the legacy binary format used in Excel 2003 and earlier. Our converter supports both formats, though XLSX is recommended for optimal quality and file size.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Tips for Best Results</h3>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Ensure your Excel file has proper page breaks if you want specific page divisions in the PDF</li>
+          <li>Use Excel's "Page Layout" view to preview how your spreadsheet will appear in PDF format</li>
+          <li>Adjust print area and page setup in Excel before conversion for optimal PDF output</li>
+          <li>Remove hidden rows or columns you don't want in the final PDF</li>
+          <li>Consider setting print titles for tables that span multiple pages</li>
+          <li>Use landscape orientation for wide spreadsheets to avoid content being cut off</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Security & Privacy</h3>
+        <p class="mb-4">
+          Your privacy is our top priority. Unlike online services that upload your files to remote servers, our Excel to PDF converter processes everything <strong>locally in your web browser</strong>. This means:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+          <li>Your Excel files never leave your computer</li>
+          <li>No data is transmitted over the internet</li>
+          <li>No file storage on our servers</li>
+          <li>Complete confidentiality for sensitive business data</li>
+          <li>Safe for converting financial records, payroll, and confidential reports</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Browser Compatibility</h3>
+        <p class="mb-4">
+          Our Excel to PDF converter works seamlessly on all modern web browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera. No software installation required - just open your browser and start converting.
+        </p>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Frequently Asked Questions</h3>
+        
+        <div class="space-y-4">
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I convert password-protected Excel files?</h4>
+            <p class="text-gray-700">You'll need to remove the password protection in Excel before converting. Open the file in Excel, remove the password, save, and then convert to PDF.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Will formulas be calculated in the PDF?</h4>
+            <p class="text-gray-700">Yes! The PDF will show the calculated results of all formulas as they appear in your Excel file. However, the formulas themselves won't be editable in the PDF.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">How many sheets can I convert at once?</h4>
+            <p class="text-gray-700">You can convert Excel files with multiple worksheets. Each sheet will become a separate page in the resulting PDF document.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">What's the maximum file size I can convert?</h4>
+            <p class="text-gray-700">There's no strict file size limit, but very large files (100+ MB) may take longer to process depending on your device's capabilities.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Can I convert Excel files created in Google Sheets?</h4>
+            <p class="text-gray-700">Yes! Download your Google Sheets file as XLSX format (File > Download > Microsoft Excel), then convert it using our tool.</p>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-800 mb-2">Will charts and graphs be included in the PDF?</h4>
+            <p class="text-gray-700">Yes, embedded charts and graphs will be rendered in the PDF. The quality depends on how they're displayed in Excel's print preview.</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Choose JustPdf for Excel to PDF Conversion?</h3>
+        <p class="mb-4">
+          Unlike other online converters that require subscriptions, upload limits, or add watermarks, JustPdf provides a truly free and unlimited Excel to PDF conversion experience. Our client-side processing ensures your sensitive business data remains private, while our advanced rendering engine preserves the exact formatting of your spreadsheets. Whether you're converting a simple budget or a complex financial model with multiple sheets, JustPdf delivers professional-quality PDF documents every time.
+        </p>
+
+        <div class="bg-green-50 border-2 border-green-300 p-6 rounded-lg mt-8">
+          <h4 class="font-bold text-green-800 text-lg mb-3">🚀 Pro Tip</h4>
+          <p class="text-gray-700">
+            Before converting, use Excel's "Print Preview" to see exactly how your spreadsheet will appear in the PDF. Adjust column widths, row heights, and page breaks to ensure optimal layout in the final document.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white p-8 rounded-lg shadow">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/word-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📝</div>
+          <span class="font-semibold text-green-700">Word to PDF</span>
+        </a>
+        <a href="/tools/ppt-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📽️</div>
+          <span class="font-semibold text-green-700">PPT to PDF</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+        <a href="/tools/compress-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🗜️</div>
+          <span class="font-semibold text-green-700">Compress PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- About Section -->
+        <div>
+          <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+          </p>
+        </div>
+        
+        <!-- Popular Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+            <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+            <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+            <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+            <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+          </ul>
+        </div>
+        
+        <!-- More Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+            <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+            <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+            <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+            <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+            <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+            <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+            <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Divider -->
+      <div class="border-t border-gray-700 pt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <!-- Copyright -->
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2026 JustPdf.net - All rights reserved
+          </p>
+          
+          <!-- Legal Links -->
+          <div class="flex flex-wrap justify-center gap-6 text-sm">
+            <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+            <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+            <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const uploadBox = document.getElementById('upload-box');
+    const fileInput = document.getElementById('file-input');
+    const uploadSection = document.getElementById('upload-section');
+    const processingSection = document.getElementById('processing-section');
+    const downloadSection = document.getElementById('download-section');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const downloadLink = document.getElementById('download-link');
+    const convertAnother = document.getElementById('convert-another');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const tryAgain = document.getElementById('try-again');
+
+    uploadBox.addEventListener('click', () => fileInput.click());
+    
+    uploadBox.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadBox.classList.add('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('dragleave', () => {
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      if (e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    convertAnother.addEventListener('click', resetTool);
+    tryAgain.addEventListener('click', resetTool);
+
+    function resetTool() {
+      uploadSection.classList.remove('hidden');
+      processingSection.classList.add('hidden');
+      downloadSection.classList.add('hidden');
+      errorMessage.classList.add('hidden');
+      fileInput.value = '';
+      progressBar.style.width = '0%';
+    }
+
+    function showError(message) {
+      uploadSection.classList.add('hidden');
+      processingSection.classList.add('hidden');
+      downloadSection.classList.add('hidden');
+      errorMessage.classList.remove('hidden');
+      errorText.textContent = message;
+    }
+
+    async function handleFile(file) {
+      const validTypes = [
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel'
+      ];
+      
+      if (!validTypes.includes(file.type) && !file.name.match(/\.(xlsx|xls)$/i)) {
+        showError('Please select an Excel file (.xlsx or .xls)');
+        return;
+      }
+
+      try {
+        uploadSection.classList.add('hidden');
+        processingSection.classList.remove('hidden');
+        
+        progressBar.style.width = '20%';
+        progressText.textContent = 'Reading Excel file...';
+
+        // Read the file
+        const arrayBuffer = await file.arrayBuffer();
+        
+        progressBar.style.width = '40%';
+        progressText.textContent = 'Parsing spreadsheet data...';
+
+        // Parse Excel file
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        
+        progressBar.style.width = '60%';
+        progressText.textContent = 'Converting to PDF...';
+
+        // Convert to PDF
+        await convertToPDF(workbook, file.name);
+        
+        progressBar.style.width = '100%';
+        progressText.textContent = 'Conversion complete!';
+
+        setTimeout(() => {
+          processingSection.classList.add('hidden');
+          downloadSection.classList.remove('hidden');
+        }, 500);
+
+      } catch (error) {
+        console.error('Conversion error:', error);
+        showError('Failed to convert Excel file. Please ensure the file is not corrupted and try again.');
+      }
+    }
+
+    async function convertToPDF(workbook, fileName) {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      let isFirstSheet = true;
+
+      // Convert each sheet
+      for (let sheetName of workbook.SheetNames) {
+        if (!isFirstSheet) {
+          pdf.addPage();
+        }
+        isFirstSheet = false;
+
+        const worksheet = workbook.Sheets[sheetName];
+        
+        // Add sheet name as title
+        pdf.setFontSize(16);
+        pdf.setFont(undefined, 'bold');
+        pdf.text(sheetName, 15, 15);
+
+        // Convert sheet to HTML table
+        const htmlTable = XLSX.utils.sheet_to_html(worksheet, { id: 'excel-table' });
+        
+        // Parse the HTML to extract table data
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlTable, 'text/html');
+        const table = doc.querySelector('table');
+        
+        if (table) {
+          const rows = Array.from(table.querySelectorAll('tr'));
+          const tableData = rows.map(row => {
+            const cells = Array.from(row.querySelectorAll('td, th'));
+            return cells.map(cell => cell.textContent.trim());
+          });
+
+          // Use autoTable plugin for better table rendering
+          pdf.autoTable({
+            head: tableData.length > 0 ? [tableData[0]] : [],
+            body: tableData.slice(1),
+            startY: 25,
+            styles: {
+              fontSize: 9,
+              cellPadding: 2,
+              overflow: 'linebreak'
+            },
+            headStyles: {
+              fillColor: [34, 197, 94],
+              textColor: 255,
+              fontStyle: 'bold'
+            },
+            alternateRowStyles: {
+              fillColor: [245, 245, 245]
+            },
+            margin: { top: 25, right: 15, bottom: 15, left: 15 },
+            didDrawPage: function(data) {
+              // Add page number
+              const pageCount = pdf.internal.getNumberOfPages();
+              const pageSize = pdf.internal.pageSize;
+              const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+              pdf.setFontSize(8);
+              pdf.setFont(undefined, 'normal');
+              pdf.text(
+                'Page ' + data.pageNumber + ' of ' + pageCount,
+                pageSize.width / 2,
+                pageHeight - 10,
+                { align: 'center' }
+              );
+            }
+          });
+        } else {
+          // If no table found, show message
+          pdf.setFontSize(12);
+          pdf.setFont(undefined, 'normal');
+          pdf.text('No data found in this sheet', 15, 35);
+        }
+      }
+
+      // Generate blob and create download link
+      const pdfBlob = pdf.output('blob');
+      const url = URL.createObjectURL(pdfBlob);
+      
+      downloadLink.href = url;
+      const pdfFileName = fileName.replace(/\.(xlsx|xls)$/i, '.pdf');
+      downloadLink.download = pdfFileName;
+    }
+  </script>
+</body>
+</html>

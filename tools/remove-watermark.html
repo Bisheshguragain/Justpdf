@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Remove Watermark from PDF Online Free - PDF Watermark Remover | JustPdf</title>
+  <meta name="title" content="Remove Watermark from PDF Online Free - PDF Watermark Remover | JustPdf">
+  <meta name="description" content="Remove watermarks from PDF files online for free. Delete text and image watermarks easily. Fast, secure watermark removal. No registration required.">
+  <meta name="keywords" content="remove pdf watermark, pdf watermark remover, delete watermark, remove watermark from pdf">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/remove-watermark.html">
+  <meta property="og:title" content="Remove Watermark from PDF Online Free - PDF Watermark Remover | JustPdf">
+  <meta property="og:description" content="Remove watermarks from PDF files online for free. Delete text and image watermarks easily. Fast, secure watermark removal. No registration required.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/remove-watermark.html">
+  <meta property="twitter:title" content="Remove Watermark from PDF Online Free - PDF Watermark Remover | JustPdf">
+  <meta property="twitter:description" content="Remove watermarks from PDF files online for free. Delete text and image watermarks easily. Fast, secure watermark removal. No registration required.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/remove-watermark.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I remove a watermark from a PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF file, enter the exact watermark text you want to remove (e.g., 'CONFIDENTIAL'), optionally select which pages to process, and click Remove Watermark. Download your clean PDF instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I remove watermarks from PDFs for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's watermark removal tool is completely free with no file size limits and no registration required. However, only remove watermarks from PDFs you own or have permission to modify."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to remove watermarks from PDFs online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All watermark removal happens in your browser. Your PDF files never leave your device and are not uploaded to any server. 100% private and secure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I remove image watermarks or only text?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This tool currently focuses on text watermark removal. Image watermarks require advanced image processing techniques and may need desktop PDF editing software like Adobe Acrobat Pro."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it legal to remove watermarks from PDFs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Removing watermarks from your own documents or files you have permission to modify is legal. However, removing watermarks from copyrighted content without authorization may violate copyright laws. Always ensure you have legal rights to modify any PDF."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700">About</a></li>
+    </ul>
+  </nav>
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Remove Watermark from PDF</h1>
+    <p class="text-gray-600 text-center mb-8">Clean your PDF documents by removing unwanted text watermarks</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">🧹</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file</strong> or drag it here</p>
+        <p class="text-sm text-gray-500">Remove watermarks from any PDF document</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <!-- Removal Options -->
+    <div id="removal-options" class="hidden mt-8">
+      <h2 class="text-2xl font-bold mb-4">Watermark Removal Settings</h2>
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Watermark Text to Remove:</label>
+          <input type="text" id="watermark-text" placeholder="e.g., CONFIDENTIAL, DRAFT, etc." class="w-full p-3 border rounded-lg">
+          <p class="text-sm text-gray-500 mt-1">Enter the exact text of the watermark you want to remove</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="flex items-center">
+            <input type="checkbox" id="case-sensitive" class="mr-2">
+            <span class="font-semibold">Case Sensitive</span>
+          </label>
+          <p class="text-sm text-gray-500 mt-1">Match exact letter case (e.g., "DRAFT" vs "draft")</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Detection Mode:</label>
+          <select id="detection-mode" class="w-full p-3 border rounded-lg">
+            <option value="smart">Smart Detection (Recommended - Only diagonal/large text)</option>
+            <option value="all">Remove All Matches (May delete regular text)</option>
+          </select>
+          <p class="text-sm text-gray-500 mt-1">
+            <strong>Smart Detection:</strong> Only removes text that looks like a watermark (rotated, large font, centered).<br>
+            <strong>Remove All:</strong> Removes every instance of the text (use with caution!)
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block font-semibold mb-2">Pages to Process:</label>
+          <select id="page-range" class="w-full p-3 border rounded-lg">
+            <option value="all">All Pages</option>
+            <option value="first">First Page Only</option>
+            <option value="last">Last Page Only</option>
+            <option value="odd">Odd Pages Only</option>
+            <option value="even">Even Pages Only</option>
+          </select>
+        </div>
+
+        <button id="remove-watermark-btn" class="w-full bg-red-600 text-white px-8 py-4 rounded-lg hover:bg-red-700 transition font-bold text-lg">
+          Remove Watermark
+        </button>
+      </div>
+
+      <!-- Important Notice -->
+      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6">
+        <h3 class="font-bold text-yellow-800 mb-2">⚠️ Important Legal Notice</h3>
+        <p class="text-yellow-800 text-sm">Only remove watermarks from PDFs you own or have permission to modify. Removing watermarks from copyrighted content without authorization may violate intellectual property laws. Use this tool responsibly and legally.</p>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Removing watermark...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Watermark Removed!</h3>
+        <p class="text-gray-600 mb-6">Your clean PDF is ready to download</p>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download Clean PDF
+        </a>
+        <br>
+        <button id="remove-another" class="text-green-700 hover:underline">Remove watermark from another PDF</button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Remove Watermark from PDF Online Free</h2>
+      <p class="text-gray-700 mb-6">Removing watermarks from PDF files is useful when you need to clean up documents, remove draft markings, or restore original formatting. JustPdf's free online watermark removal tool lets you delete text watermarks from PDFs quickly and easily. All processing happens securely in your browser - your files never leave your device. No software installation, no registration required.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">When to Remove PDF Watermarks</h3>
+      <p class="text-gray-700 mb-4">There are legitimate reasons to remove watermarks from PDF documents:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Remove draft markings:</strong> Clean up "DRAFT" watermarks from finalized documents</li>
+        <li><strong>Personal documents:</strong> Remove watermarks from your own files after finalizing</li>
+        <li><strong>Update status:</strong> Remove outdated "REVIEW" or "PENDING" watermarks</li>
+        <li><strong>Clean presentations:</strong> Remove "SAMPLE" or "DEMO" from your own materials</li>
+        <li><strong>Restore originals:</strong> Clean up accidentally watermarked personal documents</li>
+        <li><strong>Rebranding:</strong> Remove old company watermarks you have rights to modify</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Remove Watermark from PDF in 3 Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload your PDF:</strong> Click the upload button or drag and drop your PDF file that contains the watermark.</li>
+        <li><strong>Specify watermark text:</strong> Enter the exact text of the watermark you want to remove (e.g., "CONFIDENTIAL", "DRAFT"). Optionally choose which pages to process.</li>
+        <li><strong>Download clean PDF:</strong> Click "Remove Watermark" and download your document without the watermark.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">⚡ Fast Processing</h4>
+          <p class="text-sm text-gray-700">Remove watermarks from PDFs in seconds with our browser-based engine.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+          <p class="text-sm text-gray-700">All processing happens in your browser. Your PDF files never leave your device - complete privacy guaranteed.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+          <p class="text-sm text-gray-700">No subscriptions, no trials, no hidden costs. Remove watermarks from unlimited PDFs completely free.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🎯 Precise Control</h4>
+          <p class="text-sm text-gray-700">Choose specific pages, enable case-sensitive matching, and target exact watermark text.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📄 Content Preservation</h4>
+          <p class="text-sm text-gray-700">Removes only the watermark while preserving all other PDF content and formatting.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📱 Works Everywhere</h4>
+          <p class="text-sm text-gray-700">Remove watermarks on desktop, tablet, or smartphone. No software installation required.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Removal Options Explained</h3>
+      
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">� Watermark Text</h4>
+      <p class="text-gray-700 mb-4">Enter the exact text that appears in the watermark. Common examples: "CONFIDENTIAL", "DRAFT", "SAMPLE", "COPY", "REVIEW", your company name, or custom text. The tool will search for and remove this specific text from the PDF pages.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔤 Case Sensitive</h4>
+      <p class="text-gray-700 mb-4">When enabled, the tool will only remove watermarks that match the exact letter case you specify. For example, "DRAFT" won't match "draft" or "Draft". When disabled, any case variation will be matched and removed.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📄 Page Range Options</h4>
+      <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+        <li><strong>All Pages:</strong> Remove watermark from every page in the PDF</li>
+        <li><strong>First Page Only:</strong> Remove watermark from the cover page only</li>
+        <li><strong>Last Page Only:</strong> Remove watermark from the final page only</li>
+        <li><strong>Odd Pages:</strong> Remove watermark from pages 1, 3, 5, 7, etc.</li>
+        <li><strong>Even Pages:</strong> Remove watermark from pages 2, 4, 6, 8, etc.</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How do I remove a watermark from a PDF?</h4>
+        <p class="text-gray-700">Upload your PDF file, enter the exact watermark text you want to remove (e.g., "CONFIDENTIAL"), optionally select which pages to process, and click "Remove Watermark". Download your clean PDF without the watermark. The tool uses advanced text detection to find and remove the specified watermark.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I remove watermarks from PDFs for free?</h4>
+        <p class="text-gray-700">Yes! JustPdf's watermark removal tool is completely free with no file size limits and no registration required. However, please only remove watermarks from PDFs you own or have permission to modify. Removing copyrighted watermarks without authorization may be illegal.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it safe to remove watermarks from PDFs online?</h4>
+        <p class="text-gray-700">Yes, absolutely safe for your privacy. All watermark removal happens client-side in your browser using PDF-lib. Your PDF files never leave your device and are not uploaded to any server. We cannot see, access, or store your documents. 100% private and secure.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I remove image watermarks or only text?</h4>
+        <p class="text-gray-700">This tool currently focuses on text watermark removal. Image watermarks (logos, pictures) are embedded differently in PDFs and require advanced image processing techniques. For image watermark removal, you may need professional desktop PDF editing software like Adobe Acrobat Pro.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Will removing watermarks damage my PDF?</h4>
+        <p class="text-gray-700">No, the tool carefully removes only the specified watermark text while preserving all other PDF content including text, images, formatting, links, and structure. Your document's integrity remains intact - only the unwanted watermark is removed.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What if I don't know the exact watermark text?</h4>
+        <p class="text-gray-700">You can try common watermark terms like "CONFIDENTIAL", "DRAFT", "SAMPLE", "COPY", etc. Alternatively, open the PDF in a viewer, select the watermark text if possible, and copy it. If the watermark is an image or you can't determine the text, it may require manual PDF editing with desktop software.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it legal to remove watermarks from PDFs?</h4>
+        <p class="text-gray-700">It depends on the situation. Removing watermarks from your own documents, draft markings, or files you have permission to modify is legal. However, removing watermarks from copyrighted content, purchased materials, or documents you don't own without authorization may violate copyright laws. Always ensure you have the right to modify any PDF before removing watermarks.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Why didn't the watermark get removed?</h4>
+        <p class="text-gray-700">Possible reasons: (1) The watermark text you entered doesn't exactly match the actual text, (2) Case sensitivity is enabled but the case doesn't match, (3) The watermark is an image rather than text, (4) The watermark is embedded in the PDF as part of the background. Try toggling case sensitivity, checking the exact text, or processing all pages.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Finalized documents:</strong> Remove "DRAFT" watermarks from completed reports and presentations</li>
+        <li><strong>Personal files:</strong> Clean your own PDFs that were accidentally watermarked</li>
+        <li><strong>Status updates:</strong> Remove outdated "REVIEW", "PENDING", or "CONFIDENTIAL" markings</li>
+        <li><strong>Sample materials:</strong> Remove "SAMPLE" or "DEMO" from your own product documentation</li>
+        <li><strong>Internal documents:</strong> Clean up "INTERNAL ONLY" watermarks when documents go public</li>
+        <li><strong>Reprints:</strong> Remove date-stamped watermarks from your own archived documents</li>
+        <li><strong>Rebranding:</strong> Remove old company watermarks from documents you have rights to</li>
+        <li><strong>Quality control:</strong> Remove "PROOF" watermarks from approved final versions</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Successful Watermark Removal</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Enter the exact watermark text as it appears (including spaces and punctuation)</li>
+        <li>Try disabling case sensitivity if the watermark doesn't match exactly</li>
+        <li>Start with "All Pages" to ensure complete removal throughout the document</li>
+        <li>For diagonal watermarks, the text orientation doesn't matter - just the text itself</li>
+        <li>If removal fails, open the PDF and try to select/copy the watermark text</li>
+        <li>Check the PDF after removal to ensure other content wasn't affected</li>
+        <li>Keep a backup of the original watermarked PDF before processing</li>
+        <li>Only remove watermarks from documents you legally own or have permission to modify</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Legal and Ethical Considerations</h3>
+      <div class="bg-yellow-50 p-6 rounded-lg mb-6 border border-yellow-200">
+        <h4 class="font-semibold text-yellow-900 mb-3">⚖️ Important Legal Information</h4>
+        <p class="text-yellow-900 mb-3">Before removing watermarks, consider these legal aspects:</p>
+        <ul class="space-y-2 text-yellow-900">
+          <li><strong>✓ Legal:</strong> Removing watermarks from your own documents, personal files, or with explicit permission</li>
+          <li><strong>✓ Legal:</strong> Cleaning draft markings from finalized documents you created</li>
+          <li><strong>✓ Legal:</strong> Removing status watermarks from company documents with authorization</li>
+          <li><strong>✗ Illegal:</strong> Removing watermarks from copyrighted content without permission</li>
+          <li><strong>✗ Illegal:</strong> Removing watermarks to hide document origin or ownership</li>
+          <li><strong>✗ Illegal:</strong> Removing watermarks from purchased materials (ebooks, stock photos, templates)</li>
+        </ul>
+        <p class="text-yellow-900 mt-3 font-semibold">Always ensure you have legal rights to modify any PDF before removing watermarks. When in doubt, consult with the document owner or seek legal advice.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf Watermark Remover?</h3>
+      <p class="text-gray-700 mb-4">Unlike desktop software like Adobe Acrobat Pro ($15-30/month) or risky online services that upload your sensitive files to remote servers, JustPdf offers a free, secure solution for watermark removal. Our browser-based tool uses PDF-lib to process PDFs directly in your browser without any uploads. You get professional watermark removal with privacy protection - all completely free. Perfect for cleaning up your own documents quickly and securely.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Watermark Removal vs Alternatives</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <h4 class="font-semibold text-gray-800 mb-3">Browser-Based Removal (JustPdf):</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>✓ Free:</strong> No cost, no subscriptions</li>
+          <li><strong>✓ Private:</strong> Files never leave your device</li>
+          <li><strong>✓ Fast:</strong> Instant processing in browser</li>
+          <li><strong>✓ Easy:</strong> No software installation needed</li>
+          <li><strong>✗ Text only:</strong> Image watermarks not supported</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Desktop Software (Adobe Acrobat Pro):</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>✓ Advanced:</strong> Can remove image watermarks</li>
+          <li><strong>✓ Powerful:</strong> Pixel-level editing possible</li>
+          <li><strong>✗ Expensive:</strong> $15-30/month subscription</li>
+          <li><strong>✗ Complex:</strong> Steep learning curve</li>
+          <li><strong>✗ Installation:</strong> Requires software download</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Best Choice:</h4>
+        <p class="text-gray-700">For text watermark removal from your own documents, JustPdf offers the perfect free solution. For complex image watermarks or commercial use, consider professional desktop software.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Troubleshooting Guide</h3>
+      <div class="bg-blue-50 p-6 rounded-lg mb-6 border border-blue-200">
+        <h4 class="font-semibold text-blue-900 mb-3">Common Issues and Solutions:</h4>
+        <div class="space-y-3 text-blue-900">
+          <div>
+            <p class="font-semibold">Problem: Watermark not removed</p>
+            <p class="text-sm">Solution: Check exact text match, try disabling case sensitivity, ensure processing all pages</p>
+          </div>
+          <div>
+            <p class="font-semibold">Problem: Some text disappeared</p>
+            <p class="text-sm">Solution: The watermark text might appear elsewhere in your document. Be more specific with the text or use page range options</p>
+          </div>
+          <div>
+            <p class="font-semibold">Problem: Image watermark still visible</p>
+            <p class="text-sm">Solution: This tool only removes text. Image watermarks require desktop PDF editing software</p>
+          </div>
+          <div>
+            <p class="font-semibold">Problem: Processing takes too long</p>
+            <p class="text-sm">Solution: Large PDFs may take time. Be patient or try processing specific pages instead of all pages</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white rounded-lg p-8 shadow-sm">
+      <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/watermark-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">💧</div>
+          <span class="font-semibold text-green-700">Add Watermark</span>
+        </a>
+        <a href="/tools/protect-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🔒</div>
+          <span class="font-semibold text-green-700">Protect PDF</span>
+        </a>
+        <a href="/tools/unlock-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🔓</div>
+          <span class="font-semibold text-green-700">Unlock PDF</span>
+        </a>
+        <a href="/tools/pdf-editor.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✏️</div>
+          <span class="font-semibold text-green-700">Edit PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="YYYYYYYYYY"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    </div>
+</main>
+
+<script>
+  // Configure PDF.js worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+  // Get all DOM elements
+  const uploadBox = document.getElementById('upload-box');
+  const fileInput = document.getElementById('file-input');
+  const uploadSection = document.getElementById('upload-section');
+  const removalOptions = document.getElementById('removal-options');
+  const progressSection = document.getElementById('progress-section');
+  const downloadSection = document.getElementById('download-section');
+  const errorMessage = document.getElementById('error-message');
+  const errorText = document.getElementById('error-text');
+  const downloadLink = document.getElementById('download-link');
+  const removeWatermarkBtn = document.getElementById('remove-watermark-btn');
+  const removeAnotherBtn = document.getElementById('remove-another');
+  const progressBar = document.getElementById('progress-bar');
+  const progressText = document.getElementById('progress-text');
+  
+  // Get removal settings
+  const watermarkTextInput = document.getElementById('watermark-text');
+  const caseSensitiveCheckbox = document.getElementById('case-sensitive');
+  const pageRangeSelect = document.getElementById('page-range');
+  const detectionModeSelect = document.getElementById('detection-mode');
+  
+  let currentPDFBytes = null;
+  let currentFileName = '';
+
+  // Handle file upload
+  uploadBox.addEventListener('click', () => fileInput.click());
+  
+  uploadBox.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadBox.classList.add('bg-green-100');
+  });
+  
+  uploadBox.addEventListener('dragleave', () => {
+    uploadBox.classList.remove('bg-green-100');
+  });
+  
+  uploadBox.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadBox.classList.remove('bg-green-100');
+    const file = e.dataTransfer.files[0];
+    if (file) handleFileSelect(file);
+  });
+  
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) handleFileSelect(file);
+  });
+
+  async function handleFileSelect(file) {
+    if (!file.type.includes('pdf')) {
+      showError('Please select a valid PDF file');
+      return;
+    }
+
+    currentFileName = file.name;
+    
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      currentPDFBytes = new Uint8Array(arrayBuffer);
+      
+      uploadSection.classList.add('hidden');
+      removalOptions.classList.remove('hidden');
+      errorMessage.classList.add('hidden');
+    } catch (error) {
+      showError('Error reading PDF file: ' + error.message);
+    }
+  }
+
+  // Remove watermark button click
+  removeWatermarkBtn.addEventListener('click', removeWatermark);
+
+  async function removeWatermark() {
+    if (!currentPDFBytes) {
+      showError('No PDF file loaded');
+      return;
+    }
+
+    const watermarkText = watermarkTextInput.value.trim();
+    if (!watermarkText) {
+      showError('Please enter the watermark text to remove');
+      return;
+    }
+
+    removalOptions.classList.add('hidden');
+    progressSection.classList.remove('hidden');
+    errorMessage.classList.add('hidden');
+    
+    try {
+      const { PDFDocument, rgb } = PDFLib;
+      
+      progressBar.style.width = '10%';
+      progressText.textContent = 'Loading PDF...';
+      
+      // Load the PDF with both libraries
+      const pdfDoc = await PDFDocument.load(currentPDFBytes);
+      const loadingTask = pdfjsLib.getDocument({ data: currentPDFBytes });
+      const pdfJsDoc = await loadingTask.promise;
+      
+      const totalPages = pdfDoc.getPages().length;
+      const caseSensitive = caseSensitiveCheckbox.checked;
+      const pageRange = pageRangeSelect.value;
+      const detectionMode = detectionModeSelect.value;
+      
+      progressBar.style.width = '20%';
+      progressText.textContent = `Analyzing ${totalPages} pages for watermarks...`;
+      
+      let removedCount = 0;
+      
+      // Create a new PDF document
+      const newPdfDoc = await PDFDocument.create();
+      
+      // Process each page
+      for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+        const pageNum = pageIndex + 1;
+        
+        // Check if we should process this page
+        let shouldProcess = false;
+        switch (pageRange) {
+          case 'all': shouldProcess = true; break;
+          case 'first': shouldProcess = (pageIndex === 0); break;
+          case 'last': shouldProcess = (pageIndex === totalPages - 1); break;
+          case 'odd': shouldProcess = (pageNum % 2 === 1); break;
+          case 'even': shouldProcess = (pageNum % 2 === 0); break;
+        }
+        
+        progressBar.style.width = `${20 + Math.floor((pageIndex / totalPages) * 60)}%`;
+        progressText.textContent = `Processing page ${pageNum} of ${totalPages}...`;
+        
+        if (shouldProcess) {
+          try {
+            // Extract text items from the page using PDF.js
+            const page = await pdfJsDoc.getPage(pageNum);
+            const textContent = await page.getTextContent();
+            
+            // Find text items that match the watermark
+            // IMPORTANT: Filter by watermark characteristics to avoid removing regular text
+            const watermarkItems = [];
+            const viewport = page.getViewport({ scale: 1.0 });
+            const viewportWidth = viewport.width;
+            const viewportHeight = viewport.height;
+            
+            for (const item of textContent.items) {
+              if (!item.str) continue;
+              
+              // Check if text matches
+              let textMatches = false;
+              if (caseSensitive) {
+                textMatches = item.str === watermarkText || item.str.includes(watermarkText);
+              } else {
+                textMatches = item.str.toLowerCase() === watermarkText.toLowerCase() || 
+                             item.str.toLowerCase().includes(watermarkText.toLowerCase());
+              }
+              
+              if (!textMatches) continue;
+              
+              // Extract transform properties
+              const transform = item.transform;
+              const a = transform[0];
+              const b = transform[1];
+              const c = transform[2];
+              const d = transform[3];
+              const e = transform[4]; // x position
+              const f = transform[5]; // y position
+              
+              // Calculate rotation angle
+              const rotationRadians = Math.atan2(b, a);
+              const rotationDegrees = Math.abs((rotationRadians * 180) / Math.PI);
+              
+              // Calculate font size
+              const scaleY = Math.sqrt(c * c + d * d);
+              const fontSize = Math.abs(scaleY);
+              
+              // Calculate opacity/transparency (if available)
+              const hasTransparency = item.hasOwnProperty('opacity') && item.opacity < 1;
+              
+              // Watermark detection heuristics:
+              // 1. Rotated text (diagonal watermarks are typically 30-60 degrees or -30 to -60)
+              // 2. Large font size (watermarks are usually bigger than body text)
+              // 3. Positioned in center area of page (not margins)
+              // 4. May have transparency/opacity
+              
+              const isRotated = rotationDegrees > 15 && rotationDegrees < 165; // Not horizontal or vertical
+              const isLargeFont = fontSize > 20; // Watermarks usually > 20pt
+              const isCentered = e > viewportWidth * 0.2 && e < viewportWidth * 0.8 && 
+                                f > viewportHeight * 0.2 && f < viewportHeight * 0.8;
+              
+              // Score-based detection (the more characteristics match, the more likely it's a watermark)
+              let watermarkScore = 0;
+              if (isRotated) watermarkScore += 3;        // Rotation is strong indicator
+              if (isLargeFont) watermarkScore += 2;      // Large font is common
+              if (isCentered) watermarkScore += 1;       // Center position is typical
+              if (hasTransparency) watermarkScore += 1;  // Transparency is common
+              
+              // Determine if we should remove this text based on detection mode
+              let shouldRemove = false;
+              if (detectionMode === 'all') {
+                // Remove all matches mode - remove everything that matches text
+                shouldRemove = true;
+                console.log(`⚠️  Removing (All Matches mode): "${item.str}" - Score: ${watermarkScore} (rotation: ${rotationDegrees.toFixed(1)}°, size: ${fontSize.toFixed(1)}pt)`);
+              } else {
+                // Smart detection mode - only remove if it looks like a watermark (score >= 3)
+                shouldRemove = watermarkScore >= 3;
+                if (shouldRemove) {
+                  console.log(`✓ Watermark detected: "${item.str}" - Score: ${watermarkScore} (rotation: ${rotationDegrees.toFixed(1)}°, size: ${fontSize.toFixed(1)}pt, centered: ${isCentered})`);
+                } else {
+                  console.log(`✗ Skipped (likely regular text): "${item.str}" - Score: ${watermarkScore} (rotation: ${rotationDegrees.toFixed(1)}°, size: ${fontSize.toFixed(1)}pt, centered: ${isCentered})`);
+                }
+              }
+              
+              if (shouldRemove) {
+                watermarkItems.push(item);
+                removedCount++;
+              }
+            }
+            
+            // Copy the original page
+            const [copiedPage] = await newPdfDoc.copyPages(pdfDoc, [pageIndex]);
+            const { width: pageWidth, height: pageHeight } = copiedPage.getSize();
+            
+            // If watermarks were found, draw white rectangles/shapes over them
+            if (watermarkItems.length > 0) {
+              // Get standard font for drawing white text
+              const helveticaFont = await newPdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+              
+              for (const item of watermarkItems) {
+                // Get the transform matrix from the text item
+                const transform = item.transform;
+                const a = transform[0];
+                const b = transform[1];
+                const c = transform[2];
+                const d = transform[3];
+                const e = transform[4]; // x position
+                const f = transform[5]; // y position
+                
+                // Calculate rotation angle
+                const rotationRadians = Math.atan2(b, a);
+                const rotationDegrees = (rotationRadians * 180) / Math.PI;
+                
+                // Calculate font size
+                const scaleY = Math.sqrt(c * c + d * d);
+                const fontSize = Math.abs(scaleY);
+                
+                console.log(`Removing watermark: "${item.str}" at (${e.toFixed(1)}, ${f.toFixed(1)}) rotation: ${rotationDegrees.toFixed(1)}°, size: ${fontSize.toFixed(1)}`);
+                
+                // Strategy: Draw a thick white rectangle at the same angle as the text
+                // Calculate dimensions with generous padding
+                const textWidth = item.width || (item.str.length * fontSize * 0.6);
+                const rectWidth = textWidth + fontSize;
+                const rectHeight = fontSize * 2;
+                
+                // For rotated rectangles, use multiple overlapping rectangles
+                // at slightly different positions to ensure full coverage
+                const cos = Math.cos(rotationRadians);
+                const sin = Math.sin(rotationRadians);
+                
+                // Draw 7 overlapping rectangles to create a "band" that covers the watermark
+                for (let offset = -fontSize; offset <= fontSize; offset += fontSize / 3) {
+                  // Calculate offset perpendicular to text direction
+                  const perpX = -sin * offset;
+                  const perpY = cos * offset;
+                  
+                  // Draw rectangle at this offset position
+                  // Since drawRectangle doesn't support rotation well, we'll use
+                  // a series of rectangles that together cover the diagonal area
+                  copiedPage.drawRectangle({
+                    x: e + perpX - fontSize / 2,
+                    y: f + perpY - fontSize / 2,
+                    width: rectWidth,
+                    height: fontSize * 1.5,
+                    color: rgb(1, 1, 1),
+                    opacity: 1,
+                    rotate: PDFLib.degrees(rotationDegrees)
+                  });
+                }
+              }
+            }
+            
+            newPdfDoc.addPage(copiedPage);
+          } catch (pageError) {
+            console.warn(`Warning processing page ${pageNum}:`, pageError);
+            // If there's an error, just copy the page as-is
+            const [copiedPage] = await newPdfDoc.copyPages(pdfDoc, [pageIndex]);
+            newPdfDoc.addPage(copiedPage);
+          }
+        } else {
+          // Copy page without processing
+          const [copiedPage] = await newPdfDoc.copyPages(pdfDoc, [pageIndex]);
+          newPdfDoc.addPage(copiedPage);
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+      
+      progressBar.style.width = '90%';
+      progressText.textContent = 'Generating clean PDF...';
+      
+      // Save the new PDF
+      const cleanPDFBytes = await newPdfDoc.save();
+      
+      progressBar.style.width = '100%';
+      progressText.textContent = 'Complete!';
+      
+      // Create download link
+      const blob = new Blob([cleanPDFBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const fileName = currentFileName.replace('.pdf', '_no-watermark.pdf');
+      
+      setTimeout(() => {
+        progressSection.classList.add('hidden');
+        downloadSection.classList.remove('hidden');
+        
+        downloadLink.href = url;
+        downloadLink.download = fileName;
+        
+        if (removedCount === 0) {
+          showError(`No matching watermarks found. Make sure the watermark text "${watermarkText}" exactly matches the text in your PDF. Try disabling case sensitivity or checking the exact text.`);
+        } else {
+          console.log(`Successfully processed ${removedCount} watermark instances`);
+        }
+      }, 500);
+      
+    } catch (error) {
+      console.error('Watermark removal error:', error);
+      progressSection.classList.add('hidden');
+      removalOptions.classList.remove('hidden');
+      showError('Failed to remove watermark: ' + error.message + '. Make sure the watermark is text-based and not an image. Complex watermarks may require desktop PDF editing software.');
+    }
+  }
+
+  // Remove another file
+  removeAnotherBtn.addEventListener('click', () => {
+    location.reload();
+  });
+
+  function showError(message) {
+    errorText.textContent = message;
+    errorMessage.classList.remove('hidden');
+    setTimeout(() => errorMessage.classList.add('hidden'), 15000);
+  }
+</script>
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

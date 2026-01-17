@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Protect PDF Online Free - Add Password to PDF | JustPdf</title>
+  <meta name="description" content="Add real password protection to your PDF files with AES-256 encryption. Secure your PDFs online for free.">
+  <meta property="og:title" content="Password Protect PDF - Real AES-256 Encryption">
+  <meta property="og:description" content="Protect PDFs with real password encryption. Free and secure.">
+  <link rel="canonical" href="https://justpdf.net/tools/protect-pdf">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="flex items-center">
+      <span class="font-bold text-2xl text-green-700">JustPdf</span>
+    </a>
+    <ul class="flex space-x-6 text-gray-700 text-base">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Password Protect PDF</h1>
+    <p class="text-gray-600 text-center mb-8">Add real AES-256 password encryption to your PDF files</p>
+
+    <!-- Upload Area -->
+    <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center mb-6 bg-white hover:border-green-500 transition cursor-pointer">
+      <div class="text-6xl mb-4">🔒</div>
+      <h2 class="text-xl font-semibold text-gray-700 mb-2">Select PDF File</h2>
+      <p class="text-gray-500 mb-4">Drag and drop a file here or click to browse</p>
+      <input type="file" id="fileInput" accept=".pdf" class="hidden">
+      <button id="selectBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+        Select File
+      </button>
+    </div>
+
+    <!-- Password Options -->
+    <div id="passwordOptions" class="mb-6 hidden">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="font-bold text-lg mb-4">Set Password:</h3>
+        
+        <div class="mb-4">
+          <label class="block text-gray-700 font-semibold mb-2">User Password (Required to open PDF):</label>
+          <input type="password" id="userPassword" placeholder="Enter password (min 6 characters)" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500">
+          <p class="text-sm text-gray-500 mt-1">PDF will require this password to open</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 font-semibold mb-2">Confirm Password:</label>
+          <input type="password" id="confirmPassword" placeholder="Re-enter password" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500">
+        </div>
+
+        <div class="flex items-center mb-4">
+          <input type="checkbox" id="showPassword" class="mr-2">
+          <label for="showPassword" class="text-gray-700">Show passwords</label>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-4">
+          <p class="text-sm text-green-800">
+            ✅ <strong>Real Protection:</strong> This tool uses AES-256 encryption. The PDF will actually require a password to open.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <div id="actionContainer" class="text-center mb-6 hidden">
+      <button id="protectBtn" class="bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+        Protect PDF with Password
+      </button>
+      <p class="text-sm text-gray-500 mt-2">File will be encrypted on our secure server</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progressContainer" class="hidden mb-6">
+      <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+        <div id="progressBar" class="bg-green-600 h-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <p id="progressText" class="text-center text-gray-600 mt-2">Processing...</p>
+    </div>
+
+    <!-- Download Button -->
+    <div id="downloadContainer" class="text-center mb-8 hidden">
+      <button id="downloadBtn" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition font-bold text-lg">
+        📥 Download Protected PDF
+      </button>
+      <p class="text-gray-600 mt-4">Your password-protected PDF is ready!</p>
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4 text-left max-w-lg mx-auto">
+        <p class="text-sm text-yellow-800">
+          <strong>⚠️ Important:</strong> Save your password! The PDF cannot be opened without it.
+        </p>
+      </div>
+    </div>
+
+    <!-- AdSense -->
+    <div class="my-8 text-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"></ins>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose max-w-none mt-12">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Password Protect PDF Files</h2>
+      <ol class="list-decimal list-inside space-y-2 text-gray-700 mb-6">
+        <li>Click "Select File" and choose a PDF file</li>
+        <li>Enter a strong password (minimum 6 characters)</li>
+        <li>Confirm your password</li>
+        <li>Click "Protect PDF with Password"</li>
+        <li>Download your encrypted PDF</li>
+      </ol>
+
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Real AES-256 Encryption</h2>
+      <p class="text-gray-700 mb-4">Unlike other browser-based tools, we use real server-side encryption:</p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>AES-256 Encryption:</strong> Military-grade encryption standard</li>
+        <li><strong>Password Required:</strong> PDF actually requires password to open</li>
+        <li><strong>Adobe Compatible:</strong> Works with all PDF readers</li>
+        <li><strong>Secure Processing:</strong> Files encrypted on server, never stored</li>
+        <li><strong>Privacy First:</strong> Files deleted immediately after processing</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Features</h2>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Real Protection:</strong> True PDF encryption, not just metadata</li>
+        <li><strong>Free & Unlimited:</strong> Protect as many PDFs as you need</li>
+        <li><strong>No Registration:</strong> Start protecting immediately</li>
+        <li><strong>Secure:</strong> Files processed securely and deleted after</li>
+        <li><strong>Fast:</strong> Encryption in seconds</li>
+      </ul>
+    </article>
+
+    <!-- Related Tools -->
+    <section class="mt-12 border-t pt-8">
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Related Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/merge-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">📄</div>
+          <div class="font-semibold text-gray-700">Merge PDF</div>
+        </a>
+        <a href="/compress-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">📦</div>
+          <div class="font-semibold text-gray-700">Compress PDF</div>
+        </a>
+        <a href="/tools/split-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">✂️</div>
+          <div class="font-semibold text-gray-700">Split PDF</div>
+        </a>
+        <a href="/tools/rotate-pdf.html" class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center">
+          <div class="text-3xl mb-2">🔄</div>
+          <div class="font-semibold text-gray-700">Rotate PDF</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+
+  <script>
+    // ⚠️ IMPORTANT: Replace this with your actual API URL after deployment
+    const API_URL = 'http://localhost:8080'; // Change to your Railway/AWS/Heroku URL
+    
+    let pdfFile = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('fileInput');
+      const selectBtn = document.getElementById('selectBtn');
+      const passwordOptions = document.getElementById('passwordOptions');
+      const userPassword = document.getElementById('userPassword');
+      const confirmPassword = document.getElementById('confirmPassword');
+      const showPassword = document.getElementById('showPassword');
+      const actionContainer = document.getElementById('actionContainer');
+      const protectBtn = document.getElementById('protectBtn');
+      const progressContainer = document.getElementById('progressContainer');
+      const progressBar = document.getElementById('progressBar');
+      const progressText = document.getElementById('progressText');
+      const downloadContainer = document.getElementById('downloadContainer');
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      selectBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.click();
+      });
+
+      uploadArea.addEventListener('click', (e) => {
+        if (e.target !== selectBtn && !selectBtn.contains(e.target)) {
+          fileInput.click();
+        }
+      });
+
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('border-green-500', 'bg-green-50');
+      });
+
+      uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('border-green-500', 'bg-green-50');
+      });
+
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('border-green-500', 'bg-green-50');
+        const files = e.dataTransfer.files;
+        if (files.length > 0 && files[0].type === 'application/pdf') {
+          fileInput.files = files;
+          handleFileSelect();
+        }
+      });
+
+      fileInput.addEventListener('change', handleFileSelect);
+
+      showPassword.addEventListener('change', () => {
+        const type = showPassword.checked ? 'text' : 'password';
+        userPassword.type = type;
+        confirmPassword.type = type;
+      });
+
+      function handleFileSelect() {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        if (file.type !== 'application/pdf') {
+          alert('Please select a valid PDF file');
+          return;
+        }
+
+        pdfFile = file;
+        passwordOptions.classList.remove('hidden');
+        actionContainer.classList.remove('hidden');
+        downloadContainer.classList.add('hidden');
+      }
+
+      protectBtn.addEventListener('click', async () => {
+        const password = userPassword.value.trim();
+        const confirm = confirmPassword.value.trim();
+
+        if (!password) {
+          alert('Please enter a password');
+          userPassword.focus();
+          return;
+        }
+
+        if (password.length < 6) {
+          alert('Password must be at least 6 characters long');
+          userPassword.focus();
+          return;
+        }
+
+        if (password !== confirm) {
+          alert('Passwords do not match');
+          confirmPassword.focus();
+          return;
+        }
+
+        if (!pdfFile) {
+          alert('Please select a PDF file first');
+          return;
+        }
+
+        try {
+          progressContainer.classList.remove('hidden');
+          actionContainer.classList.add('hidden');
+          passwordOptions.classList.add('hidden');
+          progressBar.style.width = '0%';
+          progressText.textContent = 'Uploading PDF...';
+
+          // Create FormData
+          const formData = new FormData();
+          formData.append('file', pdfFile);
+          formData.append('password', password);
+
+          progressBar.style.width = '30%';
+          progressText.textContent = 'Encrypting with AES-256...';
+
+          // Call API
+          const response = await fetch(`${API_URL}/api/protect-pdf`, {
+            method: 'POST',
+            body: formData
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to protect PDF');
+          }
+
+          progressBar.style.width = '70%';
+          progressText.textContent = 'Downloading protected PDF...';
+
+          const blob = await response.blob();
+          
+          progressBar.style.width = '100%';
+          progressText.textContent = 'Complete!';
+
+          // Setup download
+          const url = URL.createObjectURL(blob);
+          downloadBtn.onclick = () => {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = pdfFile.name.replace('.pdf', '_protected.pdf');
+            a.click();
+          };
+
+          setTimeout(() => {
+            progressContainer.classList.add('hidden');
+            downloadContainer.classList.remove('hidden');
+          }, 500);
+
+        } catch (error) {
+          console.error('Protection error:', error);
+          alert('Failed to protect PDF. Please try again or contact support.');
+          progressContainer.classList.add('hidden');
+          actionContainer.classList.remove('hidden');
+          passwordOptions.classList.remove('hidden');
+        }
+      });
+    });
+
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "How do I password protect a PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Upload your PDF, enter a password, confirm it, and click Protect PDF. The file will be encrypted with AES-256 and require the password to open."
+      }
+    }, {
+      "@type": "Question",
+      "name": "Is the password protection real?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we use real AES-256 encryption via Apache PDFBox. The PDF will actually require a password to open in any PDF reader."
+      }
+    }]
+  }
+  </script>
+</body>
+</html>

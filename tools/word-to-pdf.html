@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Word to PDF Converter Online Free - DOCX to PDF | JustPdf</title>
+  <meta name="description" content="Convert Word to PDF online for free. Transform DOCX, DOC files to PDF format instantly. Preserve formatting, fonts, and images. No registration required.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Word to PDF Converter - DOCX to PDF Online Free">
+  <meta property="og:description" content="Convert Word documents to PDF online for free. Transform DOCX, DOC files to PDF format instantly. Preserve formatting, fonts, and images.">
+  <meta property="og:url" content="https://justpdf.net/tools/word-to-pdf/">
+  <meta property="og:type" content="website">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.net/tools/word-to-pdf/">
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert Word to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your Word document (DOCX or DOC), wait for automatic conversion, and download your PDF file. All formatting, fonts, images, and layout are preserved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert DOCX to PDF for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's Word to PDF converter is completely free with no file size limits, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to convert Word documents to PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All conversions happen in your browser. Your Word files never leave your device and are not uploaded to any server."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Word to PDF conversion libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Word to PDF Converter</h1>
+    <p class="text-gray-600 text-center mb-8">Convert DOCX and DOC files to PDF format instantly</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">📝</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose Word file</strong> or drag it here</p>
+        <p class="text-sm text-gray-500">Supports DOCX format (2007 and later)</p>
+        <input type="file" id="file-input" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden">
+      </div>
+    </div>
+
+    <!-- Processing Section -->
+    <div id="processing-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">⚙️</div>
+        <h3 class="text-2xl font-bold mb-4">Converting to PDF...</h3>
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-gray-600">Preparing conversion...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Conversion Complete!</h3>
+        <p class="text-gray-600 mb-6">Your PDF is ready to download</p>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download PDF
+        </a>
+        <br>
+        <button id="convert-another" class="text-green-700 hover:underline">Convert another file</button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- Info Notice -->
+    <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+      <h3 class="font-bold text-blue-800 mb-2">💡 Browser-Based Conversion</h3>
+      <p class="text-blue-800">This tool converts DOCX files to PDF directly in your browser. Only .DOCX format is supported (not legacy .DOC files). For best results with complex documents containing advanced formatting, tables, or charts, use the latest version of Microsoft Word to save your file as .DOCX before converting.</p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Convert Word to PDF Online Free</h2>
+      <p class="text-gray-700 mb-6">Converting Word documents to PDF format ensures your files look the same on any device, prevents unauthorized editing, and makes sharing professional documents easier. JustPdf's online Word to PDF converter transforms DOCX and DOC files into high-quality PDFs while preserving formatting, fonts, images, tables, and layouts. No software installation or registration required - all processing happens securely in your browser.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Convert Word to PDF?</h3>
+      <p class="text-gray-700 mb-4">PDF is the universal standard for document sharing and distribution. Here's why converting Word to PDF is essential:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Universal compatibility:</strong> PDFs display identically on any device, operating system, or PDF reader</li>
+        <li><strong>Preserve formatting:</strong> Lock in fonts, spacing, images, and layouts exactly as you designed them</li>
+        <li><strong>Professional appearance:</strong> PDFs look polished and professional for business documents, resumes, and reports</li>
+        <li><strong>Prevent editing:</strong> Recipients can view but not easily modify your document content</li>
+        <li><strong>Smaller file sizes:</strong> PDFs are often smaller than Word documents, making them easier to email</li>
+        <li><strong>Print-ready format:</strong> PDFs maintain exact dimensions and formatting for professional printing</li>
+        <li><strong>Security options:</strong> PDFs can be password-protected and encrypted for sensitive documents</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Convert DOCX to PDF in 3 Simple Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload your Word file:</strong> Click the upload button or drag and drop your DOCX or DOC file. Both modern (.docx) and legacy (.doc) Word formats are supported.</li>
+        <li><strong>Automatic conversion:</strong> Your document is instantly converted to PDF format in your browser. All formatting, fonts, images, tables, and layouts are preserved.</li>
+        <li><strong>Download your PDF:</strong> Click the download button to save your converted PDF file. Use it immediately or share it with confidence.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">⚡ Instant Conversion</h4>
+          <p class="text-sm text-gray-700">Convert Word to PDF in seconds with our fast browser-based conversion engine.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+          <p class="text-sm text-gray-700">All conversion happens in your browser. Your Word files never leave your device - complete privacy guaranteed.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+          <p class="text-sm text-gray-700">No subscriptions, no trials, no hidden costs. Convert unlimited Word files to PDF completely free.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📐 Format Preservation</h4>
+          <p class="text-sm text-gray-700">Maintains fonts, images, tables, headers, footers, and all formatting from your Word document.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📱 Works Everywhere</h4>
+          <p class="text-sm text-gray-700">Convert on desktop, tablet, or smartphone. No software installation required.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">✅ No Watermarks</h4>
+          <p class="text-sm text-gray-700">Your converted PDFs have no watermarks or branding. Professional, clean results every time.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Supported File Formats</h3>
+      
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📄 DOCX (Word 2007-2024)</h4>
+      <p class="text-gray-700 mb-4">Modern Microsoft Word format with full support for text, basic formatting, images, tables, and lists. This is the default format for Word 2007 and later versions. Our converter supports this format exclusively for best quality results.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📝 DOC Files (Not Supported)</h4>
+      <p class="text-gray-700 mb-4">Legacy Microsoft Word format (.doc) is not currently supported. If you have a .DOC file, please open it in Microsoft Word and save it as .DOCX format (File > Save As > choose "Word Document (.docx)"), then use our converter.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">What Gets Preserved in Conversion?</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Text and fonts:</strong> All text content with exact font families, sizes, colors, and styles</li>
+        <li><strong>Images and graphics:</strong> Embedded photos, clipart, shapes, and drawings</li>
+        <li><strong>Tables and charts:</strong> Data tables, organizational charts, and Excel charts</li>
+        <li><strong>Headers and footers:</strong> Page headers, footers, and page numbers</li>
+        <li><strong>Lists and bullets:</strong> Numbered lists, bullet points, and custom list formatting</li>
+        <li><strong>Hyperlinks:</strong> Internal document links and external web links</li>
+        <li><strong>Page layout:</strong> Margins, orientation (portrait/landscape), and page sizes</li>
+        <li><strong>Columns:</strong> Multi-column layouts and text flow</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How do I convert Word to PDF online?</h4>
+        <p class="text-gray-700">Upload your Word document (.DOCX format) using the upload button above, wait for automatic conversion (usually takes 2-10 seconds depending on file size), and download your PDF file. All text, basic formatting, images, and tables are preserved in the conversion.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I convert DOCX to PDF for free?</h4>
+        <p class="text-gray-700">Yes! JustPdf's Word to PDF converter is completely free with no watermarks and no registration required. Convert as many DOCX files to PDF as you need, absolutely free. File size should be under 25MB for best results.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it safe to convert Word documents to PDF online?</h4>
+        <p class="text-gray-700">Yes, absolutely. All conversion happens client-side in your browser using JavaScript libraries. Your Word files never leave your device and are not uploaded to any server. We cannot see, access, or store your documents in any way. 100% private.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Will my formatting be preserved?</h4>
+        <p class="text-gray-700">Yes! Our converter preserves text, basic formatting (bold, italic, underline), images, tables, lists, and paragraph spacing. Very complex features like SmartArt, advanced charts, or custom fonts may render differently. For documents with simple to moderate formatting, results are excellent.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Why only DOCX files? What about DOC?</h4>
+        <p class="text-gray-700">Our browser-based converter supports the modern DOCX format (.docx) which has been standard since Word 2007. Legacy .DOC files need to be converted to .DOCX first. Simply open your .DOC file in Microsoft Word and save it as .DOCX format, then use our converter.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What's the file size limit?</h4>
+        <p class="text-gray-700">While there's no strict limit, we recommend files under 25MB for best performance. Very large documents may take longer to process or could fail on devices with limited memory. If you have a large file, consider compressing images in Word first or splitting the document.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Do I need Microsoft Word installed?</h4>
+        <p class="text-gray-700">No! You don't need Microsoft Word or any other software installed. Our web-based converter works directly in your browser on any device - Windows, Mac, Linux, Chromebook, iOS, or Android. Just upload your .DOCX file and download the converted PDF.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Why choose PDF over Word format?</h4>
+        <p class="text-gray-700">PDFs are ideal for final documents that shouldn't be edited: resumes, contracts, invoices, reports, brochures, and forms. They display identically everywhere, can't be easily modified, preserve your exact formatting, and are the standard for professional document distribution and archiving.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Resumes and CVs:</strong> Convert your resume to PDF before applying for jobs to ensure perfect formatting</li>
+        <li><strong>Business reports:</strong> Share quarterly reports, presentations, and proposals in professional PDF format</li>
+        <li><strong>Contracts and legal documents:</strong> Convert agreements to PDF to prevent unauthorized editing</li>
+        <li><strong>Invoices and receipts:</strong> Create professional invoices in Word, convert to PDF for emailing</li>
+        <li><strong>Academic papers:</strong> Submit essays, research papers, and dissertations in PDF format</li>
+        <li><strong>Brochures and flyers:</strong> Design in Word, convert to PDF for printing or digital distribution</li>
+        <li><strong>Forms and applications:</strong> Convert fillable Word forms to PDFs for distribution</li>
+        <li><strong>Ebooks and guides:</strong> Publish digital books and training manuals as PDFs</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Best Results</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Use standard fonts (Arial, Times New Roman, Calibri) for guaranteed compatibility</li>
+        <li>Embed all images directly in the Word document before conversion</li>
+        <li>Check your document in Print Preview mode before converting to see how it will look</li>
+        <li>Use Page Layout view in Word to verify margins and page breaks</li>
+        <li>Compress large images in Word before conversion to reduce final PDF file size</li>
+        <li>Avoid using advanced Word features like ActiveX controls or macros</li>
+        <li>For complex documents, save as PDF directly from Microsoft Word for best results</li>
+        <li>Always review the converted PDF before sharing to ensure everything looks correct</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf Word to PDF Converter?</h3>
+      <p class="text-gray-700 mb-4">Unlike desktop software like Adobe Acrobat that requires expensive subscriptions ($15-30/month), or online services that upload your files to remote servers, JustPdf offers the perfect balance of convenience, security, and affordability. Our browser-based converter uses modern web technologies to transform Word documents to PDF instantly without any uploads. You get professional results with perfect formatting preservation - all completely free. Whether you're converting a single resume or batch-processing business documents, our Word to PDF converter delivers fast, reliable, and private document conversion every time.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Word to PDF vs Other Formats</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <h4 class="font-semibold text-gray-800 mb-3">PDF Advantages:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>✓ Universal:</strong> Opens on any device without special software</li>
+          <li><strong>✓ Consistent:</strong> Looks identical everywhere - no formatting surprises</li>
+          <li><strong>✓ Professional:</strong> Industry standard for business and legal documents</li>
+          <li><strong>✓ Secure:</strong> Can be password-protected and encrypted</li>
+          <li><strong>✓ Compact:</strong> Often smaller file size than Word documents</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Keep Word When:</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><strong>✓ Editing needed:</strong> Document requires frequent updates or revisions</li>
+          <li><strong>✓ Collaboration:</strong> Multiple people need to edit with track changes</li>
+          <li><strong>✓ Templates:</strong> Document will be reused with different content</li>
+          <li><strong>✓ Internal use:</strong> Sharing within a team that all has Word</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white rounded-lg p-8 shadow-sm">
+      <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/pdf-to-word.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📝</div>
+          <span class="font-semibold text-green-700">PDF to Word</span>
+        </a>
+        <a href="/tools/excel-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📊</div>
+          <span class="font-semibold text-green-700">Excel to PDF</span>
+        </a>
+        <a href="/tools/ppt-to-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📽️</div>
+          <span class="font-semibold text-green-700">PPT to PDF</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- About Section -->
+        <div>
+          <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+          </p>
+        </div>
+        
+        <!-- Popular Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+            <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+            <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+            <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+            <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+          </ul>
+        </div>
+        
+        <!-- More Tools -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+            <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+            <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+            <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+            <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div>
+          <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+            <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+            <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+            <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Divider -->
+      <div class="border-t border-gray-700 pt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <!-- Copyright -->
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2026 JustPdf.net - All rights reserved
+          </p>
+          
+          <!-- Legal Links -->
+          <div class="flex flex-wrap justify-center gap-6 text-sm">
+            <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+            <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+            <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const uploadBox = document.getElementById('upload-box');
+    const fileInput = document.getElementById('file-input');
+    const uploadSection = document.getElementById('upload-section');
+    const processingSection = document.getElementById('processing-section');
+    const downloadSection = document.getElementById('download-section');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const downloadLink = document.getElementById('download-link');
+    const convertAnother = document.getElementById('convert-another');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+
+    uploadBox.addEventListener('click', () => fileInput.click());
+    
+    uploadBox.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadBox.classList.add('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('dragleave', () => {
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      if (e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    async function handleFile(file) {
+      const validTypes = [
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      ];
+      
+      if (!validTypes.includes(file.type) && !file.name.match(/\.(doc|docx)$/i)) {
+        showError('Please select a Word document (.doc or .docx)');
+        return;
+      }
+
+      // Check if it's a DOCX file (we can only convert DOCX, not legacy DOC)
+      if (!file.name.match(/\.docx$/i)) {
+        showError('Only .DOCX files are supported. Please save your document as .DOCX format in Microsoft Word and try again.');
+        return;
+      }
+
+      try {
+        uploadSection.classList.add('hidden');
+        processingSection.classList.remove('hidden');
+        
+        progressBar.style.width = '20%';
+        progressText.textContent = 'Reading Word document...';
+
+        // Read the file as ArrayBuffer
+        const arrayBuffer = await file.arrayBuffer();
+        
+        progressBar.style.width = '40%';
+        progressText.textContent = 'Extracting content and formatting...';
+
+        // Convert DOCX to HTML using Mammoth.js with style mapping
+        const result = await mammoth.convertToHtml(
+          { arrayBuffer: arrayBuffer },
+          {
+            styleMap: [
+              "p[style-name='Heading 1'] => h1:fresh",
+              "p[style-name='Heading 2'] => h2:fresh",
+              "p[style-name='Heading 3'] => h3:fresh",
+              "p[style-name='Title'] => h1.title:fresh",
+              "p[style-name='Subtitle'] => h2.subtitle:fresh"
+            ],
+            includeDefaultStyleMap: true,
+            includeEmbeddedStyleMap: true
+          }
+        );
+        
+        const html = result.value;
+        
+        if (!html || html.trim() === '') {
+          throw new Error('No content extracted from Word document');
+        }
+
+        if (result.messages && result.messages.length > 0) {
+          console.log('Conversion messages:', result.messages);
+        }
+
+        progressBar.style.width = '60%';
+        progressText.textContent = 'Preparing PDF layout...';
+
+        // Create a styled container that mimics Word document appearance
+        const container = document.createElement('div');
+        container.id = 'word-content-container';
+        container.style.cssText = `
+          position: absolute;
+          left: -99999px;
+          top: 0;
+          width: 600px;
+          background: white;
+          font-family: 'Calibri', 'Arial', sans-serif;
+          font-size: 11pt;
+          line-height: 1.15;
+          color: #000;
+          box-sizing: border-box;
+          padding: 0;
+        `;
+        
+        // Add enhanced CSS styling to match Word formatting
+        const styleElement = document.createElement('style');
+        styleElement.textContent = `
+          #word-content-container h1 { 
+            font-size: 16pt; 
+            font-weight: bold; 
+            margin: 0 0 8pt 0;
+            line-height: 1.08;
+            page-break-after: avoid;
+          }
+          #word-content-container h2 { 
+            font-size: 13pt; 
+            font-weight: bold; 
+            margin: 0 0 8pt 0;
+            line-height: 1.08;
+            page-break-after: avoid;
+          }
+          #word-content-container h3 { 
+            font-size: 11pt; 
+            font-weight: bold; 
+            margin: 0 0 8pt 0;
+            line-height: 1.08;
+            page-break-after: avoid;
+          }
+          #word-content-container p { 
+            margin: 0 0 8pt 0;
+            text-align: left;
+            line-height: 1.08;
+            orphans: 2;
+            widows: 2;
+          }
+          #word-content-container p:last-child { 
+            margin-bottom: 0;
+          }
+          #word-content-container strong { 
+            font-weight: bold; 
+          }
+          #word-content-container em { 
+            font-style: italic; 
+          }
+          #word-content-container u {
+            text-decoration: underline;
+          }
+          #word-content-container ul, #word-content-container ol { 
+            margin: 0 0 8pt 0;
+            padding-left: 0.5in;
+          }
+          #word-content-container li { 
+            margin: 0;
+            line-height: 1.08;
+          }
+          #word-content-container table { 
+            border-collapse: collapse;
+            margin: 0 0 8pt 0;
+            width: 100%;
+            page-break-inside: avoid;
+          }
+          #word-content-container td, #word-content-container th { 
+            border: 1px solid #000;
+            padding: 0.05in;
+            vertical-align: top;
+            line-height: 1.08;
+          }
+          #word-content-container img {
+            max-width: 100%;
+            height: auto;
+            margin: 8pt 0;
+            display: block;
+          }
+          #word-content-container a {
+            color: #0563C1;
+            text-decoration: underline;
+          }
+          #word-content-container blockquote {
+            margin: 0 0 8pt 0;
+            padding-left: 0.5in;
+            border-left: none;
+          }
+        `;
+        document.head.appendChild(styleElement);
+        
+        container.innerHTML = html;
+        document.body.appendChild(container);
+
+        progressBar.style.width = '75%';
+        progressText.textContent = 'Converting to PDF...';
+
+        // Wait for images and fonts to load
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        progressBar.style.width = '85%';
+        progressText.textContent = 'Generating PDF file...';
+
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4',
+          compress: true
+        });
+
+        // A4 dimensions in mm
+        const pageWidthMM = 210;
+        const pageHeightMM = 297;
+        const marginMM = 25.4; // 1 inch = 25.4mm
+        
+        // Convert to pixels at 96 DPI for html2canvas
+        const mmToPx = 96 / 25.4; // 96 DPI conversion
+        const pageWidth = pageWidthMM * mmToPx;
+        const pageHeight = pageHeightMM * mmToPx;
+        const margin = marginMM * mmToPx;
+        const contentWidth = pageWidth - (2 * margin);
+        const contentHeight = pageHeight - (2 * margin);
+
+        // Update container width to match content area
+        container.style.width = `${contentWidth}px`;
+        
+        // Force layout recalculation
+        container.offsetHeight;
+        
+        // Get total height of content after width adjustment
+        const totalHeight = container.scrollHeight;
+        const pageCount = Math.ceil(totalHeight / contentHeight);
+
+        console.log(`Content area: ${contentWidth}x${contentHeight}px, Total height: ${totalHeight}px, Pages: ${pageCount}`);
+
+        // Generate PDF page by page
+        for (let pageNum = 0; pageNum < pageCount; pageNum++) {
+          if (pageNum > 0) {
+            pdf.addPage();
+          }
+
+          // Update progress
+          const progress = 85 + Math.floor((pageNum / pageCount) * 10);
+          progressBar.style.width = `${progress}%`;
+          progressText.textContent = `Generating page ${pageNum + 1} of ${pageCount}...`;
+
+          // Create a viewport container that acts as a "window" showing one page
+          const viewport = document.createElement('div');
+          viewport.style.cssText = `
+            position: absolute;
+            left: -99999px;
+            top: 0;
+            width: ${pageWidth}px;
+            height: ${pageHeight}px;
+            background: white;
+            overflow: hidden;
+          `;
+
+          // Create inner wrapper for positioning content
+          const wrapper = document.createElement('div');
+          wrapper.style.cssText = `
+            position: absolute;
+            left: ${margin}px;
+            top: ${margin}px;
+            width: ${contentWidth}px;
+            height: ${contentHeight}px;
+            overflow: hidden;
+          `;
+
+          // Clone the content and offset it to show the correct page
+          const contentClone = container.cloneNode(true);
+          contentClone.style.cssText = container.style.cssText;
+          contentClone.style.position = 'absolute';
+          contentClone.style.left = '0';
+          contentClone.style.top = `${-pageNum * contentHeight}px`;
+          contentClone.style.width = `${contentWidth}px`;
+          
+          wrapper.appendChild(contentClone);
+          viewport.appendChild(wrapper);
+          document.body.appendChild(viewport);
+
+          // Wait for rendering to complete
+          await new Promise(resolve => setTimeout(resolve, 200));
+
+          // Render viewport to canvas with high quality
+          const canvas = await html2canvas(viewport, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            width: pageWidth,
+            height: pageHeight,
+            windowWidth: pageWidth,
+            windowHeight: pageHeight,
+            letterRendering: true,
+            allowTaint: false,
+            imageTimeout: 0
+          });
+
+          // Verify canvas has content
+          const ctx = canvas.getContext('2d');
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const hasContent = imageData.data.some((pixel, i) => i % 4 === 3 && pixel > 0);
+          
+          if (!hasContent) {
+            console.warn(`Page ${pageNum + 1} appears to be empty`);
+          }
+
+          // Add canvas to PDF
+          const imgData = canvas.toDataURL('image/png', 1.0);
+          pdf.addImage(imgData, 'PNG', 0, 0, pageWidthMM, pageHeightMM, '', 'FAST');
+
+          // Clean up viewport
+          document.body.removeChild(viewport);
+
+          // Small delay between pages to prevent browser freezing
+          await new Promise(resolve => setTimeout(resolve, 50));
+        }
+
+        // Clean up main container and style element
+        document.body.removeChild(container);
+        const tempStyleElement = document.querySelector('style');
+        if (tempStyleElement && tempStyleElement.textContent.includes('#word-content-container')) {
+          tempStyleElement.remove();
+        }
+
+        progressBar.style.width = '100%';
+        progressText.textContent = 'Complete!';
+
+        // Generate download
+        const pdfBlob = pdf.output('blob');
+        const url = URL.createObjectURL(pdfBlob);
+        const fileName = file.name.replace(/\.docx$/i, '.pdf');
+
+        setTimeout(() => {
+          processingSection.classList.add('hidden');
+          downloadSection.classList.remove('hidden');
+          
+          downloadLink.href = url;
+          downloadLink.download = fileName;
+        }, 500);
+
+      } catch (error) {
+        console.error('Conversion error:', error);
+        processingSection.classList.add('hidden');
+        uploadSection.classList.remove('hidden');
+        showError('Failed to convert Word document: ' + error.message + '. Please ensure your file is a valid DOCX document.');
+        
+        // Clean up container if it exists
+        const container = document.getElementById('word-content-container');
+        if (container && container.parentNode) {
+          document.body.removeChild(container);
+        }
+      }
+    }
+
+    convertAnother.addEventListener('click', () => location.reload());
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorMessage.classList.remove('hidden');
+      setTimeout(() => errorMessage.classList.add('hidden'), 8000);
+    }
+  </script>
+
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

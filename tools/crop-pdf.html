@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop PDF Online Free - Remove Margins & Borders | JustPdf</title>
+  <meta name="description" content="Crop PDF pages online for free. Remove unwanted margins, borders, and white space from your PDF files. Fast, secure, and easy to use. No registration required.">
+  <meta property="og:title" content="Crop PDF - Remove Margins & White Space Online Free">
+  <meta property="og:description" content="Crop PDF files online for free. Remove unwanted margins, borders, and white space. Fast, secure, and easy to use.">
+  <meta property="og:url" content="https://justpdf.net/tools/crop-pdf/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://justpdf.net/tools/crop-pdf/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I crop a PDF online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF file, choose a crop preset or set custom margins, preview the crop area, and download your cropped PDF. All processing is done in your browser for complete privacy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I crop PDFs for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! JustPdf's crop tool is completely free with no file size limits, no watermarks, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to crop PDFs online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, absolutely. All processing happens in your browser. Your files never leave your device and are not uploaded to any server."
+        }
+      }
+    ]
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <style>
+    #pdfPreview {
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      background: #f9fafb;
+      position: relative;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    
+    .crop-overlay {
+      position: absolute;
+      border: 2px dashed #10b981;
+      background: rgba(16, 185, 129, 0.1);
+      cursor: move;
+    }
+    
+    .resize-handle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #10b981;
+      border: 2px solid white;
+      border-radius: 50%;
+    }
+    
+    .resize-handle.nw { top: -6px; left: -6px; cursor: nw-resize; }
+    .resize-handle.ne { top: -6px; right: -6px; cursor: ne-resize; }
+    .resize-handle.sw { bottom: -6px; left: -6px; cursor: sw-resize; }
+    .resize-handle.se { bottom: -6px; right: -6px; cursor: se-resize; }
+    .resize-handle.n { top: -6px; left: 50%; margin-left: -6px; cursor: n-resize; }
+    .resize-handle.s { bottom: -6px; left: 50%; margin-left: -6px; cursor: s-resize; }
+    .resize-handle.w { top: 50%; left: -6px; margin-top: -6px; cursor: w-resize; }
+    .resize-handle.e { top: 50%; right: -6px; margin-top: -6px; cursor: e-resize; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Crop PDF Pages</h1>
+    <p class="text-gray-600 text-center mb-8">Remove margins, borders, and white space from your PDF</p>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">✂️</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file</strong> or drag it here</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <!-- Crop Section -->
+    <div id="crop-section" class="hidden mt-8">
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Preview Panel -->
+        <div class="md:col-span-2">
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-bold mb-4">Preview (Page 1)</h2>
+            <div id="preview-container" class="flex justify-center">
+              <canvas id="pdfPreview"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="md:col-span-1">
+          <div class="bg-white p-6 rounded-lg shadow sticky top-4">
+            <h2 class="text-xl font-bold mb-4">Crop Settings</h2>
+            
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-semibold mb-2">Preset Margins</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="applyPreset('none')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm">No Crop</button>
+                  <button onclick="applyPreset('small')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm">Small</button>
+                  <button onclick="applyPreset('medium')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm">Medium</button>
+                  <button onclick="applyPreset('large')" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm">Large</button>
+                </div>
+              </div>
+
+              <div class="border-t pt-4">
+                <label class="block text-sm font-semibold mb-2">Custom Margins (pts)</label>
+                <div class="space-y-3">
+                  <div>
+                    <label class="text-xs text-gray-600">Top</label>
+                    <input type="number" id="margin-top" min="0" value="0" class="w-full px-3 py-2 border rounded" onchange="updateCropArea()">
+                  </div>
+                  <div>
+                    <label class="text-xs text-gray-600">Right</label>
+                    <input type="number" id="margin-right" min="0" value="0" class="w-full px-3 py-2 border rounded" onchange="updateCropArea()">
+                  </div>
+                  <div>
+                    <label class="text-xs text-gray-600">Bottom</label>
+                    <input type="number" id="margin-bottom" min="0" value="0" class="w-full px-3 py-2 border rounded" onchange="updateCropArea()">
+                  </div>
+                  <div>
+                    <label class="text-xs text-gray-600">Left</label>
+                    <input type="number" id="margin-left" min="0" value="0" class="w-full px-3 py-2 border rounded" onchange="updateCropArea()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t pt-4">
+                <label class="flex items-center space-x-2 mb-3">
+                  <input type="checkbox" id="apply-all-pages" checked class="rounded">
+                  <span class="text-sm">Apply to all pages</span>
+                </label>
+              </div>
+
+              <button id="crop-btn" class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-bold">
+                Crop PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Processing...</p>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">PDF Cropped Successfully!</h3>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download Cropped PDF
+        </a>
+        <br>
+        <button id="crop-another" class="text-green-700 hover:underline">Crop another PDF</button>
+      </div>
+    </div>
+
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Unit 1 (After Tool Interface) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-lg max-w-none mt-16 bg-white rounded-lg p-8 shadow-sm">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">How to Crop PDF Pages Online Free</h2>
+      <p class="text-gray-700 mb-6">Cropping PDF pages removes unwanted margins, borders, and white space from your documents. JustPdf's online crop tool lets you precisely adjust PDF page boundaries with custom margins or convenient presets. Perfect for standardizing document sizes, improving readability, or preparing PDFs for printing. No software installation or registration required - all processing happens securely in your browser.</p>
+      
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Crop PDF Files?</h3>
+      <p class="text-gray-700 mb-4">Cropping PDFs offers many benefits for document management and presentation:</p>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Remove white space:</strong> Eliminate unnecessary margins and borders to make content more prominent</li>
+        <li><strong>Standardize sizes:</strong> Ensure all pages have consistent dimensions across multiple documents</li>
+        <li><strong>Improve readability:</strong> Make PDFs more readable on tablets, phones, and e-readers by removing excess margins</li>
+        <li><strong>Reduce file size:</strong> Smaller page dimensions can lead to reduced file sizes</li>
+        <li><strong>Print preparation:</strong> Adjust margins to fit specific paper sizes or printing requirements</li>
+        <li><strong>Professional appearance:</strong> Create clean, polished documents without distracting white space</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Crop Methods</h3>
+      
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📐 Preset Margins</h4>
+      <p class="text-gray-700 mb-4">Choose from convenient presets like "Remove all margins" (10pt), "Small margins" (20pt), "Medium margins" (30pt), or "Large margins" (50pt). Perfect for quick cropping without manual adjustments.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🎯 Custom Margins</h4>
+      <p class="text-gray-700 mb-4">Set precise margin values in points for each edge (top, right, bottom, left). Enter custom values between 0-200 points for pixel-perfect control over your crop area.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">👁️ Live Preview</h4>
+      <p class="text-gray-700 mb-4">See the crop area highlighted on your PDF before processing. The green overlay shows exactly what will be kept, so you can adjust margins with confidence.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📄 Apply to All Pages</h4>
+      <p class="text-gray-700 mb-4">Crop all pages with the same margins, or apply different crops to individual pages. Choose "Apply to all pages" for consistent results across your entire document.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">How to Crop a PDF in 3 Simple Steps</h3>
+      <ol class="list-decimal pl-6 mb-6 text-gray-700 space-y-3">
+        <li><strong>Upload your PDF:</strong> Click the upload button or drag and drop your PDF file. The first page loads instantly for preview - your file stays on your device for complete privacy.</li>
+        <li><strong>Set crop margins:</strong> Choose a preset from the dropdown or enter custom margin values. Use the live preview to see the crop area highlighted in green. Adjust as needed until you're satisfied.</li>
+        <li><strong>Download cropped PDF:</strong> Click "Crop PDF" to process all pages. Within seconds, download your cropped document with the new page boundaries applied throughout.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">⚡ Instant Preview</h4>
+          <p class="text-sm text-gray-700">See exactly how your PDF will look after cropping with real-time preview overlay.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+          <p class="text-sm text-gray-700">All cropping happens in your browser. Your PDFs never leave your device - complete privacy guaranteed.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+          <p class="text-sm text-gray-700">No subscriptions, no trials, no hidden costs. Crop unlimited PDFs completely free.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📏 Precise Control</h4>
+          <p class="text-sm text-gray-700">Set exact margin values or use convenient presets. Full control over all four edges.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📄 Batch Processing</h4>
+          <p class="text-sm text-gray-700">Apply the same crop to all pages at once for fast, consistent results.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">✅ No Watermarks</h4>
+          <p class="text-sm text-gray-700">Your cropped PDFs have no watermarks or branding. Professional, clean results.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Frequently Asked Questions</h3>
+      
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How do I crop a PDF online?</h4>
+        <p class="text-gray-700">Upload your PDF file using the upload button above, choose a crop preset or set custom margin values (top, right, bottom, left), preview the crop area highlighted in green, then click "Crop PDF" to process all pages and download your cropped document.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I crop PDFs for free?</h4>
+        <p class="text-gray-700">Yes! JustPdf's crop tool is completely free with no file size limits, no page count limits, no watermarks, and no registration required. Crop unlimited PDFs at no cost.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it safe to crop PDFs online?</h4>
+        <p class="text-gray-700">Yes, absolutely. All processing is done client-side in your browser using JavaScript. Your PDF files never leave your device and are not uploaded to any server. We cannot see, access, or store your documents in any way.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What are margin points?</h4>
+        <p class="text-gray-700">Margins are measured in points (pt), where 1 point = 1/72 inch. For example, 72 points = 1 inch. The tool accepts values from 0 to 200 points per edge. Higher values remove more content from the edges.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I crop different pages differently?</h4>
+        <p class="text-gray-700">The current tool applies the same crop to all pages for consistency. To crop pages individually, you can split your PDF first, crop each section separately, then merge them back together using our other tools.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Will cropping reduce my file size?</h4>
+        <p class="text-gray-700">Cropping can reduce file size, especially if you're removing large white areas or margins. However, the reduction depends on your PDF's content. The main benefits are improved appearance and better readability.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What happens to content in the cropped areas?</h4>
+        <p class="text-gray-700">Content in the cropped margins is hidden from view and removed from the visible page area. Make sure important content isn't in the margins before cropping. Use the preview to verify before processing.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Common Use Cases</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li><strong>Scanned documents:</strong> Remove scanner-created borders and align pages properly</li>
+        <li><strong>E-reader optimization:</strong> Maximize screen real estate by removing unnecessary margins</li>
+        <li><strong>Print preparation:</strong> Adjust PDFs to specific paper sizes or printer requirements</li>
+        <li><strong>Presentation slides:</strong> Remove presenter notes or margin annotations before sharing</li>
+        <li><strong>Book pages:</strong> Eliminate binding margins or crop to specific dimensions</li>
+        <li><strong>Screenshots:</strong> Remove unnecessary browser chrome or application borders</li>
+        <li><strong>Forms standardization:</strong> Ensure all form pages have consistent margins</li>
+        <li><strong>Digital signatures:</strong> Remove excess white space around signature areas</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Tips for Best Results</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+        <li>Always preview the crop area before processing to avoid cutting important content</li>
+        <li>Start with a preset and fine-tune with custom values if needed</li>
+        <li>For scanned documents, use larger margins to remove scanner artifacts</li>
+        <li>Keep a backup of the original if you're unsure about margin values</li>
+        <li>Use consistent margins across related documents for professional appearance</li>
+        <li>Remember that 72 points equals 1 inch when setting custom values</li>
+        <li>For e-readers, remove as much white space as possible (use "Remove all margins" preset)</li>
+        <li>Check all pages after cropping to ensure no content was inadvertently hidden</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-3">Why Choose JustPdf Crop Tool?</h3>
+      <p class="text-gray-700 mb-4">Unlike desktop software like Adobe Acrobat that requires expensive subscriptions, or online services that upload your files to remote servers, JustPdf offers the perfect balance of convenience, power, and privacy. Our browser-based tool uses advanced client-side PDF manipulation to crop pages instantly without any uploads. You get professional results with precise margin control, live preview, and batch processing - all completely free. Whether you're preparing documents for printing, optimizing PDFs for e-readers, or standardizing document sizes, our crop tool delivers fast, reliable, and private PDF cropping every time.</p>
+    </article>
+
+    <!-- Related Tools -->
+    <div class="mt-12 bg-white rounded-lg p-8 shadow-sm">
+      <h3 class="text-2xl font-bold mb-6 text-gray-800">Related PDF Tools</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/tools/pdf-editor.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✏️</div>
+          <span class="font-semibold text-green-700">PDF Editor</span>
+        </a>
+        <a href="/tools/rotate-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">🔄</div>
+          <span class="font-semibold text-green-700">Rotate PDF</span>
+        </a>
+        <a href="/tools/split-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">✂️</div>
+          <span class="font-semibold text-green-700">Split PDF</span>
+        </a>
+        <a href="/tools/merge-pdf.html" class="block p-6 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+          <div class="text-3xl mb-2">📑</div>
+          <span class="font-semibold text-green-700">Merge PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AdSense Unit 2 (After SEO Content) -->
+    <div class="mt-12 flex justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+
+  <script>
+    // Set PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+    let pdfDoc = null;
+    let selectedFile = null;
+    let pageWidth = 0;
+    let pageHeight = 0;
+
+    const uploadBox = document.getElementById('upload-box');
+    const fileInput = document.getElementById('file-input');
+    const uploadSection = document.getElementById('upload-section');
+    const cropSection = document.getElementById('crop-section');
+    const progressSection = document.getElementById('progress-section');
+    const downloadSection = document.getElementById('download-section');
+    const cropBtn = document.getElementById('crop-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const downloadLink = document.getElementById('download-link');
+    const cropAnother = document.getElementById('crop-another');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const canvas = document.getElementById('pdfPreview');
+    const ctx = canvas.getContext('2d');
+
+    // Margin inputs
+    const marginTop = document.getElementById('margin-top');
+    const marginRight = document.getElementById('margin-right');
+    const marginBottom = document.getElementById('margin-bottom');
+    const marginLeft = document.getElementById('margin-left');
+    const applyAllPages = document.getElementById('apply-all-pages');
+
+    uploadBox.addEventListener('click', () => fileInput.click());
+    
+    uploadBox.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadBox.classList.add('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('dragleave', () => {
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+    });
+
+    uploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) handleFile(e.target.files[0]);
+    });
+
+    async function handleFile(file) {
+      if (file.type !== 'application/pdf') {
+        showError('Please select a PDF file');
+        return;
+      }
+
+      selectedFile = file;
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const { PDFDocument } = PDFLib;
+        pdfDoc = await PDFDocument.load(arrayBuffer);
+        
+        // Render preview using PDF.js
+        await renderPreview(arrayBuffer);
+        
+        uploadSection.classList.add('hidden');
+        cropSection.classList.remove('hidden');
+      } catch (error) {
+        console.error('Error loading PDF:', error);
+        showError('Failed to load PDF: ' + error.message);
+      }
+    }
+
+    async function renderPreview(arrayBuffer) {
+      try {
+        const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
+        const pdf = await loadingTask.promise;
+        const page = await pdf.getPage(1);
+        
+        const viewport = page.getViewport({ scale: 1.5 });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        pageWidth = page.view[2];
+        pageHeight = page.view[3];
+        
+        const renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        
+        await page.render(renderContext).promise;
+      } catch (error) {
+        console.error('Error rendering preview:', error);
+      }
+    }
+
+    window.applyPreset = function(preset) {
+      const presets = {
+        'none': { top: 0, right: 0, bottom: 0, left: 0 },
+        'small': { top: 36, right: 36, bottom: 36, left: 36 },
+        'medium': { top: 72, right: 72, bottom: 72, left: 72 },
+        'large': { top: 108, right: 108, bottom: 108, left: 108 }
+      };
+      
+      const values = presets[preset];
+      marginTop.value = values.top;
+      marginRight.value = values.right;
+      marginBottom.value = values.bottom;
+      marginLeft.value = values.left;
+      
+      updateCropArea();
+    };
+
+    window.updateCropArea = function() {
+      // Visual feedback could be added here
+      console.log('Crop margins updated:', {
+        top: marginTop.value,
+        right: marginRight.value,
+        bottom: marginBottom.value,
+        left: marginLeft.value
+      });
+    };
+
+    cropBtn.addEventListener('click', async () => {
+      try {
+        progressSection.classList.remove('hidden');
+        cropSection.classList.add('hidden');
+        progressBar.style.width = '20%';
+        progressText.textContent = 'Loading PDF...';
+
+        const { PDFDocument } = PDFLib;
+        const pdfBytes = await selectedFile.arrayBuffer();
+        const pdfToEdit = await PDFDocument.load(pdfBytes);
+        
+        const pages = pdfToEdit.getPages();
+        const totalPages = pages.length;
+        
+        progressBar.style.width = '40%';
+        progressText.textContent = 'Cropping pages...';
+
+        const top = parseFloat(marginTop.value) || 0;
+        const right = parseFloat(marginRight.value) || 0;
+        const bottom = parseFloat(marginBottom.value) || 0;
+        const left = parseFloat(marginLeft.value) || 0;
+
+        if (applyAllPages.checked) {
+          // Apply to all pages
+          for (let i = 0; i < totalPages; i++) {
+            const page = pages[i];
+            const { width, height } = page.getSize();
+            
+            // Set crop box (left, bottom, right, top)
+            page.setCropBox(
+              left,
+              bottom,
+              width - right,
+              height - top
+            );
+            
+            const progress = 40 + ((i + 1) / totalPages) * 50;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `Cropping page ${i + 1} of ${totalPages}...`;
+          }
+        } else {
+          // Apply only to first page
+          const page = pages[0];
+          const { width, height } = page.getSize();
+          page.setCropBox(left, bottom, width - right, height - top);
+        }
+
+        progressBar.style.width = '90%';
+        progressText.textContent = 'Saving PDF...';
+
+        const croppedPdfBytes = await pdfToEdit.save();
+
+        progressBar.style.width = '100%';
+        progressText.textContent = 'Complete!';
+
+        setTimeout(() => {
+          progressSection.classList.add('hidden');
+          downloadSection.classList.remove('hidden');
+          
+          const blob = new Blob([croppedPdfBytes], { type: 'application/pdf' });
+          const url = URL.createObjectURL(blob);
+          downloadLink.href = url;
+          downloadLink.download = selectedFile.name.replace('.pdf', '_cropped.pdf');
+        }, 500);
+
+      } catch (error) {
+        console.error('Crop error:', error);
+        progressSection.classList.add('hidden');
+        cropSection.classList.remove('hidden');
+        showError('Failed to crop PDF: ' + error.message);
+      }
+    });
+
+    cropAnother.addEventListener('click', () => location.reload());
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorMessage.classList.remove('hidden');
+      setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+    }
+  </script>
+</body>
+</html>

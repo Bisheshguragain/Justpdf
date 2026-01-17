@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Add Page Numbers to PDF Online Free - PDF Page Numbering | JustPdf</title>
+  <meta name="title" content="Add Page Numbers to PDF Online Free - PDF Page Numbering | JustPdf">
+  <meta name="description" content="Add page numbers to PDF files online for free. Custom positioning, formatting, and styles. Professional page numbering tool. No registration required.">
+  <meta name="keywords" content="add page numbers to pdf, pdf page numbering, number pdf pages, pdf pagination, page numbers">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/page-numbers.html">
+  <meta property="og:title" content="Add Page Numbers to PDF Online Free - PDF Page Numbering | JustPdf">
+  <meta property="og:description" content="Add page numbers to PDF files online for free. Custom positioning, formatting, and styles. Professional page numbering tool. No registration required.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/page-numbers.html">
+  <meta property="twitter:title" content="Add Page Numbers to PDF Online Free - PDF Page Numbering | JustPdf">
+  <meta property="twitter:description" content="Add page numbers to PDF files online for free. Custom positioning, formatting, and styles. Professional page numbering tool. No registration required.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/page-numbers.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this tool free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! This PDF tool is completely free with no watermarks, no file limits, and no registration required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all processing happens in your browser using client-side JavaScript. Your files never leave your device, ensuring complete privacy and security."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install any software?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No installation required! This is a web-based tool that works directly in your browser on any device."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="flex items-center">
+      <span class="font-bold text-2xl text-green-700">JustPdf</span>
+    </a>
+    <ul class="flex space-x-6 text-gray-700 text-base">
+      <li><a href="/" class="hover:text-green-700 transition font-semibold">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700 transition">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">🔢 Add Page Numbers to PDF</h1>
+    <p class="text-gray-600 text-center mb-8">Automatically number all pages in your PDF document</p>
+
+    <!-- Upload Area -->
+    <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center bg-white hover:border-green-500 transition cursor-pointer">
+      <div class="text-6xl mb-4">📁</div>
+      <h2 class="text-xl font-semibold text-gray-700 mb-2">Click to upload or drag and drop</h2>
+      <p class="text-gray-500">PDF files only</p>
+      <input type="file" id="fileInput" accept=".pdf" class="hidden">
+    </div>
+
+    <!-- Top AdSense Ad -->
+    <div class="my-8">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- File Info -->
+    <div id="fileInfo" class="hidden bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded">
+      <h3 class="font-semibold text-gray-800 mb-2">📄 File loaded:</h3>
+      <p id="fileName" class="text-gray-700"></p>
+      <p id="pageCount" class="text-gray-600"></p>
+    </div>
+
+    <!-- Numbering Options -->
+    <div id="numberingOptions" class="hidden bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Numbering Options:</h3>
+      
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">Position:</label>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" class="position-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-position="top-left">Top Left</button>
+          <button type="button" class="position-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-position="top-center">Top Center</button>
+          <button type="button" class="position-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-position="top-right">Top Right</button>
+          <button type="button" class="position-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-position="bottom-left">Bottom Left</button>
+          <button type="button" class="position-btn px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition selected" data-position="bottom-center">Bottom Center</button>
+          <button type="button" class="position-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-position="bottom-right">Bottom Right</button>
+        </div>      </div>
+
+      <div class="mb-4">
+        <label for="formatSelect" class="block text-gray-700 font-semibold mb-2">Format:</label>
+        <select id="formatSelect" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+          <option value="number">Page {n}</option>
+          <option value="simple">{n}</option>
+          <option value="of-total">Page {n} of {total}</option>
+          <option value="slash">{n}/{total}</option>
+        </select>
+        <p class="text-sm text-gray-500 mt-1">{n} will be replaced with the page number</p>
+      </div>
+
+      <div class="mb-4">
+        <label for="startNumber" class="block text-gray-700 font-semibold mb-2">Start numbering from:</label>
+        <input type="number" id="startNumber" min="1" value="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+      </div>
+
+      <div class="mb-4">
+        <label for="fontSize" class="block text-gray-700 font-semibold mb-2">Font size:</label>
+        <input type="number" id="fontSize" min="8" max="24" value="12" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">Preview:</label>
+        <div class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+          <span id="previewText" class="text-gray-800 font-medium">Page 1</span>
+        </div>
+      </div>
+
+      <button id="addNumbersBtn" class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+        Add Page Numbers
+      </button>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorDiv" class="hidden bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded">
+      <p class="text-red-700"></p>
+    </div>
+
+    <!-- Progress Container -->
+    <div id="progressContainer" class="hidden bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Adding page numbers...</h3>
+      <div class="bg-gray-200 rounded-full h-6 overflow-hidden">
+        <div id="progressFill" class="bg-green-600 h-full flex items-center justify-center text-white text-sm font-semibold transition-all duration-300" style="width: 0%">
+          0%
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div id="result" class="hidden bg-green-50 border-l-4 border-green-500 p-6 mb-6 rounded">
+      <h3 class="text-xl font-bold text-green-800 mb-4">✅ Page numbers added successfully!</h3>
+      <p id="resultMessage" class="text-gray-700 mb-4"></p>
+      <div class="flex gap-3">
+        <button id="downloadBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+          Download Numbered PDF
+        </button>
+        <button id="resetBtn" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition font-semibold">
+          Number Another File
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom AdSense Ad -->
+    <div class="my-8">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-format="autorelaxed"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <article class="mt-16 prose prose-lg max-w-none">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">How to Add Page Numbers to PDF Online Free</h2>
+      <p class="text-gray-700 mb-4 leading-relaxed">
+        Adding page numbers to PDF documents has never been easier. Whether you need to number a report, thesis, manual, or any multi-page document, our free online tool lets you add professional page numbers in seconds without installing any software.
+      </p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">How to Add Page Numbers to PDF in 3 Simple Steps</h3>
+      <ol class="list-decimal pl-6 mb-4 text-gray-700 space-y-1">
+        <li><strong>Upload your PDF file:</strong> Click the upload button or drag and drop your PDF document. Files are processed entirely in your browser for complete privacy.</li>
+        <li><strong>Customize numbering:</strong> Choose position (top/bottom, left/center/right), select your format (Page 1, 1, Page 1 of 10, etc.), set start number, and adjust font size.</li>
+        <li><strong>Download numbered PDF:</strong> Click "Add Page Numbers" to process, then download your professionally numbered PDF file instantly.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Key Features</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-8">
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🎯 6 Position Options</h4>
+          <p class="text-sm text-gray-700">Place page numbers anywhere: top-left, top-center, top-right, bottom-left, bottom-center, or bottom-right.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔢 4 Number Formats</h4>
+          <p class="text-sm text-gray-700">Choose from "Page 1", "1", "Page 1 of 10", or "1/10" formats to match your document style.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">⚡ Instant Processing</h4>
+          <p class="text-sm text-gray-700">Add page numbers to hundreds of pages in seconds with our fast client-side processing engine.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">🔒 100% Private</h4>
+          <p class="text-sm text-gray-700">All processing happens in your browser. Your PDFs never leave your device - complete privacy guaranteed.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">💯 Completely Free</h4>
+          <p class="text-sm text-gray-700">No subscriptions, no trials, no watermarks. Add page numbers to unlimited PDFs absolutely free.</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-green-700 mb-2">📱 Works Everywhere</h4>
+          <p class="text-sm text-gray-700">Use on desktop, tablet, or smartphone. No software installation required.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Customization Options</h3>
+      
+      <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-4">📍 Position Selection</h4>
+      <p class="text-gray-700 mb-4">Choose exactly where you want page numbers to appear on your PDF. Professional documents typically use bottom-center, academic papers often use top-right, and books commonly use alternating outer corners. Our tool supports all six standard positions to match any document style or formatting requirement.</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-4">🔢 Number Formatting</h4>
+      <p class="text-gray-700 mb-4">Select from four professional numbering formats:</p>
+      <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-1">
+        <li><strong>Page {n}:</strong> Classic format showing "Page 1", "Page 2", etc. - perfect for formal documents</li>
+        <li><strong>{n}:</strong> Simple numbers "1", "2", "3" - clean and minimal</li>
+        <li><strong>Page {n} of {total}:</strong> Shows "Page 1 of 25" - helps readers know document length</li>
+        <li><strong>{n}/{total}:</strong> Compact format "1/25" - saves space while showing progress</li>
+      </ul>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-4">🎨 Font Size Control</h4>
+      <p class="text-gray-700 mb-4">Adjust font size from 8pt (small and subtle) to 24pt (large and prominent). Standard size is 12pt, which works well for most documents. Larger documents or presentations may benefit from larger page numbers (16-18pt), while compact reports might use smaller sizes (10pt).</p>
+
+      <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-4">🔄 Custom Start Number</h4>
+      <p class="text-gray-700 mb-4">Start numbering from any page number. This is useful when numbering sections separately (like starting Chapter 2 at page 1), continuing numbering from a previous PDF, or skipping cover pages and table of contents.</p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Frequently Asked Questions</h3>
+      
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">How do I add page numbers to a PDF?</h4>
+        <p class="text-gray-700">Upload your PDF using the upload button, choose your preferred position (e.g., bottom-center), select a number format (e.g., "Page 1 of 10"), customize font size if needed, and click "Add Page Numbers". Your numbered PDF will be ready to download in seconds.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I add page numbers to PDF for free?</h4>
+        <p class="text-gray-700">Yes! JustPdf's page numbering tool is completely free with no watermarks, no registration required, and no file limits. Add page numbers to as many PDFs as you need, absolutely free. All processing happens in your browser, so your files remain 100% private.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Is it safe to add page numbers to PDFs online?</h4>
+        <p class="text-gray-700">Yes, absolutely. All processing happens client-side in your browser using JavaScript. Your PDF files never leave your device and are not uploaded to any server. We cannot see, access, or store your documents in any way. 100% private and secure.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Will adding page numbers change my PDF content?</h4>
+        <p class="text-gray-700">No, page numbers are added as a new layer on top of your existing content. All your original text, images, formatting, and layout remain exactly as they were. Only the page numbers are added in your chosen position.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I remove page numbers later?</h4>
+        <p class="text-gray-700">Once page numbers are added to a PDF, they become part of the document. If you need to remove them, you would need to use a PDF editor. We recommend keeping your original PDF file before adding numbers, in case you need the unnumbered version later.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">What's the file size limit?</h4>
+        <p class="text-gray-700">While there's no strict limit, we recommend PDFs under 50MB for best performance. Very large documents may take longer to process or could fail on devices with limited memory. Most standard documents (10-200 pages) process instantly.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Can I start numbering from a specific page?</h4>
+        <p class="text-gray-700">Yes! Use the "Start numbering from" option to begin with any number. For example, if you want the first page to show "Page 5", set start number to 5. This is useful for multi-part documents or when you want to exclude cover pages from numbering.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-2">Which position is most professional?</h4>
+        <p class="text-gray-700">Bottom-center is the most common for business documents and reports. Academic papers often use top-right. Books typically alternate outer corners (left for even pages, right for odd pages). Choose the position that matches your document type or industry standards.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Common Use Cases</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-1">
+        <li><strong>Business reports:</strong> Add professional page numbers to quarterly reports, presentations, and proposals</li>
+        <li><strong>Academic papers:</strong> Number thesis, dissertations, research papers, and essays for submission</li>
+        <li><strong>Legal documents:</strong> Add page numbers to contracts, agreements, and legal filings</li>
+        <li><strong>Manuals and guides:</strong> Number user manuals, training guides, and instruction booklets</li>
+        <li><strong>Ebooks and publications:</strong> Add page numbers to digital books and magazines</li>
+        <li><strong>Meeting materials:</strong> Number agendas, minutes, and handout packets</li>
+        <li><strong>Proposals and bids:</strong> Add page numbers to RFPs, quotes, and tender documents</li>
+        <li><strong>Course materials:</strong> Number lecture notes, syllabus, and study guides</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Tips for Best Results</h3>
+      <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-1">
+        <li>Choose bottom-center for most professional and business documents</li>
+        <li>Use "Page X of Y" format for documents where readers need to know total length</li>
+        <li>Keep font size at 12pt for standard readability, or match your document's font size</li>
+        <li>For double-sided printing, consider alternating outer positions (this tool numbers all pages the same)</li>
+        <li>Preview the first few pages before processing to ensure position doesn't overlap content</li>
+        <li>Keep your original PDF file before adding numbers in case you need to make changes</li>
+        <li>Use start number feature to exclude cover pages or table of contents from numbering</li>
+        <li>For long documents, "1/100" format is more compact than "Page 1 of 100"</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Why Add Page Numbers to PDFs?</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-3">Professional Benefits:</h4>
+        <ul class="space-y-1 text-gray-700">
+          <li><strong>✓ Professional appearance:</strong> Page numbers make documents look polished and organized</li>
+          <li><strong>✓ Easy reference:</strong> Readers can cite specific pages in discussions and notes</li>
+          <li><strong>✓ Navigation:</strong> Helps readers track their position in long documents</li>
+          <li><strong>✓ Print management:</strong> Essential for organizing printed pages in correct order</li>
+          <li><strong>✓ Required format:</strong> Many submissions require numbered pages (academic, legal, government)</li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">When to Add Page Numbers:</h4>
+        <ul class="space-y-1 text-gray-700">
+          <li><strong>✓ Before submission:</strong> Academic papers, grant proposals, job applications</li>
+          <li><strong>✓ Before printing:</strong> Manuals, reports, books for physical distribution</li>
+          <li><strong>✓ For sharing:</strong> Documents that will be discussed in meetings or reviewed by teams</li>
+          <li><strong>✓ Legal requirements:</strong> Contracts, court filings, official documents</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Why Choose JustPdf Page Numbering Tool?</h3>
+      <p class="text-gray-700 mb-4">
+        Unlike Adobe Acrobat ($15-30/month subscription) or other PDF editors that require expensive software, JustPdf offers completely free page numbering with professional results. Our browser-based tool processes PDFs instantly without uploading to servers, ensuring your sensitive documents remain private. With six position options, four number formats, custom start numbers, and adjustable font sizes, you have all the control you need. Whether you're numbering a 10-page report or a 500-page manual, our tool delivers fast, reliable results - all completely free with no watermarks or registration required.
+      </p>
+
+      <h3 class="text-2xl font-semibold text-gray-800 mt-8 mb-4">Page Numbering Standards</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-4">
+        <h4 class="font-semibold text-gray-800 mb-3">Academic Papers:</h4>
+        <p class="text-gray-700 mb-2">Top-right corner, simple numbers or "Page X" format, typically starting from the first page after the title page.</p>
+        
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Business Reports:</h4>
+        <p class="text-gray-700 mb-2">Bottom-center, "Page X of Y" format to show document length, professional and easy to reference in meetings.</p>
+        
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Legal Documents:</h4>
+        <p class="text-gray-700 mb-2">Bottom-center or bottom-right, simple numbers, required for court filings and official records.</p>
+        
+        <h4 class="font-semibold text-gray-800 mt-4 mb-3">Books and Publications:</h4>
+        <p class="text-gray-700 mb-2">Outer corners (alternating), simple numbers, following traditional publishing standards.</p>
+      </div>
+    </article>
+
+    <!-- Related Tools -->
+    <div class="mt-6 mb-8">
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <h3 class="text-2xl font-bold mb-4 text-gray-800">Related PDF Tools</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <a href="/tools/merge-pdf.html" class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+            <div class="text-3xl mb-2">📑</div>
+            <span class="font-semibold text-green-700">Merge PDF</span>
+          </a>
+          <a href="/tools/split-pdf.html" class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+            <div class="text-3xl mb-2">✂️</div>
+            <span class="font-semibold text-green-700">Split PDF</span>
+          </a>
+          <a href="/tools/rotate-pdf.html" class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+            <div class="text-3xl mb-2">🔄</div>
+            <span class="font-semibold text-green-700">Rotate PDF</span>
+          </a>
+          <a href="/tools/header-footer-pdf.html" class="block p-4 bg-gray-50 rounded-lg hover:shadow-lg transition border-2 border-transparent hover:border-green-500 text-center">
+            <div class="text-3xl mb-2">📋</div>
+            <span class="font-semibold text-green-700">Header & Footer</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+    let pdfFile = null;
+    let pdfBytes = null;
+    let totalPages = 0;
+    let numberedPdfBytes = null;
+    let selectedPosition = 'bottom-center';
+
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const pageCount = document.getElementById('pageCount');
+    const numberingOptions = document.getElementById('numberingOptions');
+    const formatSelect = document.getElementById('formatSelect');
+    const startNumber = document.getElementById('startNumber');
+    const fontSize = document.getElementById('fontSize');
+    const previewText = document.getElementById('previewText');
+    const addNumbersBtn = document.getElementById('addNumbersBtn');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressFill = document.getElementById('progressFill');
+    const result = document.getElementById('result');
+    const resultMessage = document.getElementById('resultMessage');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const errorDiv = document.getElementById('errorDiv');
+
+    // Position buttons
+    const positionBtns = document.querySelectorAll('.position-btn');
+    positionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        positionBtns.forEach(b => {
+          b.classList.remove('selected', 'bg-green-600', 'text-white');
+          b.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        btn.classList.add('selected', 'bg-green-600', 'text-white');
+        btn.classList.remove('bg-gray-200', 'text-gray-700');
+        selectedPosition = btn.dataset.position;
+        updatePreview();      });
+    });
+
+    // Update preview when options change
+    formatSelect.addEventListener('change', updatePreview);
+    startNumber.addEventListener('input', updatePreview);
+
+    function updatePreview() {
+      const format = formatSelect.value;
+      const start = parseInt(startNumber.value) || 1;
+      let preview = '';
+
+      switch (format) {
+        case 'number':
+          preview = `Page ${start}`;
+          break;
+        case 'simple':
+          preview = `${start}`;
+          break;
+        case 'of-total':
+          preview = `Page ${start} of ${totalPages || 10}`;
+          break;
+        case 'slash':
+          preview = `${start}/${totalPages || 10}`;
+          break;
+      }
+
+      previewText.textContent = preview;
+    }
+
+    // Upload area click
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    // File input change
+    fileInput.addEventListener('change', handleFileSelect);
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('border-green-500', 'bg-green-50');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('border-green-500', 'bg-green-50');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('border-green-500', 'bg-green-50');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        handleFileSelect();
+      }    });
+
+    // Handle file selection
+    async function handleFileSelect() {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      if (file.type !== 'application/pdf') {
+        showError('Please select a valid PDF file.');
+        return;
+      }
+
+      pdfFile = file;
+      hideError();
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        pdfBytes = new Uint8Array(arrayBuffer);
+        
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+        totalPages = pdfDoc.getPageCount();
+
+        fileName.textContent = file.name;
+        pageCount.textContent = `Total pages: ${totalPages}`;
+        fileInfo.classList.remove('hidden');
+        numberingOptions.classList.remove('hidden');
+
+        updatePreview();
+
+      } catch (error) {
+        showError('Error loading PDF: ' + error.message);
+      }
+    }
+
+    // Add numbers button click    addNumbersBtn.addEventListener('click', addPageNumbers);
+
+    async function addPageNumbers() {
+      if (!pdfBytes) {
+        showError('Please select a PDF file first.');
+        return;
+      }
+
+      hideError();
+      progressContainer.classList.remove('hidden');
+      updateProgress(10);
+
+      try {
+        // Load the source PDF
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+        updateProgress(30);
+
+        // Embed font
+        const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+        updateProgress(40);
+
+        const pages = pdfDoc.getPages();
+        const format = formatSelect.value;
+        const start = parseInt(startNumber.value) || 1;
+        const size = parseInt(fontSize.value) || 12;        // Add page numbers to each page
+        for (let i = 0; i < pages.length; i++) {
+          const page = pages[i];
+          const { width, height } = page.getSize();
+          
+          // Generate page number text
+          const pageNum = i + start;
+          let text = '';
+          
+          switch (format) {
+            case 'number':
+              text = `Page ${pageNum}`;
+              break;
+            case 'simple':
+              text = `${pageNum}`;
+              break;
+            case 'of-total':
+              text = `Page ${pageNum} of ${totalPages}`;
+              break;
+            case 'slash':
+              text = `${pageNum}/${totalPages}`;
+              break;
+          }
+
+          // Calculate text width
+          const textWidth = font.widthOfTextAtSize(text, size);
+          
+          // Determine position
+          let x, y;
+          const margin = 30;
+
+          switch (selectedPosition) {
+            case 'top-left':
+              x = margin;
+              y = height - margin;
+              break;
+            case 'top-center':
+              x = (width - textWidth) / 2;
+              y = height - margin;
+              break;
+            case 'top-right':
+              x = width - textWidth - margin;
+              y = height - margin;
+              break;
+            case 'bottom-left':
+              x = margin;
+              y = margin;
+              break;
+            case 'bottom-center':
+              x = (width - textWidth) / 2;
+              y = margin;
+              break;
+            case 'bottom-right':
+              x = width - textWidth - margin;
+              y = margin;
+              break;
+          }
+
+          // Draw the text
+          page.drawText(text, {
+            x: x,
+            y: y,
+            size: size,
+            font: font,
+            color: rgb(0, 0, 0),
+          });
+
+          const progress = 40 + ((i + 1) / pages.length) * 50;
+          updateProgress(progress);
+        }
+
+        updateProgress(95);
+
+        // Save the PDF
+        numberedPdfBytes = await pdfDoc.save();
+        updateProgress(100);
+
+        setTimeout(() => {
+          progressContainer.classList.add('hidden');
+          showResult();
+        }, 500);
+
+      } catch (error) {
+        progressContainer.classList.add('hidden');
+        showError('Error adding page numbers: ' + error.message);
+      }
+    }
+
+    function updateProgress(percent) {
+      progressFill.style.width = percent + '%';
+      progressFill.textContent = Math.round(percent) + '%';
+    }
+
+    function showResult() {
+      resultMessage.textContent = `Successfully added page numbers to ${totalPages} page(s).`;
+      result.classList.remove('hidden');
+    }
+
+    function showError(message) {
+      errorDiv.querySelector('p').textContent = '❌ ' + message;
+      errorDiv.classList.remove('hidden');
+    }
+
+    function hideError() {
+      errorDiv.classList.add('hidden');    }
+
+    // Download button
+    downloadBtn.addEventListener('click', () => {
+      if (!numberedPdfBytes) return;
+
+      const blob = new Blob([numberedPdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = pdfFile.name.replace('.pdf', '_numbered.pdf');
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Reset button
+    resetBtn.addEventListener('click', () => {
+      fileInput.value = '';
+      pdfFile = null;
+      pdfBytes = null;
+      numberedPdfBytes = null;
+      totalPages = 0;
+      fileInfo.classList.add('hidden');
+      numberingOptions.classList.add('hidden');
+      result.classList.add('hidden');
+      errorDiv.classList.add('hidden');
+      progressContainer.classList.add('hidden');
+      formatSelect.value = 'number';
+      startNumber.value = 1;
+      fontSize.value = 12;
+      positionBtns.forEach(b => {
+        b.classList.remove('selected', 'bg-green-600', 'text-white');
+        b.classList.add('bg-gray-200', 'text-gray-700');
+      });
+      document.querySelector('[data-position="bottom-center"]').classList.add('selected', 'bg-green-600', 'text-white');
+      document.querySelector('[data-position="bottom-center"]').classList.remove('bg-gray-200', 'text-gray-700');
+      selectedPosition = 'bottom-center';
+    });
+  </script>
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>

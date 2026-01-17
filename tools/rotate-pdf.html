@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Rotate PDF Pages Online Free - Fix PDF Orientation | JustPdf</title>
+  <meta name="title" content="Rotate PDF Pages Online Free - Fix PDF Orientation | JustPdf">
+  <meta name="description" content="Rotate PDF pages online for free. Rotate all pages or specific pages 90°, 180°, or 270°. Fix document orientation instantly. No registration required.">
+  <meta name="keywords" content="rotate pdf, rotate pdf pages, fix pdf orientation, pdf rotation, turn pdf pages, flip pdf">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justpdf.me/tools/rotate-pdf.html">
+  <meta property="og:title" content="Rotate PDF Pages Online Free - Fix PDF Orientation | JustPdf">
+  <meta property="og:description" content="Rotate PDF pages online for free. Rotate all pages or specific pages 90°, 180°, or 270°. Fix document orientation instantly.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://justpdf.me/tools/rotate-pdf.html">
+  <meta property="twitter:title" content="Rotate PDF Pages Online Free - Fix PDF Orientation | JustPdf">
+  <meta property="twitter:description" content="Rotate PDF pages online for free. Rotate all pages or specific pages 90°, 180°, or 270°. Fix document orientation instantly.">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://justpdf.me/tools/rotate-pdf.html">
+  
+  <!-- Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I rotate PDF pages online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your PDF file, select the rotation angle (90°, 180°, or 270°), choose whether to rotate all pages or specific pages, and click Rotate PDF. Download your rotated file instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I rotate only specific pages in a PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can choose to rotate all pages or specify a page range (e.g., 1-3, 5, 7-9) to rotate only selected pages while leaving others unchanged."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the PDF rotation permanent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the rotation is saved in the PDF file. The rotated pages will display in the new orientation in any PDF viewer or when printed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does rotating PDFs reduce quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, rotating PDFs is a lossless operation. The content, images, and text quality remain exactly the same, only the page orientation changes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to rotate PDFs online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all processing happens locally in your browser. Files never upload to servers, ensuring complete privacy and security of your documents."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl text-green-700">JustPdf</a>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-green-700">All Tools</a></li>
+      <li><a href="/about.html" class="hover:text-green-700">About</a></li>
+    </ul>
+  </nav>
+  
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">Rotate PDF Pages</h1>
+    <p class="text-gray-600 text-center mb-8">Rotate all pages or select specific pages to rotate</p>
+
+    <div id="upload-section">
+      <div id="upload-box" class="border-2 border-dashed border-green-400 rounded-lg p-12 bg-white text-center cursor-pointer hover:bg-green-50 transition">
+        <div class="text-6xl mb-4">🔄</div>
+        <p class="text-gray-700 mb-2 text-lg"><strong>Choose PDF file</strong> or drag it here</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+      </div>
+    </div>
+
+    <div id="rotation-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <h2 class="text-2xl font-bold mb-4">Rotation Options</h2>
+        
+        <div class="mb-6">
+          <label class="block font-semibold mb-3">Rotation Angle:</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button class="rotation-btn bg-green-600 text-white p-4 rounded-lg hover:bg-green-700" data-angle="90">
+              <div class="text-3xl mb-1">↻</div>
+              <div>90° Right</div>
+            </button>
+            <button class="rotation-btn bg-gray-100 p-4 rounded-lg hover:bg-gray-200" data-angle="180">
+              <div class="text-3xl mb-1">↻</div>
+              <div>180°</div>
+            </button>
+            <button class="rotation-btn bg-gray-100 p-4 rounded-lg hover:bg-gray-200" data-angle="270">
+              <div class="text-3xl mb-1">↺</div>
+              <div>90° Left</div>
+            </button>
+            <button class="rotation-btn bg-gray-100 p-4 rounded-lg hover:bg-gray-200" data-angle="0">
+              <div class="text-3xl mb-1">↑</div>
+              <div>Reset</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block font-semibold mb-3">Apply to:</label>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="radio" name="pages" value="all" checked class="mr-2">
+              <span>All pages</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="pages" value="range" class="mr-2">
+              <span>Specific pages (e.g., 1-3, 5, 7-9)</span>
+            </label>
+          </div>
+          <input type="text" id="page-range" class="w-full p-3 border rounded-lg mt-2 hidden" placeholder="e.g., 1-3, 5, 7-9">
+          <p class="text-sm text-gray-500 mt-1">Total pages: <span id="total-pages">0</span></p>
+        </div>
+
+        <button id="rotate-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg">
+          Rotate PDF
+        </button>
+      </div>
+    </div>
+
+    <div id="progress-section" class="hidden mt-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+          <div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+        </div>
+        <p id="progress-text" class="text-center text-gray-600">Processing...</p>
+      </div>
+    </div>
+
+    <div id="download-section" class="hidden mt-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <div class="text-6xl mb-4">✅</div>
+        <h3 class="text-2xl font-bold mb-4">Rotation Complete!</h3>
+        <a id="download-link" href="#" download class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition font-bold text-lg mb-4">
+          📥 Download Rotated PDF
+        </a>
+        <br>
+        <button id="rotate-another" class="text-green-700 hover:underline">Rotate another PDF</button>
+      </div>
+    </div>
+
+    <div id="error-message" class="hidden mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
+      <h3 class="font-bold text-red-800 mb-2">Error</h3>
+      <p id="error-text" class="text-red-800"></p>
+    </div>
+
+    <!-- AdSense Ad Unit 1 -->
+    <div class="my-8 text-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- SEO Content Section -->
+    <article class="mt-16 prose prose-lg max-w-none">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">How to Rotate PDF Pages Online</h2>
+      <p class="text-gray-700 mb-4">
+        Fix incorrectly oriented PDF pages with JustPdf's free online PDF rotation tool. Whether your document was scanned upside down, pages are landscape instead of portrait, or specific pages need adjusting, our tool makes it easy to rotate pages to the correct orientation. All processing happens securely in your browser, ensuring your documents remain private.
+      </p>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Step-by-Step Guide to Rotating PDF Pages</h3>
+      <ol class="list-decimal list-inside space-y-3 text-gray-700 mb-6">
+        <li><strong>Upload Your PDF:</strong> Click the upload area or drag and drop your PDF file.</li>
+        <li><strong>Select Rotation Angle:</strong> Choose from four options:
+          <ul class="list-disc list-inside ml-6 mt-2">
+            <li><strong>90° Right (Clockwise):</strong> Rotate pages 90 degrees to the right</li>
+            <li><strong>180°:</strong> Flip pages upside down</li>
+            <li><strong>90° Left (Counter-clockwise):</strong> Rotate pages 90 degrees to the left</li>
+            <li><strong>Reset (0°):</strong> Return pages to original orientation</li>
+          </ul>
+        </li>
+        <li><strong>Choose Pages to Rotate:</strong> Select "All pages" to rotate the entire document, or choose "Specific pages" and enter page ranges (e.g., 1-3, 5, 7-9).</li>
+        <li><strong>Rotate PDF:</strong> Click the "Rotate PDF" button to process your document.</li>
+        <li><strong>Download:</strong> Download your rotated PDF file and use it immediately.</li>
+      </ol>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Why Rotate PDF Pages?</h3>
+      <p class="text-gray-700 mb-4">
+        Page rotation is essential for correcting orientation issues:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Fix Scanned Documents:</strong> Correct pages that were scanned upside down or sideways</li>
+        <li><strong>Adjust Mobile Photos:</strong> Fix orientation of documents photographed with phones or tablets</li>
+        <li><strong>Prepare for Printing:</strong> Ensure all pages are oriented correctly before printing</li>
+        <li><strong>Professional Presentation:</strong> Create properly formatted documents for clients or stakeholders</li>
+        <li><strong>Improve Readability:</strong> Make documents easier to read by fixing awkward orientations</li>
+        <li><strong>Correct Mixed Orientations:</strong> Standardize documents with mixed portrait and landscape pages</li>
+        <li><strong>Archive Management:</strong> Organize and standardize document archives</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Key Features of Our PDF Rotation Tool</h3>
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-green-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">🔒 100% Secure</h4>
+          <p class="text-gray-700">Files are processed entirely in your browser. Nothing is uploaded to servers, ensuring complete privacy.</p>
+        </div>
+        <div class="bg-blue-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">⚡ Instant Results</h4>
+          <p class="text-gray-700">Client-side processing means immediate rotation without waiting for uploads or downloads.</p>
+        </div>
+        <div class="bg-purple-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">🎯 Selective Rotation</h4>
+          <p class="text-gray-700">Rotate all pages at once or specify individual pages and ranges for precise control.</p>
+        </div>
+        <div class="bg-yellow-50 p-6 rounded-lg">
+          <h4 class="font-bold text-lg text-gray-800 mb-2">💯 Lossless Quality</h4>
+          <p class="text-gray-700">Rotation is lossless—content, images, and text quality remain perfect.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Common Use Cases for PDF Rotation</h3>
+      <p class="text-gray-700 mb-4">
+        PDF rotation solves many everyday document challenges:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+        <li><strong>Scanner Corrections:</strong> Fix documents scanned in the wrong orientation</li>
+        <li><strong>Mobile Documents:</strong> Correct PDFs created from phone or tablet photos</li>
+        <li><strong>Mixed Orientation Documents:</strong> Standardize files containing both portrait and landscape pages</li>
+        <li><strong>Report Preparation:</strong> Ensure all pages face the correct direction in business reports</li>
+        <li><strong>Form Submission:</strong> Fix orientation before submitting official forms or applications</li>
+        <li><strong>Presentation Materials:</strong> Prepare slides and handouts with consistent orientation</li>
+        <li><strong>Legal Documents:</strong> Ensure contracts, agreements, and filings display correctly</li>
+        <li><strong>Academic Papers:</strong> Fix orientation of thesis documents, research papers, or dissertations</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Understanding Rotation Angles</h3>
+      <div class="space-y-4 mb-6">
+        <div class="border-l-4 border-green-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">90° Right (Clockwise)</h4>
+          <p class="text-gray-700">The most common rotation. Use this when pages need to be turned one quarter turn to the right. Ideal for portrait documents scanned in landscape mode.</p>
+        </div>
+        <div class="border-l-4 border-blue-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">180° (Upside Down)</h4>
+          <p class="text-gray-700">Flips pages completely upside down. Perfect for documents scanned or photographed upside down.</p>
+        </div>
+        <div class="border-l-4 border-purple-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">90° Left (Counter-clockwise)</h4>
+          <p class="text-gray-700">Rotates pages one quarter turn to the left. Use when 90° right isn't the correct direction or to undo a previous rotation.</p>
+        </div>
+        <div class="border-l-4 border-yellow-500 pl-4">
+          <h4 class="font-bold text-gray-800 mb-2">Reset (0°)</h4>
+          <p class="text-gray-700">Returns pages to their original orientation, removing all previous rotations. Useful for undoing changes.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Tips for Effective PDF Rotation</h3>
+      <div class="bg-gray-50 p-6 rounded-lg mb-6">
+        <ul class="space-y-3 text-gray-700">
+          <li><strong>✓ Preview Before Rotating:</strong> If possible, open the PDF first to check which pages need rotation</li>
+          <li><strong>✓ Note Page Numbers:</strong> Write down which pages need rotation before starting</li>
+          <li><strong>✓ Use Range Format:</strong> For multiple consecutive pages, use ranges like "1-5" instead of "1, 2, 3, 4, 5"</li>
+          <li><strong>✓ Test Small First:</strong> For large documents, test rotation on a few pages first</li>
+          <li><strong>✓ Check After Download:</strong> Always verify the rotated PDF displays correctly before deleting the original</li>
+          <li><strong>✓ Combine Rotations:</strong> You can rotate multiple times—each rotation is additive</li>
+          <li><strong>✓ Save Original:</strong> Keep a backup of the original file until you verify the rotated version</li>
+        </ul>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Frequently Asked Questions</h3>
+      <div class="space-y-6 mb-8">
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">How do I rotate PDF pages online?</h4>
+          <p class="text-gray-700">Upload your PDF file, select the rotation angle (90°, 180°, or 270°), choose whether to rotate all pages or specific pages, and click Rotate PDF. Download your rotated file instantly.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I rotate only specific pages in a PDF?</h4>
+          <p class="text-gray-700">Yes, you can choose to rotate all pages or specify a page range (e.g., 1-3, 5, 7-9) to rotate only selected pages while leaving others unchanged.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Is the PDF rotation permanent?</h4>
+          <p class="text-gray-700">Yes, the rotation is saved in the PDF file. The rotated pages will display in the new orientation in any PDF viewer or when printed.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Does rotating PDFs reduce quality?</h4>
+          <p class="text-gray-700">No, rotating PDFs is a lossless operation. The content, images, and text quality remain exactly the same, only the page orientation changes.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Is it safe to rotate PDFs online?</h4>
+          <p class="text-gray-700">Yes, all processing happens locally in your browser. Files never upload to servers, ensuring complete privacy and security of your documents.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I rotate password-protected PDFs?</h4>
+          <p class="text-gray-700">You can rotate password-protected PDFs if you have edit permissions. For encrypted PDFs, use our Unlock PDF tool first to remove protection, then rotate.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">What if I rotate pages in the wrong direction?</h4>
+          <p class="text-gray-700">Simply upload the file again and rotate in the opposite direction, or use the rotation angles to correct it (e.g., if you rotated 90° right but needed left, rotate 270° right).</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800 mb-2">Can I rotate PDFs on mobile devices?</h4>
+          <p class="text-gray-700">Yes, our tool is fully mobile-responsive and works on smartphones and tablets. The interface adjusts for touch screens and smaller displays.</p>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Related PDF Tools</h3>
+      <div class="grid md:grid-cols-3 gap-4 mb-8">
+        <a href="split-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">✂️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Split PDF</h4>
+          <p class="text-sm text-gray-600">Extract pages or divide PDFs</p>
+        </a>
+        <a href="merge-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">📑</div>
+          <h4 class="font-bold text-gray-800 mb-1">Merge PDF</h4>
+          <p class="text-sm text-gray-600">Combine multiple PDFs into one</p>
+        </a>
+        <a href="crop-pdf.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">✂️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Crop PDF</h4>
+          <p class="text-sm text-gray-600">Trim margins and resize pages</p>
+        </a>
+        <a href="delete-pages.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🗑️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Delete Pages</h4>
+          <p class="text-sm text-gray-600">Remove unwanted pages</p>
+        </a>
+        <a href="organize-pages.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">📋</div>
+          <h4 class="font-bold text-gray-800 mb-1">Organize Pages</h4>
+          <p class="text-sm text-gray-600">Reorder and arrange PDF pages</p>
+        </a>
+        <a href="pdf-to-image.html" class="block p-4 bg-white border rounded-lg hover:shadow-md transition">
+          <div class="text-2xl mb-2">🖼️</div>
+          <h4 class="font-bold text-gray-800 mb-1">PDF to Image</h4>
+          <p class="text-sm text-gray-600">Convert PDF pages to images</p>
+        </a>
+      </div>
+    </article>
+
+    <!-- AdSense Ad Unit 2 -->
+    <div class="my-8 text-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="9876543210"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const uploadBox = document.getElementById('upload-box');
+      const fileInput = document.getElementById('file-input');
+      const uploadSection = document.getElementById('upload-section');
+      const rotationSection = document.getElementById('rotation-section');
+      const progressSection = document.getElementById('progress-section');
+      const downloadSection = document.getElementById('download-section');
+      const rotationBtns = document.querySelectorAll('.rotation-btn');
+      const rotateBtn = document.getElementById('rotate-btn');
+      const totalPagesSpan = document.getElementById('total-pages');
+      const pageRangeInput = document.getElementById('page-range');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const downloadLink = document.getElementById('download-link');
+      const rotateAnother = document.getElementById('rotate-another');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+
+      let pdfDoc = null;
+      let selectedFile = null;
+      let selectedAngle = 90;
+
+      uploadBox.addEventListener('click', () => fileInput.click());
+      
+      uploadBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('dragleave', () => {
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+      });
+
+      uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('border-green-600', 'bg-green-100');
+        if (e.dataTransfer.files.length > 0) {
+          handleFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          handleFile(e.target.files[0]);
+        }
+      });
+
+      rotationBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          rotationBtns.forEach(b => b.classList.remove('bg-green-600', 'text-white'));
+          rotationBtns.forEach(b => b.classList.add('bg-gray-100'));
+          btn.classList.remove('bg-gray-100');
+          btn.classList.add('bg-green-600', 'text-white');
+          selectedAngle = parseInt(btn.dataset.angle);
+        });
+      });
+
+      document.querySelectorAll('input[name="pages"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          pageRangeInput.classList.toggle('hidden', e.target.value === 'all');
+        });
+      });
+
+      async function handleFile(file) {
+        if (file.type !== 'application/pdf') {
+          showError('Please select a PDF file');
+          return;
+        }
+
+        selectedFile = file;
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const { PDFDocument } = PDFLib;
+          pdfDoc = await PDFDocument.load(arrayBuffer);
+          const pageCount = pdfDoc.getPageCount();
+          
+          totalPagesSpan.textContent = pageCount;
+          
+          uploadSection.classList.add('hidden');
+          rotationSection.classList.remove('hidden');
+        } catch (error) {
+          showError('Failed to load PDF');
+        }
+      }
+
+      rotateBtn.addEventListener('click', async () => {
+        try {
+          progressSection.classList.remove('hidden');
+          rotationSection.classList.add('hidden');
+          progressBar.style.width = '20%';
+          progressText.textContent = 'Loading PDF...';
+
+          const { PDFDocument, degrees } = PDFLib;
+          const newPdf = await PDFDocument.load(await selectedFile.arrayBuffer());
+          
+          progressBar.style.width = '50%';
+          progressText.textContent = 'Rotating pages...';
+
+          const applyToAll = document.querySelector('input[name="pages"]:checked').value === 'all';
+          const pages = newPdf.getPages();
+          
+          if (applyToAll) {
+            pages.forEach(page => {
+              const currentRotation = page.getRotation().angle;
+              page.setRotation(degrees(currentRotation + selectedAngle));
+            });
+          } else {
+            const pageRange = parsePageRange(pageRangeInput.value, pages.length);
+            pageRange.forEach(pageIndex => {
+              const page = pages[pageIndex];
+              const currentRotation = page.getRotation().angle;
+              page.setRotation(degrees(currentRotation + selectedAngle));
+            });
+          }
+
+          progressBar.style.width = '80%';
+          progressText.textContent = 'Saving PDF...';
+
+          const pdfBytes = await newPdf.save();
+
+          progressBar.style.width = '100%';
+          progressText.textContent = 'Complete!';
+
+          setTimeout(() => {
+            progressSection.classList.add('hidden');
+            downloadSection.classList.remove('hidden');
+            
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = selectedFile.name.replace('.pdf', '_rotated.pdf');
+          }, 500);
+
+        } catch (error) {
+          console.error(error);
+          progressSection.classList.add('hidden');
+          rotationSection.classList.remove('hidden');
+          showError('Failed to rotate PDF');
+        }
+      });
+
+      rotateAnother.addEventListener('click', () => location.reload());
+
+      function parsePageRange(rangeStr, maxPages) {
+        const pages = new Set();
+        const parts = rangeStr.split(',');
+        
+        for (const part of parts) {
+          const trimmed = part.trim();
+          if (trimmed.includes('-')) {
+            const [start, end] = trimmed.split('-').map(n => parseInt(n.trim()));
+            if (isNaN(start) || isNaN(end)) continue;
+            for (let i = Math.max(1, start); i <= Math.min(maxPages, end); i++) {
+              pages.add(i - 1);
+            }
+          } else {
+            const pageNum = parseInt(trimmed);
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= maxPages) {
+              pages.add(pageNum - 1);
+            }
+          }
+        }
+        
+        return Array.from(pages).sort((a, b) => a - b);
+      }
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.remove('hidden');
+        setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+      }
+    })();
+  </script>
+<!-- Universal Footer for JustPDF - Use this exact footer on ALL pages -->
+<!-- Copy and paste this entire footer before </body> tag on every HTML page -->
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- About Section -->
+      <div>
+        <h3 class="font-bold text-lg mb-4 text-green-400">JustPdf</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Free online PDF tools for everyone. Convert, edit, and manage your PDF files securely in your browser.
+        </p>
+      </div>
+      
+      <!-- Popular Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Popular Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/word-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Word to PDF</a></li>
+          <li><a href="/tools/excel-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">Excel to PDF</a></li>
+          <li><a href="/tools/ppt-to-pdf.html" class="text-gray-400 hover:text-green-400 transition">PPT to PDF</a></li>
+          <li><a href="/tools/merge-pdf.html" class="text-gray-400 hover:text-green-400 transition">Merge PDF</a></li>
+          <li><a href="/tools/compress-pdf.html" class="text-gray-400 hover:text-green-400 transition">Compress PDF</a></li>
+        </ul>
+      </div>
+      
+      <!-- More Tools -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">More Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tools/split-pdf.html" class="text-gray-400 hover:text-green-400 transition">Split PDF</a></li>
+          <li><a href="/tools/rotate-pdf.html" class="text-gray-400 hover:text-green-400 transition">Rotate PDF</a></li>
+          <li><a href="/tools/pdf-editor.html" class="text-gray-400 hover:text-green-400 transition">Edit PDF</a></li>
+          <li><a href="/tools/protect-pdf.html" class="text-gray-400 hover:text-green-400 transition">Protect PDF</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-green-400 transition">All Tools →</a></li>
+        </ul>
+      </div>
+      
+      <!-- Company -->
+      <div>
+        <h3 class="font-bold text-sm mb-4 text-gray-300">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about.html" class="text-gray-400 hover:text-green-400 transition">About Us</a></li>
+          <li><a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a></li>
+          <li><a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a></li>
+          <li><a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="border-t border-gray-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2026 JustPdf.net - All rights reserved
+        </p>
+        
+        <!-- Legal Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <a href="/privacy-policy.html" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
+          <a href="/terms-of-use.html" class="text-gray-400 hover:text-green-400 transition">Terms of Use</a>
+          <a href="/contact.html" class="text-gray-400 hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End of Universal Footer -->
+
+</body>
+</html>
