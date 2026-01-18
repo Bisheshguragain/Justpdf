@@ -1,26 +1,27 @@
 {
   "name": "justpdf",
   "version": "1.0.0",
-  "description": "JustPdf.net - Serverless PDF Tools Platform",
+  "type": "module",
+  "description": "JustPdf.net - Client-Side PDF Tools Platform",
   "main": "index.js",
   "scripts": {
     "dev": "npx serve . -p 5170",
-    "build": "npm run build:css",
+    "build": "echo 'Static site - no build needed'",
     "build:css": "npx tailwindcss -i ./styles/global.css -o ./public/styles.css --minify",
     "watch:css": "npx tailwindcss -i ./styles/global.css -o ./public/styles.css --watch"
   },
   "keywords": [
     "pdf",
-    "serverless",
+    "client-side",
     "tools",
     "converter",
-    "editor"
+    "editor",
+    "static-site"
   ],
   "author": "JustPdf.net",
   "license": "MIT",
   "dependencies": {
-    "pdf-lib": "^1.17.1",
-    "formidable": "^3.5.1"
+    "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.0",
