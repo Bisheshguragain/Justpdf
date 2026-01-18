@@ -3,6 +3,7 @@
   "name": "justpdf",
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {},
   "headers": [
     {
       "source": "/(.*)",

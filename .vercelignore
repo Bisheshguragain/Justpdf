@@ -1,7 +1,15 @@
-# Ignore API and server folders (not needed for static site)
+# CRITICAL: Ignore API and server folders - this is a 100% static site!
+# These folders cause "12 Serverless Functions limit" error on Hobby plan
+api/**
 api/
+server/**
 server/
+pages/**
 pages/
+
+# Also ignore specific problematic files
+api/merge-pdf.js
+api/tools/*.js
 
 # Development files
 node_modules/
