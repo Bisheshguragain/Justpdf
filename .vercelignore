@@ -1,15 +1,16 @@
-# CRITICAL: Ignore API and server folders - this is a 100% static site!
-# These folders cause "12 Serverless Functions limit" error on Hobby plan
-api/**
-api/
-server/**
-server/
-pages/**
-pages/
+# CRITICAL: This is a 100% static site - no serverless functions!
 
-# Also ignore specific problematic files
-api/merge-pdf.js
-api/tools/*.js
+# Archived serverless code (renamed to prevent Vercel detection)
+_archived-api/
+_archived-pages/
+_archived-components/
+_archived-utils/
+
+# Server/Java code (not used in static deployment)
+server/
+*.java
+*.class
+pom.xml
 
 # Development files
 node_modules/
@@ -17,7 +18,7 @@ node_modules/
 .DS_Store
 *.log
 
-# Documentation (optional - include if you want them in deployment)
+# Documentation (optional - include if needed)
 *.md
 !README.md
 
@@ -25,3 +26,4 @@ node_modules/
 test.html
 test-*.sh
 *.test.js
+write_organize_pages.py
