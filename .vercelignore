@@ -1,0 +1,19 @@
+# Ignore API and server folders (not needed for static site)
+api/
+server/
+pages/
+
+# Development files
+node_modules/
+.git/
+.DS_Store
+*.log
+
+# Documentation (optional - include if you want them in deployment)
+*.md
+!README.md
+
+# Test files
+test.html
+test-*.sh
+*.test.js
